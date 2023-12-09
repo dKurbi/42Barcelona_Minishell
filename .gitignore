@@ -2,3 +2,5 @@ objs
 .vscode
 minishell
 libft/objs
+*.o
+pipex/objs
