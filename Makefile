@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/09 15:53:06 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/09 16:59:06 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFTFLAGS = -Llibft -lft
-READLINEFLAGS = -Lreadline -lreadline
+READLINEFLAGS = -L$(HOME)/.brew/opt/readline/lib -lreadline
+BREWFLAGS = -I$(HOME)/.brew/opt/readline/include
 DEPFLAGS = -MMD -MP
 
 DIR_SRC = src/
@@ -37,11 +38,11 @@ DEPS = $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(DEPFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(OBJS) -o $(NAME)
 
 $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(MINISHELL) Makefile
 	@$(MKDIR) $(DIR_OBJS)
-	$(CC) $(CFLAGS) $(DEPFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(DIR_LIBFT)
