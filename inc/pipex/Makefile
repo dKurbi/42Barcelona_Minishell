@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/07 22:43:20 by iassambe          #+#    #+#              #
-#    Updated: 2023/10/19 19:51:20 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/12 13:56:59 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 DIRINC = inc/
 DIRSRCS = srcs/
-DIRLIBFT = libft/
+DIRLIBFT = ../libft/
 DIROBJS = objs/
 
 DIRBONUSINC = bonus_inc/
