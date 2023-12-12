@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    .make_linux                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/12 17:58:55 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/12 17:59:13 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFTFLAGS = -Linc/libft -lft
-READLINEFLAGS = -L$(HOME)/.brew/opt/readline/lib -lreadline
-BREWFLAGS = -I$(HOME)/.brew/opt/readline/include
+READLINEFLAGS = -lreadline
 DEPFLAGS = -MMD -MP
 
 DIR_SRC = src/
@@ -39,11 +38,11 @@ DEPS = $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(DEPFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(OBJS) -o $(NAME)
 
 $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(MINISHELL) Makefile
 	@$(MKDIR) $(DIR_OBJS)
-	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(DEPFLAGS) $(READLINEFLAGS) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C $(DIR_LIBFT)
