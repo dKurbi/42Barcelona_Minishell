@@ -6,7 +6,7 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/12 13:53:59 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/12 16:12:53 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ MAKE = make
 MINISHELL = inc/minishell.h
 LIBFT = libft.a
 
-SRCS = minishell.c teste.c
+SRCS = minishell.c minishell_error.c minishell_struct.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
