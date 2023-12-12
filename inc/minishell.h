@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/12 16:12:33 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:02:32 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,40 @@ typedef struct s_exec
 	char	*path;
 	char	**split_path;
 	pid_t	proc;
-
 	int		wait_status;
 
 }	t_exec;
 
+typedef struct s_parser
+{
+	char	*cmd;
+	char	*raw_cmd;
+	char	*path;
+	char	**split_path;
+	char 	**split_read_line;
+}	t_parser;
+
 typedef struct s_msh
 {
-	char	*line;
-	char	**ev;
-	t_exec	exec;
+	char		*read_line;
+	char		**ev;
+	t_exec		exec;
+	t_parser 	parser;
 }		t_msh;
 
 //	error
-void	exit_error(char *s_err);
+void		exit_error(char *s_err);
 
 //	struct
-t_msh	*mshnew(char **env);
+t_msh		*mshnew(char **env);
+t_parser	parsernew(void);
+t_exec		execnew(void);
+
+//  parser
+void		parser_line(t_msh *msh);
+
+//  getter
+char *get_raw_cmd(t_msh *msh);
+char *get_cmd(t_msh *msh);
 
 #endif
