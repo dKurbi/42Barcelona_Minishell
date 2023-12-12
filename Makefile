@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/09 16:59:06 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/12 13:53:59 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LIBFTFLAGS = -Llibft -lft
+LIBFTFLAGS = -Linc/libft -lft
 READLINEFLAGS = -L$(HOME)/.brew/opt/readline/lib -lreadline
 BREWFLAGS = -I$(HOME)/.brew/opt/readline/include
 DEPFLAGS = -MMD -MP
@@ -22,7 +22,7 @@ DEPFLAGS = -MMD -MP
 DIR_SRC = src/
 DIR_INC = inc/
 DIR_OBJS = objs/
-DIR_LIBFT = libft/
+DIR_LIBFT = inc/libft/
 
 MKDIR = mkdir -p
 RM = rm
