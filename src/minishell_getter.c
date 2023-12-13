@@ -6,12 +6,12 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/12 18:02:42 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:49:01 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
+/* 
 char *get_raw_cmd(t_msh *msh)
 {
 	
@@ -20,4 +20,4 @@ char *get_raw_cmd(t_msh *msh)
 char *get_cmd(t_msh *msh)
 {
 	
-}
+} */

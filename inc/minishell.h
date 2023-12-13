@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/12 18:02:32 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/13 18:07:25 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,16 @@
 # include <readline/history.h>
 # include "libft/libft.h"
 
-#define ERR_AC "only provide ./minishell\n"
-#define ERR_MALLOC "memory allocation error\n"
+// error code
+# define ERR_AC "only provide ./minishell\n"
+# define ERR_MALLOC "memory allocation error\n"
+
+// type code
+# define TYPE_STR 0
+
+// 	varios code
+# define QUOTE 39
+# define DQUOTE 34
 
 typedef struct s_exec
 {
@@ -60,9 +68,15 @@ typedef struct s_msh
 	char		*read_line;
 	char		**ev;
 	t_exec		exec;
-	t_parser 	parser;
+	t_parser	parser;
 }		t_msh;
 
+typedef struct s_line
+{
+	char 			*str;
+	int				type;
+	struct s_line 	*next;
+}		t_line;
 //	error
 void		exit_error(char *s_err);
 
@@ -75,7 +89,24 @@ t_exec		execnew(void);
 void		parser_line(t_msh *msh);
 
 //  getter
-char *get_raw_cmd(t_msh *msh);
-char *get_cmd(t_msh *msh);
+char		*get_raw_cmd(t_msh *msh);
+char		*get_cmd(t_msh *msh);
 
+// quotes
+int			is_quotes_pair(char *str, int i, int end);
+int			where_next_quote_is(char *str, char quote, int i);
+int			where_next_any_quote_is (char *str, int i);
+
+
+// line_st
+void		add_new_line_node(char *line, int type_str, t_line **lst_line);
+t_line		*new_line_list(char *str);
+t_line		*ft_lst_line_last(t_line *lst);
+t_line		*new_list_without_quotes(char *str, t_line ** lst_line);
+t_line 		*new_list_with_quotes(char *str);
+
+// free
+void		free_str(char **str);
+void		free_double_str(char ***double_str);
+void		free_lst_line(t_line **lst);
 #endif
