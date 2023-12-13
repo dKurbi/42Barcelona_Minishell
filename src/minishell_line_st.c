@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 15:03:41 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/13 20:35:31 by iassambe         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/12/13 20:41:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/minishell.h"
 
@@ -133,7 +134,8 @@ t_line	*new_list_with_quotes(char *str)
 		i++;
 	}
 	return (new_list);
-} 
+}
+
 void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 {
 	t_line	*new_node;
