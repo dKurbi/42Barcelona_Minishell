@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 15:03:41 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/13 18:28:00 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:35:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ t_line *new_list_without_quotes(char *str, t_line ** lst_line)
 } 
 */
 
+//como en el split, pero por aqui calcular todo que no es delimitador y devolver la POSICION
+int	calculate_last_pos_word(char *str, int i)
+{
+	if (!str)
+		return (0);
+	while (str[i] && str[i] != ' ' && str[i] != '\t')//cuando no tenemos espacio o tab
+		i++;
+	return (i);
+}
+
 t_line	*new_list_with_quotes(char *str)
 {
 	int 	i;
@@ -82,23 +92,43 @@ t_line	*new_list_with_quotes(char *str)
 	int		w_q_is;
 	int		w_q_is_next;
 	char 	which_act_quote;
+	int		word_last_pos;
 
 	new_list = NULL;
 	i = 0;
 	w_q_is = 0;
 	text = NULL;
-
+	word_last_pos = 0;
 	while (str[i] != '\0')
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
 		
 		w_q_is = where_next_any_quote_is(str, i);
-		which_act_quote = str[w_q_is];
-		w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
-
+		if (w_q_is == i)
+		{
+			which_act_quote = str[w_q_is];
+			w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
+			text = ft_substr(str, i, w_q_is_next);
+			if (!text)
+				exit_error(ERR_MALLOC);
+			//anadir al t_line nuestra palabra correctamente
+		}
+		else
+		{
+			word_last_pos = calculate_last_pos_word(str, i);
+			text = ft_substr(str, i, word_last_pos);
+			if (check_pipe_in_word(text))//NO ESTA ACABADO: hacer un check si tenemos |
+			{
+				pipe_divide_word(text, &new_list);//NO ESTA ACABADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
+			}
+			else
+			{
+				//NO ESTA ACABADO: anadir al t_line nuestra palabra que no tiene casos especiales
+			}
+			i = word_last_pos;//hacer un skip para empezar en nueva palabra, por abajo tenemos i++
+		}
 		
-		text = ft_strdup(str, );
 		
 		i++;
 	}
