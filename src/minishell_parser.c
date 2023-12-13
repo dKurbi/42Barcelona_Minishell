@@ -6,13 +6,13 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/12 18:06:27 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:48:36 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*find_path(t_msh *msh)
+/* char	*find_path(t_msh *msh)
 {
 	char	*path;
 	int		i;
@@ -39,4 +39,4 @@ void parser_line(t_msh *msh)
 	msh->parser.split_path =  ft_split(msh->parser.path, ':');
 	msh->parser.raw_cmd = get_raw_cmd(msh);
 	msh->parser.cmd = get_cmd(msh);
-}
+} */

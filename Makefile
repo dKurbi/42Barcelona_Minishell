@@ -6,14 +6,14 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/12 17:58:55 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/13 16:51:27 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFTFLAGS = -Linc/libft -lft
 READLINEFLAGS = -L$(HOME)/.brew/opt/readline/lib -lreadline
 BREWFLAGS = -I$(HOME)/.brew/opt/readline/include
@@ -32,7 +32,8 @@ MINISHELL = inc/minishell.h
 LIBFT = libft.a
 
 SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
-		minishell_getter.c
+		minishell_getter.c minishell_quotes.c minishell_line_st.c \
+		minishell_free.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
@@ -46,7 +47,7 @@ $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(MINISHELL) Makefile
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) -c $< -o $@
 
 $(LIBFT):
-	$(MAKE) -C $(DIR_LIBFT)
+	$(MAKE) -C $(DIR_LIBFT) bonus
 
 clean:
 	@$(MAKE) -C $(DIR_LIBFT) clean

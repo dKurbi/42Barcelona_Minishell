@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 18:59:49 by iassambe          #+#    #+#              #
-#    Updated: 2023/09/21 18:32:11 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/13 16:00:30 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIB_NAME = libft.h
 LIB_FT_PRINTF_NAME = ft_printf.h
@@ -61,8 +61,8 @@ fclean: clean
 
 re: fclean all
 
-bonus: $(BONUS_OBJS)
-	$(AR) $(NAME) $(BONUS_OBJS)
+bonus: all $(OBJS) $(OBJS_FT_PRINTF) $(OBJS_GNL) $(BONUS_OBJS)
+	$(AR) $(NAME) $(OBJS_TOTAL) $(BONUS_OBJS)
 
 $(BONUS_OBJS): $(DIROBJS)%.o: %.c $(LIBNAME)
 	@$(MKDIR) $(DIROBJS)
