@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
+#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/13 16:51:27 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/14 16:00:50 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,25 +28,25 @@ MKDIR = mkdir -p
 RM = rm
 MAKE = make
 
-MINISHELL = inc/minishell.h
-LIBFT = libft.a
+LIB_MINISHELL = inc/minishell.h
+COMPILED_LIBFT = libft.a
 
 SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
 		minishell_getter.c minishell_quotes.c minishell_line_st.c \
-		minishell_free.c
+		minishell_free.c minishell_pipe.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(COMPILED_LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(OBJS) -o $(NAME)
 
-$(DIR_OBJS)%.o: $(DIR_SRC)%.c $(MINISHELL) Makefile
+$(DIR_OBJS)%.o: $(DIR_SRC)%.c $(LIB_MINISHELL) Makefile
 	@$(MKDIR) $(DIR_OBJS)
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(BREWFLAGS) -c $< -o $@
 
-$(LIBFT):
+$(COMPILED_LIBFT):
 	$(MAKE) -C $(DIR_LIBFT) bonus
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/13 20:41:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:57:07 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,14 @@ t_line	*new_list_with_quotes(char *str)
 	char 	which_act_quote;
 	int		word_last_pos;
 
-	new_list = NULL;
+	if (!str)
+		return (NULL);
 	i = 0;
-	w_q_is = 0;
+	new_list = NULL;
 	text = NULL;
+	w_q_is = 0;
+	w_q_is_next = 0;
+	which_act_quote = '\0';
 	word_last_pos = 0;
 	while (str[i] != '\0')
 	{

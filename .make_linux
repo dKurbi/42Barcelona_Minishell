@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    .make_linux                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
+#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/13 16:51:34 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/14 15:58:05 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT = libft.a
 
 SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
 		minishell_getter.c minishell_quotes.c minishell_line_st.c \
-		minishell_free.c
+		minishell_free.c minishell_pipe.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
