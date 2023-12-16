@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 02:59:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:42:18 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int main(int ac, char **av, char **ev)
 	t_line  *copy_lst;
 	t_msh	*msh;
 
+	(void) ac;
+	(void) av;
 	msh = mshnew(ev);
 	if (!msh)
 		exit_error(ERR_MALLOC);
@@ -50,7 +52,7 @@ int main(int ac, char **av, char **ev)
 		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(str, 0, -1), where_next_any_quote_is(str, 0));	
 		//if (!is_quotes_pair(str,0,-1))
 		//{
-			linea = new_line_list(str);
+			linea = new_line_list(msh, str);
 			copy_lst = linea;
 			while (linea)
 			{
@@ -60,10 +62,11 @@ int main(int ac, char **av, char **ev)
 			}
 		//}
 		add_history(str);
-		free_lst_line(&copy_lst);
+		//free_lst_line(&copy_lst);
 		free (str);
 		str = readline("prueba comillas-> ");
 	}
+	free_msh(&msh);
 	free_lst_line(&linea);
 	free (str);
 }

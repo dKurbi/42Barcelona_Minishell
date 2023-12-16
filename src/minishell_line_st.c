@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/16 03:49:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:11:24 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ t_line	*new_line_list(t_msh *msh, char *str)
 	else if (is_quotes == 1)
 		lst_line = new_list_with_quotes(str, msh);
 	else
-	{
-		append_until_required(str, QUOTE);//aqui tenemos que hacer append hasta el caracter que necesita (falta)
-		new_line_list(msh, str);
-	}
+		write(2, ERR_QUOTE, ft_strlen(ERR_QUOTE));
 	return (lst_line);
 }
 
@@ -97,7 +94,7 @@ int	calculate_last_pos_word(char *str, int i)
 {
 	if (!str)
 		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t')//cuando no tenemos espacio o tab
+	while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != QUOTE && str [i] != DQUOTE)//cuando no tenemos espacio o tab
 		i++;
 	return (i);
 }
@@ -125,21 +122,21 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 	{
 		while (str[i] == ' ' || str[i] == '\t')
 			i++;
-		
 		w_q_is = where_next_any_quote_is(str, i);
 		if (w_q_is == i)
 		{
 			which_act_quote = str[w_q_is];
 			w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
-			text = ft_substr(str, i, w_q_is_next);
+			text = ft_substr(str, i, w_q_is_next - i);
 			if (!text)
 				exit_error(ERR_MALLOC);
-			add_new_line_node(text, TYPE_STR, new_list);
+			add_new_line_node(text, TYPE_STR, &new_list);
+			i = w_q_is_next;
 		}
 		else
 		{
 			word_last_pos = calculate_last_pos_word(str, i);
-			text = ft_substr(str, i, word_last_pos);
+			text = ft_substr(str, i, word_last_pos - i);
 			if (check_pipe_in_word(text))//NO ESTA TESTEADO: hacer un check si tenemos |
 			{
 				msh->pipe_active = 1;
@@ -147,10 +144,11 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 					pipe_divide_word(text, &new_list);//NO ESTA TESTEADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
 			}
 			else
-				add_new_line_node(text, TYPE_STR, new_list);
+				add_new_line_node(text, TYPE_STR, &new_list);
 			i = word_last_pos;//hacer un skip para empezar en nueva palabra, por abajo tenemos i++
 		}
-		free_str(&text);
+		if (str[i] == QUOTE || str[i] == DQUOTE)
+			i--;
 		i++;
 	}
 	return (new_list);

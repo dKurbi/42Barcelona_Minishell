@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 03:34:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:44:37 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
+# define ERR_QUOTE "other quote required\n"
 
 // type code
 # define TYPE_STR 0
@@ -100,6 +101,7 @@ char		*get_cmd(t_msh *msh);
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is (char *str, int i);
+void		append_until_required(char *str, char required_char);
 
 //pipe
 int			check_pipe_in_word(char *str);
@@ -109,11 +111,13 @@ void		pipe_divide_word(char *str, t_line **lst_line);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*new_line_list(t_msh *msh, char *str);
 t_line		*ft_lst_line_last(t_line *lst);
-t_line 		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
-t_line 		*new_list_with_quotes(char *str, t_msh *msh);
+t_line		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
+t_line		*new_list_with_quotes(char *str, t_msh *msh);
 
 // free
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 void		free_lst_line(t_line **lst);
+void		free_msh(t_msh **msh);
+
 #endif
