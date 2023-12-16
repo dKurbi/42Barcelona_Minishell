@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/16 03:37:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 03:49:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ t_line	*new_line_list(t_msh *msh, char *str)
 	else if (is_quotes == 1)
 		lst_line = new_list_with_quotes(str, msh);
 	else
-		printf("quote>\n");
+	{
+		append_until_required(str, QUOTE);//aqui tenemos que hacer append hasta el caracter que necesita (falta)
+		new_line_list(msh, str);
+	}
 	return (lst_line);
 }
 
