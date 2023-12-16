@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/16 03:35:34 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 03:37:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,11 +137,11 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 		{
 			word_last_pos = calculate_last_pos_word(str, i);
 			text = ft_substr(str, i, word_last_pos);
-			if (check_pipe_in_word(text))//NO ESTA ACABADO: hacer un check si tenemos |
+			if (check_pipe_in_word(text))//NO ESTA TESTEADO: hacer un check si tenemos |
 			{
 				msh->pipe_active = 1;
 				if (ft_strlen(text) != 1)
-					pipe_divide_word(text, &new_list);//NO ESTA ACABADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
+					pipe_divide_word(text, &new_list);//NO ESTA TESTEADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
 			}
 			else
 				add_new_line_node(text, TYPE_STR, new_list);
