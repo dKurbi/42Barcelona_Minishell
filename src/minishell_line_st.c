@@ -6,42 +6,56 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/14 15:57:07 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 03:35:34 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../inc/minishell.h"
 
-t_line	*new_line_list(char *str)
+t_line	*new_line_list(t_msh *msh, char *str)
 {
 	int		i;
 	char	is_quotes;
 	t_line	*lst_line;
 
+	if (!str || !msh)
+		return (NULL);
 	i = 0;
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(str, 0, -1);
 	if (!is_quotes)
-		lst_line = new_list_without_quotes(str, &lst_line);
+		lst_line = new_list_without_quotes(str, &lst_line, msh);
 	else if (is_quotes == 1)
-		lst_line = new_list_with_quotes(str);
+		lst_line = new_list_with_quotes(str, msh);
 	else
 		printf("quote>\n");
 	return (lst_line);
 }
 
-t_line *new_list_without_quotes(char *str, t_line ** lst_line)
+t_line *new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)//aqui tendremos pipe tambien
 {
 	char	**line;
 	int		i;
+	int		word_last_pos;
 
+	word_last_pos = 0;
 	i = 0;
 	line = ft_split(str, ' ');
 	if (!line)
 		exit_error(ERR_MALLOC);
 	while (line[i])
-		add_new_line_node(line[i++], TYPE_STR, lst_line);
+	{
+		if (check_pipe_in_word(line[i]))
+		{
+			msh->pipe_active = 1;
+			if (ft_strlen(line[i]) != 1)
+				pipe_divide_word(line[i], lst_line);
+		}
+		else
+			add_new_line_node(line[i], TYPE_STR, lst_line);
+		i++;
+	}
 	free(line);
 	return (*lst_line);
 }
@@ -85,7 +99,7 @@ int	calculate_last_pos_word(char *str, int i)
 	return (i);
 }
 
-t_line	*new_list_with_quotes(char *str)
+t_line	*new_list_with_quotes(char *str, t_msh *msh)
 {
 	int 	i;
 	t_line 	*new_list;
@@ -117,7 +131,7 @@ t_line	*new_list_with_quotes(char *str)
 			text = ft_substr(str, i, w_q_is_next);
 			if (!text)
 				exit_error(ERR_MALLOC);
-			//anadir al t_line nuestra palabra correctamente
+			add_new_line_node(text, TYPE_STR, new_list);
 		}
 		else
 		{
@@ -125,16 +139,15 @@ t_line	*new_list_with_quotes(char *str)
 			text = ft_substr(str, i, word_last_pos);
 			if (check_pipe_in_word(text))//NO ESTA ACABADO: hacer un check si tenemos |
 			{
-				pipe_divide_word(text, &new_list);//NO ESTA ACABADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
+				msh->pipe_active = 1;
+				if (ft_strlen(text) != 1)
+					pipe_divide_word(text, &new_list);//NO ESTA ACABADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
 			}
 			else
-			{
-				//NO ESTA ACABADO: anadir al t_line nuestra palabra que no tiene casos especiales
-			}
+				add_new_line_node(text, TYPE_STR, new_list);
 			i = word_last_pos;//hacer un skip para empezar en nueva palabra, por abajo tenemos i++
 		}
-		
-		
+		free_str(&text);
 		i++;
 	}
 	return (new_list);

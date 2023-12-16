@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/13 18:07:25 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 03:34:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@
 // 	varios code
 # define QUOTE 39
 # define DQUOTE 34
+# define PIPE 124
 
 typedef struct s_exec
 {
 	int		pip[2];
+	int		fd_stdin;//nuevos variables para hacer pipes
+	int		fd_stdout;//nuevos variables para hacer pipes
 	char	**exe_arg;
 	char	*cmd;
 	char	*raw_cmd;
@@ -67,6 +70,7 @@ typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
+	int			pipe_active;//nuevo variable
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
@@ -97,13 +101,16 @@ int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is (char *str, int i);
 
+//pipe
+int			check_pipe_in_word(char *str);
+void		pipe_divide_word(char *str, t_line **lst_line);
 
 // line_st
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*new_line_list(char *str);
+t_line		*new_line_list(t_msh *msh, char *str);
 t_line		*ft_lst_line_last(t_line *lst);
-t_line		*new_list_without_quotes(char *str, t_line ** lst_line);
-t_line 		*new_list_with_quotes(char *str);
+t_line 		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
+t_line 		*new_list_with_quotes(char *str, t_msh *msh);
 
 // free
 void		free_str(char **str);
