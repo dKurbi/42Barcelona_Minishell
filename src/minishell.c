@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/13 18:06:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 02:59:54 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,16 @@
 	return (0);
 } */
 
-int main(void)
+int main(int ac, char **av, char **ev)
 {
 	char	*str;
 	t_line	*linea;
 	t_line  *copy_lst;
+	t_msh	*msh;
 
+	msh = mshnew(ev);
+	if (!msh)
+		exit_error(ERR_MALLOC);
 	str = readline("prueba comillas-> ");
 	while (ft_strncmp(str, "", 1))
 	{ 

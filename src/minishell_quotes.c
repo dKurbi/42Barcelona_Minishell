@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:33:46 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/13 17:55:33 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 12:54:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,22 @@ int	where_next_any_quote_is (char *str, int i)
 	else 
 		rtn = quote_pos;
 	return (rtn);
+}
+
+void	append_until_required(char *str, char required_char)//anade al str hasta que comillas seran pares
+{
+	int		i;
+	char	*display;
+	char	*read_line;
+
+	if (required_char == QUOTE)
+		display = "quote> ";
+	else if (required_char == DQUOTE)
+		display = "dquote> ";
+	while (is_quotes_pair(str, 0, -1) != 1)
+	{
+		read_line = readline(display);
+		str = ft_strjoin(str, read_line);//aqui tenemos que utilizar strjoin del get_next_line para que no tener leaks y hacer free ahi
+		free_str(read_line);
+	}
 }
