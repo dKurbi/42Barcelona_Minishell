@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 03:43:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:57:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 	i = 0;
 	bef_pipe = 0;
 	divided_str = NULL;
-	if (str[0] == PIPE)//protegemos si tenemos ls |pipe
+	if (str[0] == PIPE)
 		i++;
 	while (str[i])
 	{

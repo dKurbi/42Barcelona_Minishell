@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/12/16 17:11:24 by dkurcbar         ###   ########.fr       */
+/*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
+/*   Updated: 2023/12/16 19:10:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../inc/minishell.h"
 
@@ -33,7 +32,8 @@ t_line	*new_line_list(t_msh *msh, char *str)
 	return (lst_line);
 }
 
-t_line *new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)//aqui tendremos pipe tambien
+//aqui tendremos pipe tambien
+t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
 {
 	char	**line;
 	int		i;
@@ -59,54 +59,26 @@ t_line *new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)//aqui 
 	free(line);
 	return (*lst_line);
 }
-/*t_line	*new_list_with_quotes(char *str)
-{
-	int 	i;
-	t_line 	*new_list;
-	t_line	*copy_list;
-	int		start;
-	int 	end;
-	char 	*text;
-	int		w_q_is;
-
-	i = 0;
-	start = 0;
-	end = 0;
-	text = NULL;
-	new_list = NULL;
-	copy_list = NULL;
-	w_q_is = where_next_any_quote_is(str, 0);
-	if (w_q_is)
-	{
-		text = ft_substr(str, 0, w_q_is);
-		new_list = new_list_without_quotes(text, &new_list);
-	}
-	free(text);
-	end = where_next_quote_is(str, str[w_q_is], w_q_is + 1);
-	text = ft_substr(str, w_q_is + 1, end - w_q_is - 1);
-	add_new_line_node(text, str[w_q_is], &new_list);
-	return (new_list);
-} 
-*/
 
 //como en el split, pero por aqui calcular todo que no es delimitador y devolver la POSICION
 int	calculate_last_pos_word(char *str, int i)
 {
 	if (!str)
 		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != QUOTE && str [i] != DQUOTE)//cuando no tenemos espacio o tab
+	while (str[i] && str[i] != ' ' && str[i] != '\t' \
+			&& str[i] != QUOTE && str [i] != DQUOTE)
 		i++;
 	return (i);
 }
 
 t_line	*new_list_with_quotes(char *str, t_msh *msh)
 {
-	int 	i;
-	t_line 	*new_list;
-	char 	*text;
+	int		i;
+	t_line	*new_list;
+	char	*text;
 	int		w_q_is;
 	int		w_q_is_next;
-	char 	which_act_quote;
+	char	which_act_quote;
 	int		word_last_pos;
 
 	if (!str)
@@ -127,7 +99,7 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 		{
 			which_act_quote = str[w_q_is];
 			w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
-			text = ft_substr(str, i, w_q_is_next - i);
+			text = ft_substr(str, i, w_q_is_next - i + 1);
 			if (!text)
 				exit_error(ERR_MALLOC);
 			add_new_line_node(text, TYPE_STR, &new_list);
@@ -136,19 +108,17 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 		else
 		{
 			word_last_pos = calculate_last_pos_word(str, i);
-			text = ft_substr(str, i, word_last_pos - i);
-			if (check_pipe_in_word(text))//NO ESTA TESTEADO: hacer un check si tenemos |
+			text = ft_substr(str, i, word_last_pos - i + 1);
+			if (check_pipe_in_word(text))
 			{
 				msh->pipe_active = 1;
 				if (ft_strlen(text) != 1)
-					pipe_divide_word(text, &new_list);//NO ESTA TESTEADO:dividir nuestra palabra y anadir ahi nuestros textos (si tenemos ls|cat|ls|cat o ls|cat o | por ejemplos)
+					pipe_divide_word(text, &new_list);
 			}
 			else
 				add_new_line_node(text, TYPE_STR, &new_list);
-			i = word_last_pos;//hacer un skip para empezar en nueva palabra, por abajo tenemos i++
+			i = word_last_pos;
 		}
-		if (str[i] == QUOTE || str[i] == DQUOTE)
-			i--;
 		i++;
 	}
 	return (new_list);
@@ -170,10 +140,9 @@ void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 		new_node->next = NULL;
 		if (last_node)
 			last_node->next = new_node;
-		else 
+		else
 			*lst_line = new_node;
 	}
-
 }
 
 t_line	*ft_lst_line_last(t_line *lst)

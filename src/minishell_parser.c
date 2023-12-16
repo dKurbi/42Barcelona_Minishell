@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/13 12:48:36 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:53:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 	}
 	return (path);
 }
-
 void parser_line(t_msh *msh)
 {
 	msh->parser.path = find_path(msh);

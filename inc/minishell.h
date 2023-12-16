@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 16:44:37 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:45:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,18 @@
 # define ERR_QUOTE "other quote required\n"
 
 // type code
-# define TYPE_STR 0
+# define TYPE_STR 0// "hola que tal"
+# define TYPE_CMD 1// ls
+# define TYPE_HDC 2// <<
+# define TYPE_PIPE 3// |
+# define TYPE_REDIR 4// > o si tenemos <
+# define TYPE_FLG 5// -l o si tenemos --no-print-directory
 
 // 	varios code
 # define QUOTE 39
 # define DQUOTE 34
 # define PIPE 124
+# define CHAR_SPACE 32
 
 typedef struct s_exec
 {
@@ -64,24 +70,26 @@ typedef struct s_parser
 	char	*raw_cmd;
 	char	*path;
 	char	**split_path;
-	char 	**split_read_line;
+	char	**split_read_line;
 }	t_parser;
+
+typedef struct s_line
+{
+	char			*str;
+	int				type;
+	struct s_line	*next;
+}		t_line;
 
 typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
 	int			pipe_active;//nuevo variable
+	t_line		*lst_line;
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
 
-typedef struct s_line
-{
-	char 			*str;
-	int				type;
-	struct s_line 	*next;
-}		t_line;
 //	error
 void		exit_error(char *s_err);
 
@@ -100,7 +108,7 @@ char		*get_cmd(t_msh *msh);
 // quotes
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
-int			where_next_any_quote_is (char *str, int i);
+int			where_next_any_quote_is(char *str, int i);
 void		append_until_required(char *str, char required_char);
 
 //pipe
@@ -119,5 +127,9 @@ void		free_str(char **str);
 void		free_double_str(char ***double_str);
 void		free_lst_line(t_line **lst);
 void		free_msh(t_msh **msh);
+
+
+//elimminar despues
+void		PRINT_lst_line(t_msh *msh);
 
 #endif
