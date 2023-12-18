@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 18:45:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:14:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,36 @@
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
 # define ERR_QUOTE "other quote required\n"
+# define ERR_PIPE "content after pipe required\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
 # define TYPE_CMD 1// ls
 # define TYPE_HDC 2// <<
-# define TYPE_PIPE 3// |
-# define TYPE_REDIR 4// > o si tenemos <
-# define TYPE_FLG 5// -l o si tenemos --no-print-directory
+# define TYPE_APND 3// >>
+# define TYPE_PIPE 4// |
+# define TYPE_OPUT_RED 5// >
+# define TYPE_IPUT_RED 6// >
+# define TYPE_FLG 7// -l o si tenemos --no-print-directory
 
 // 	varios code
 # define QUOTE 39
 # define DQUOTE 34
 # define PIPE 124
 # define CHAR_SPACE 32
+# define OPUT_RED 62// > signo
+# define IPUT_RED 60// < signo
+
+//	strings
+#define STR_PIPE "|"
+#define STR_HEREDOC "<<"
+#define STR_APPEND ">>"
 
 typedef struct s_exec
 {
 	int		pip[2];
-	int		fd_stdin;//nuevos variables para hacer pipes
-	int		fd_stdout;//nuevos variables para hacer pipes
+	int		fd_stdin;//nuevos variables para hacer pipes(para recibir)
+	int		fd_stdout;//nuevos variables para hacer pipes(para redirigir)
 	char	**exe_arg;
 	char	*cmd;
 	char	*raw_cmd;
@@ -61,7 +71,6 @@ typedef struct s_exec
 	char	**split_path;
 	pid_t	proc;
 	int		wait_status;
-
 }	t_exec;
 
 typedef struct s_parser
@@ -84,8 +93,8 @@ typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
-	int			pipe_active;//nuevo variable
-	t_line		*lst_line;
+	int			pipe_active;//para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
+	t_line		*lst_line;//he puesto aqui para que no declaramos muchas estructuras en funciones
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
@@ -100,6 +109,7 @@ t_exec		execnew(void);
 
 //  parser
 void		parser_line(t_msh *msh);
+int			decide_type(char *str);
 
 //  getter
 char		*get_raw_cmd(t_msh *msh);

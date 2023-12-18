@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 19:10:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:27:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,19 @@ int main(int ac, char **av, char **ev)
 	msh->read_line = readline("prueba comillas-> ");
 	while (ft_strncmp(msh->read_line, "", 1))
 	{
-		if (!ft_strncmp(msh->read_line, "exit", 6))
+		if (!ft_strncmp(msh->read_line, "exit", 4) && \
+			ft_strlen(msh->read_line) == 4)
 			break ;
 		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
 		msh->lst_line = new_line_list(msh, msh->read_line);
 
-		PRINT_lst_line(msh);
+		PRINT_lst_line(msh);//para printear
 
 		add_history(msh->read_line);
 		free(msh->read_line);
-		free_lst_line(&msh->lst_line);
+		free(msh->lst_line);
 		msh->read_line = readline("prueba comillas-> ");
+		printf("d\n");
 	}
 	free_msh(&msh);
 	return (0);

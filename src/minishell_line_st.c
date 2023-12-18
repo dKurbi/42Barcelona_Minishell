@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 19:10:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:43:41 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
 		if (check_pipe_in_word(line[i]))
 		{
 			msh->pipe_active = 1;
-			if (ft_strlen(line[i]) != 1)
-				pipe_divide_word(line[i], lst_line);
+			pipe_divide_word(line[i], lst_line);
 		}
 		else
 			add_new_line_node(line[i], TYPE_STR, lst_line);
@@ -112,8 +111,7 @@ t_line	*new_list_with_quotes(char *str, t_msh *msh)
 			if (check_pipe_in_word(text))
 			{
 				msh->pipe_active = 1;
-				if (ft_strlen(text) != 1)
-					pipe_divide_word(text, &new_list);
+				pipe_divide_word(text, &new_list);
 			}
 			else
 				add_new_line_node(text, TYPE_STR, &new_list);

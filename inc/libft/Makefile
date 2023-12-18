@@ -6,7 +6,7 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/25 18:59:49 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/13 16:00:30 by dkurcbar         ###   ########.fr        #
+#    Updated: 2023/12/18 16:59:33 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ BONUS_OBJS = $(addprefix $(DIROBJS), $(BONUS:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS) $(OBJS_FT_PRINTF) $(OBJS_GNL)
-	$(AR) $(NAME) $(OBJS_TOTAL)
+	@$(AR) $(NAME) $(OBJS_TOTAL)
 
 $(OBJS): $(DIROBJS)%.o: %.c $(LIB_NAME)
 	@$(MKDIR) $(DIROBJS)
@@ -62,7 +62,7 @@ fclean: clean
 re: fclean all
 
 bonus: all $(OBJS) $(OBJS_FT_PRINTF) $(OBJS_GNL) $(BONUS_OBJS)
-	$(AR) $(NAME) $(OBJS_TOTAL) $(BONUS_OBJS)
+	@$(AR) $(NAME) $(OBJS_TOTAL) $(BONUS_OBJS)
 
 $(BONUS_OBJS): $(DIROBJS)%.o: %.c $(LIBNAME)
 	@$(MKDIR) $(DIROBJS)

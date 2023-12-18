@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/16 18:57:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:21:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//1 - pipe, 0 - no pipe
+//return: 1 - pipe, 0 - no pipe
 int	check_pipe_in_word(char *str)
 {
 	if ((ft_strlen(str) == 1 && str[0] == PIPE) || (ft_strchr(str, PIPE)))
@@ -22,9 +22,9 @@ int	check_pipe_in_word(char *str)
 }
 
 /* dividr cuando pipe:
-pipe|ls|pipe = pipe ls pipe
-pipe| ls = pipe ls
-ls |pipe = ls pipe
+pipe|ls|pipe = pipe | ls | pipe
+pipe| ls = pipe | ls
+ls |pipe = ls | pipe
 pipe|ls| = pipe ls */
 void	pipe_divide_word(char *str, t_line **lst_line)
 {
@@ -37,18 +37,22 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 	i = 0;
 	bef_pipe = 0;
 	divided_str = NULL;
-	if (str[0] == PIPE)
+	if (str[i] == PIPE)
+	{
+		add_new_line_node(STR_PIPE, decide_type(STR_PIPE), lst_line);
 		i++;
+	}
 	while (str[i])
 	{
+		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
 		bef_pipe = i;
-		while (str[i] && str[i] != PIPE)
+		while (str[bef_pipe] && str[bef_pipe] != PIPE)
 			bef_pipe++;
+		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
 		divided_str = ft_substr(str, i, bef_pipe);
 		if (!divided_str)
 			exit_error(ERR_MALLOC);
-		add_new_line_node(divided_str, TYPE_STR, lst_line);
-		free_str(&divided_str);
+		add_new_line_node(divided_str, decide_type(divided_str), lst_line);
 		i = bef_pipe + 1;
 	}
 }
