@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 18:53:15 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:27:58 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_msh	*mshnew(char **env)
 		return (NULL);
 	msh->ev = env;
 	msh->lst_line = NULL;
+	msh->lst_pipe = NULL;
 	msh->read_line = NULL;
 	msh->pipe_active = 0;
 	msh->parser = parsernew();

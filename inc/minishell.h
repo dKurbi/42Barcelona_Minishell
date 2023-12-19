@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/18 20:14:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:57:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@
 # define IPUT_RED 60// < signo
 
 //	strings
-#define STR_PIPE "|"
-#define STR_HEREDOC "<<"
-#define STR_APPEND ">>"
+# define STR_PIPE "|"
+# define STR_HEREDOC "<<"
+# define STR_APPEND ">>"
+
 
 typedef struct s_exec
 {
@@ -89,15 +90,25 @@ typedef struct s_line
 	struct s_line	*next;
 }		t_line;
 
+typedef struct s_pipe
+{
+	t_line			*lst_line;
+	struct s_line	*next;
+}				t_pipe;
 typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
-	int			pipe_active;//para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
-	t_line		*lst_line;//he puesto aqui para que no declaramos muchas estructuras en funciones
+	int			pipe_active; //para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
+	t_line		*lst_line; //he puesto aqui para que no declaramos muchas estructuras en funciones
+	t_pipe 		*lst_pipe;
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
+
+//split pipe
+int			ft_split_leninword(char *s, int i);
+char		**ft_split_pipe(char *s);
 
 //	error
 void		exit_error(char *s_err);
@@ -124,10 +135,11 @@ void		append_until_required(char *str, char required_char);
 //pipe
 int			check_pipe_in_word(char *str);
 void		pipe_divide_word(char *str, t_line **lst_line);
+t_pipe		*new_pipe_list(t_msh *msh);
 
 // line_st
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*new_line_list(t_msh *msh, char *str);
+t_line		*new_line_list(t_msh *msh);
 t_line		*ft_lst_line_last(t_line *lst);
 t_line		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
 t_line		*new_list_with_quotes(char *str, t_msh *msh);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/16 19:11:12 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/19 17:36:28 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ COMPILED_LIBFT = libft.a
 
 SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
 		minishell_getter.c minishell_quotes.c minishell_line_st.c \
-		minishell_free.c minishell_pipe.c minishell_utils.c
+		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 

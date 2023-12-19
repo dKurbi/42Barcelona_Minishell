@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/18 17:43:41 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/19 16:55:49 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_line	*new_line_list(t_msh *msh, char *str)
+t_line	*new_line_list(t_msh *msh)
 {
 	int		i;
 	char	is_quotes;
 	t_line	*lst_line;
+	char 	*str;
 
-	if (!str || !msh)
+	if (!msh || !msh->read_line)
 		return (NULL);
 	i = 0;
+	str = msh->read_line;
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(str, 0, -1);
 	if (!is_quotes)
 		lst_line = new_list_without_quotes(str, &lst_line, msh);
 	else if (is_quotes == 1)
 		lst_line = new_list_with_quotes(str, msh);
-	else
-		write(2, ERR_QUOTE, ft_strlen(ERR_QUOTE));
 	return (lst_line);
 }
 
