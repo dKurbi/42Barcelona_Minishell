@@ -3,21 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 16:43:47 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/16 18:01:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//free main t_msh
 void	free_msh(t_msh **msh)
 {
-	free_str(&(*msh)->read_line);
-	free_double_str(&(*msh)->ev);
+	if (*msh != NULL)
+	{
+		free_str(&(*msh)->read_line);
+		free_lst_line(&(*msh)->lst_line);
+		free(*msh);
+	}
 	*msh = NULL;
 }
+
+//free memoria de char *
 void	free_str(char **str)
 {
 	if (*str != NULL)
@@ -25,6 +32,7 @@ void	free_str(char **str)
 	*str = NULL;
 }
 
+//free memoria de char **
 void	free_double_str(char ***double_str)
 {
 	int	i;
@@ -41,19 +49,20 @@ void	free_double_str(char ***double_str)
 	*double_str = NULL;
 }
 
-void	free_lst_line(t_line **lst)
+//free t_line *
+void	free_lst_line(t_line **lst_line)
 {
-	t_line	*copy_lst;
+	t_line	*copy_lst_line;
 
-	if (*lst == NULL)
+	if (*lst_line == NULL)
 		return ;
-	copy_lst = *lst;
-	while (*lst != NULL)
+	copy_lst_line = *lst_line;
+	while (*lst_line != NULL)
 	{
-		copy_lst = (*lst)->next;
-		free_str(&(*lst)->str);
-		free((*lst));
-		*lst = copy_lst;
+		copy_lst_line = (*lst_line)->next;
+		free_str(&(*lst_line)->str);
+		free((*lst_line));
+		*lst_line = copy_lst_line;
 	}
-	*lst = NULL;
+	*lst_line = NULL;
 }

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 16:42:18 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:27:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+//esto tendremos que eliminar despues, esto es solo para comprobar si esta bien estructura
+void	PRINT_lst_line(t_msh *msh)
+{
+	t_line	*copy_lst;
+
+	copy_lst = msh->lst_line;
+	while (copy_lst)
+	{
+		printf("lst_line->read_line = %s\n", copy_lst->str);
+		printf("lst_line->type = %d\n\n", copy_lst->type + '0') ;
+		copy_lst = copy_lst->next;
+	}
+}
+
 
 /* int	main(int ac, char **av, char **env)
 {
@@ -33,40 +48,33 @@
 	}
 	return (0);
 } */
-
 int main(int ac, char **av, char **ev)
 {
-	char	*str;
-	t_line	*linea;
-	t_line  *copy_lst;
 	t_msh	*msh;
 
-	(void) ac;
-	(void) av;
+	if (ac != 1)
+		exit_error(ERR_AC);
+	(void)(av);
 	msh = mshnew(ev);
 	if (!msh)
 		exit_error(ERR_MALLOC);
-	str = readline("prueba comillas-> ");
-	while (ft_strncmp(str, "", 1))
-	{ 
-		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(str, 0, -1), where_next_any_quote_is(str, 0));	
-		//if (!is_quotes_pair(str,0,-1))
-		//{
-			linea = new_line_list(msh, str);
-			copy_lst = linea;
-			while (linea)
-			{
-				printf("linea->str = %s\n", linea->str);
-				printf("linea->type = %d\n\n", linea->type + '0') ;
-				linea = linea->next;
-			}
-		//}
-		add_history(str);
-		//free_lst_line(&copy_lst);
-		free (str);
-		str = readline("prueba comillas-> ");
+	msh->read_line = readline("prueba comillas-> ");
+	while (ft_strncmp(msh->read_line, "", 1))
+	{
+		if (!ft_strncmp(msh->read_line, "exit", 4) && \
+			ft_strlen(msh->read_line) == 4)
+			break ;
+		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
+		msh->lst_line = new_line_list(msh, msh->read_line);
+
+		PRINT_lst_line(msh);//para printear
+
+		add_history(msh->read_line);
+		free(msh->read_line);
+		free(msh->lst_line);
+		msh->read_line = readline("prueba comillas-> ");
+		printf("d\n");
 	}
 	free_msh(&msh);
-	free_lst_line(&linea);
-	free (str);
+	return (0);
 }

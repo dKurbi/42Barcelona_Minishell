@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/14 16:00:50 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/16 19:11:12 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ COMPILED_LIBFT = libft.a
 
 SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
 		minishell_getter.c minishell_quotes.c minishell_line_st.c \
-		minishell_free.c minishell_pipe.c
+		minishell_free.c minishell_pipe.c minishell_utils.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
