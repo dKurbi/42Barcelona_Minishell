@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 17:57:15 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:12:38 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_pipe
 	t_line			*lst_line;
 	struct s_line	*next;
 }				t_pipe;
+
 typedef struct s_msh
 {
 	char		*read_line;
@@ -105,6 +106,32 @@ typedef struct s_msh
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
+
+
+/*
+AYUDA!:
+
+Guardamos todas las palabras de char ** (en split de pipe) a lst_pipe, para que:
+
+cada vez creamos nuevos lst_line con sus argumentos.
+
+Ejemplo:
+//nota importante: quitar espacios en los siguentes argumentos (como aqui [" ls"])
+char** : echo "path|path" comilla 'ls|ls' | ls  ==> ["echo "path|path" comilla 'ls|ls' "],[" ls"]
+
+despues: t_lst_pipe:
+
+t_line: echo->"path|path"->comilla->'ls|ls' 
+t_pipe=t_pipe->next
+
+t_line = ls
+t_pipe->next = NULL;
+
+y despues arrehglar las funciones new_lst_line y new_lst_pipe
+
+*/
+
+
 
 //split pipe
 int			ft_split_leninword(char *s, int i);
