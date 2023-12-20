@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 16:55:49 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/19 22:31:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 t_line	*new_line_list(t_msh *msh)
 {
-	int		i;
 	char	is_quotes;
 	t_line	*lst_line;
 	char 	*str;
 
 	if (!msh || !msh->read_line)
 		return (NULL);
-	i = 0;
 	str = msh->read_line;
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(str, 0, -1);
@@ -37,9 +35,7 @@ t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
 {
 	char	**line;
 	int		i;
-	int		word_last_pos;
 
-	word_last_pos = 0;
 	i = 0;
 	line = ft_split(str, ' ');
 	if (!line)

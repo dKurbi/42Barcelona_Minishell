@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/19 18:00:28 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/20 01:11:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,33 @@ void	PRINT_lst_line(t_msh *msh)
 	}
 }
 
-void	PRINT_split_line(char **str)
+
+//eliminR DESPUES
+void	PRINT_split_line(char **double_str)
 {
 	int		i;
 
+	if (!double_str)
 	i = 0;
-	while (str[i])
-		printf("%s\n",str[i++]);
+	while (double_str[i])
+		printf("%s\n", double_str[i++]);
 }
 
+
+void	PRINT_lst_pipe(t_msh *msh)
+{
+	t_pipe	*copy_lst;
+
+	if (!msh->lst_pipe)
+		return ;
+	copy_lst = msh->lst_pipe;
+	while (copy_lst)
+	{
+		printf("lst pipe: ");
+		PRINT_lst_line(msh);
+		copy_lst = copy_lst->next;
+	}
+}
 
 /* int	main(int ac, char **av, char **env)
 {
@@ -79,7 +97,8 @@ int main(int ac, char **av, char **ev)
 			break ;
 		
 		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
-		add_history(msh->read_line);
+		if (check_ifempty_str(msh->read_line) == 0)
+			add_history(msh->read_line);
 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			PRINT_split_line(ft_split_pipe(msh->read_line));
@@ -92,9 +111,15 @@ int main(int ac, char **av, char **ev)
 			write(2, ERR_QUOTE, ft_strlen(ERR_QUOTE));
 
 		PRINT_lst_line(msh);//para printear
+		PRINT_lst_pipe(msh);//para printear
 
-		free(msh->read_line);
-		free(msh->lst_line);
+		printf("etestu1\n");
+		free_str(&msh->read_line);
+		printf("etestu2\n");
+		free_lst_line(&msh->lst_line);
+		printf("etestu3\n");
+		free_lst_pipe(&msh->lst_pipe);
+		printf("etestu4\n");
 		printf("\n");
 	}
 	free_msh(&msh);

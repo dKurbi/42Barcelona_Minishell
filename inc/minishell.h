@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 18:12:38 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/20 01:15:54 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_line
 typedef struct s_pipe
 {
 	t_line			*lst_line;
-	struct s_line	*next;
+	struct s_pipe	*next;
 }				t_pipe;
 
 typedef struct s_msh
@@ -106,7 +106,6 @@ typedef struct s_msh
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
-
 
 /*
 AYUDA!:
@@ -176,9 +175,14 @@ void		free_str(char **str);
 void		free_double_str(char ***double_str);
 void		free_lst_line(t_line **lst);
 void		free_msh(t_msh **msh);
+void		free_lst_pipe(t_pipe **lst_pipe);
 
+//	utils
+int			check_ifempty_str(char *str);
 
 //elimminar despues
 void		PRINT_lst_line(t_msh *msh);
+void		PRINT_lst_pipe(t_msh *msh);
+void		PRINT_split_line(char **double_str);
 
 #endif
