@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 01:15:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:33:58 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,14 +161,14 @@ void		append_until_required(char *str, char required_char);
 //pipe
 int			check_pipe_in_word(char *str);
 void		pipe_divide_word(char *str, t_line **lst_line);
-t_pipe		*new_pipe_list(t_msh *msh);
+t_pipe		*new_lst_pipe(t_msh *msh);
 
 // line_st
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*new_line_list(t_msh *msh);
+t_line		*new_lst_line(t_msh *msh);
 t_line		*ft_lst_line_last(t_line *lst);
-t_line		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
-t_line		*new_list_with_quotes(char *str, t_msh *msh);
+t_line		*new_lst_without_quotes(char *str, t_line **lst_line, t_msh *msh);
+t_line		*new_lst_with_quotes(char *str, t_msh *msh);
 
 // free
 void		free_str(char **str);
@@ -179,6 +179,7 @@ void		free_lst_pipe(t_pipe **lst_pipe);
 
 //	utils
 int			check_ifempty_str(char *str);
+int			calculate_last_pos_word(char *str, int i);
 
 //elimminar despues
 void		PRINT_lst_line(t_msh *msh);

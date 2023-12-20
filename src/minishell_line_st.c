@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 22:31:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:33:18 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_line	*new_line_list(t_msh *msh)
+t_line	*new_lst_line(t_msh *msh)
 {
 	char	is_quotes;
 	t_line	*lst_line;
@@ -24,14 +24,14 @@ t_line	*new_line_list(t_msh *msh)
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(str, 0, -1);
 	if (!is_quotes)
-		lst_line = new_list_without_quotes(str, &lst_line, msh);
+		lst_line = new_lst_without_quotes(str, &lst_line, msh);
 	else if (is_quotes == 1)
-		lst_line = new_list_with_quotes(str, msh);
+		lst_line = new_lst_with_quotes(str, msh);
 	return (lst_line);
 }
 
 //aqui tendremos pipe tambien
-t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
+t_line	*new_lst_without_quotes(char *str, t_line **lst_line, t_msh *msh)
 {
 	char	**line;
 	int		i;
@@ -55,18 +55,7 @@ t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
 	return (*lst_line);
 }
 
-//como en el split, pero por aqui calcular todo que no es delimitador y devolver la POSICION
-int	calculate_last_pos_word(char *str, int i)
-{
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t' \
-			&& str[i] != QUOTE && str [i] != DQUOTE)
-		i++;
-	return (i);
-}
-
-t_line	*new_list_with_quotes(char *str, t_msh *msh)
+t_line	*new_lst_with_quotes(char *str, t_msh *msh)
 {
 	int		i;
 	t_line	*new_list;

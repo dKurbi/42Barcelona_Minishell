@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 17:40:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:30:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 	}
 }
 
-t_pipe	*new_pipe_list(t_msh *msh)
+t_pipe	*new_lst_pipe(t_msh *msh)
 {
 	(void)(msh);
 	return (NULL);
