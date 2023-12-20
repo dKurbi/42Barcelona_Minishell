@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 17:30:15 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:51:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_pipe_in_word(char *str)
 		{
 			if (str[i] == PIPE)
 				return (1);
-			i++;	
+			i++;
 		}
 		i = where_next_quote_is(str, str[i], i + 1) + 1;
 	}
@@ -74,8 +74,25 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 	}
 }
 
+void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
+{
+	
+}
+
+
 t_pipe	*new_lst_pipe(t_msh *msh)
 {
-	(void)(msh);
+	char	**split_pipe;
+	int		i;
+	t_pipe	*lst_pipe;
+
+	msh->pipe_active = 1;
+	split_pipe = ft_split_pipe(msh->read_line);
+	if (!split_pipe)
+		return (NULL);
+	i = -1;
+	while (split_pipe[++i])
+	{
+	}
 	return (NULL);
 }

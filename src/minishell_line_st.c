@@ -6,56 +6,52 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 17:33:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:44:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//crear t_line con todo el contenido despues de separar de read_line
 t_line	*new_lst_line(t_msh *msh)
 {
 	char	is_quotes;
 	t_line	*lst_line;
-	char 	*str;
+	char 	*read_line;
 
 	if (!msh || !msh->read_line)
 		return (NULL);
-	str = msh->read_line;
+	read_line = msh->read_line;
 	lst_line = NULL;
-	is_quotes = is_quotes_pair(str, 0, -1);
+	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
-		lst_line = new_lst_without_quotes(str, &lst_line, msh);
+		lst_line = new_lst_without_quotes(read_line, &lst_line, msh);
 	else if (is_quotes == 1)
-		lst_line = new_lst_with_quotes(str, msh);
+		lst_line = new_lst_with_quotes(read_line, msh);
 	return (lst_line);
 }
 
-//aqui tendremos pipe tambien
-t_line	*new_lst_without_quotes(char *str, t_line **lst_line, t_msh *msh)
+//crear t_line sin comillas (cat -> << -> EOF) (echo->$PATH)
+t_line	*new_lst_without_quotes(char *read_line, t_line **lst_line, t_msh *msh)
 {
-	char	**line;
+	char	**split_line;
 	int		i;
 
-	i = 0;
-	line = ft_split(str, ' ');
-	if (!line)
+	if (!read_line)
+		return (NULL);
+	split_line = ft_split(read_line, ' ');
+	if (!split_line)
 		exit_error(ERR_MALLOC);
-	while (line[i])
-	{
-		if (check_pipe_in_word(line[i]))
-		{
-			msh->pipe_active = 1;
-			pipe_divide_word(line[i], lst_line);
-		}
-		else
-			add_new_line_node(line[i], TYPE_STR, lst_line);
-		i++;
-	}
-	free(line);
+	i = -1;
+	while (split_line[++i])
+		add_new_line_node(split_line[i], \
+						decide_type(split_line[i]), lst_line);
+	free_double_str(&split_line);
 	return (*lst_line);
 }
 
-t_line	*new_lst_with_quotes(char *str, t_msh *msh)
+//crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
+t_line	*new_lst_with_quotes(char *read_line, t_msh *msh)
 {
 	int		i;
 	t_line	*new_list;
@@ -65,7 +61,7 @@ t_line	*new_lst_with_quotes(char *str, t_msh *msh)
 	char	which_act_quote;
 	int		word_last_pos;
 
-	if (!str)
+	if (!read_line)
 		return (NULL);
 	i = 0;
 	new_list = NULL;
@@ -74,32 +70,26 @@ t_line	*new_lst_with_quotes(char *str, t_msh *msh)
 	w_q_is_next = 0;
 	which_act_quote = '\0';
 	word_last_pos = 0;
-	while (str[i] != '\0')
+	while (read_line[i] != '\0')
 	{
-		while (str[i] == ' ' || str[i] == '\t')
+		while (read_line[i] == ' ' || read_line[i] == '\t')
 			i++;
-		w_q_is = where_next_any_quote_is(str, i);
+		w_q_is = where_next_any_quote_is(read_line, i);
 		if (w_q_is == i)
 		{
-			which_act_quote = str[w_q_is];
-			w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
-			text = ft_substr(str, i, w_q_is_next - i + 1);
+			which_act_quote = read_line[w_q_is];
+			w_q_is_next = where_next_quote_is(read_line, which_act_quote, w_q_is + 1);
+			text = ft_substr(read_line, i, w_q_is_next - i + 1);
 			if (!text)
 				exit_error(ERR_MALLOC);
-			add_new_line_node(text, TYPE_STR, &new_list);
+			add_new_line_node(text, decide_type(text), &new_list);
 			i = w_q_is_next;
 		}
 		else
 		{
-			word_last_pos = calculate_last_pos_word(str, i);
-			text = ft_substr(str, i, word_last_pos - i + 1);
-			if (check_pipe_in_word(text))
-			{
-				msh->pipe_active = 1;
-				pipe_divide_word(text, &new_list);
-			}
-			else
-				add_new_line_node(text, TYPE_STR, &new_list);
+			word_last_pos = calculate_last_pos_word(read_line, i);
+			text = ft_substr(read_line, i, word_last_pos - i + 1);
+			add_new_line_node(text, decide_type(text), &new_list);
 			i = word_last_pos;
 		}
 		i++;
@@ -107,6 +97,7 @@ t_line	*new_lst_with_quotes(char *str, t_msh *msh)
 	return (new_list);
 }
 
+//anadir al final t_line nuevo a ya existe t_line **
 void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 {
 	t_line	*new_node;

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/19 22:32:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:58:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int	ft_split_leninword(char *s, int i)
 	while (s[i] && s[i] != PIPE)
 	{
 		if (s[i] == QUOTE || s[i] == DQUOTE)
-		{
 			i = where_next_quote_is(s, s[i], i + 1) + 1;
-		}
 		else
 			i++;
 	}
@@ -58,9 +56,6 @@ size_t	ft_split_words(char *s)
 		//	i = where_next_quote_is(s, s[i], i + 1) + 1;
 		//}
 		//numwords++;
-		
-
-
 		
 	}
 	return (numwords);

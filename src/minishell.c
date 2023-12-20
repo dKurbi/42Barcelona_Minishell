@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/20 17:38:27 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/20 18:21:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ int main(int ac, char **av, char **ev)
 			add_history(msh->read_line);
 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
-			PRINT_split_line(ft_split_pipe(msh->read_line));
-			
 			if (check_pipe_in_word(msh->read_line))
 				msh->lst_pipe = new_lst_pipe(msh);
 			else
