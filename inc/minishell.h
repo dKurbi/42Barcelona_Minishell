@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 17:33:58 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:11:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ t_pipe		*new_lst_pipe(t_msh *msh);
 
 // line_st
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*new_lst_line(t_msh *msh);
+t_line		*new_lst_line(t_msh *msh, char *read_line);
 t_line		*ft_lst_line_last(t_line *lst);
 t_line		*new_lst_without_quotes(char *str, t_line **lst_line, t_msh *msh);
 t_line		*new_lst_with_quotes(char *str, t_msh *msh);

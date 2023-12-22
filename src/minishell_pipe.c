@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 18:51:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:15:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,25 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 
 void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 {
-	
+	t_pipe	*copy_lst;
+
+	if (!*lst_pipe)
+	{
+		*lst_pipe = (t_pipe *) malloc(sizeof(t_pipe));
+		if (!*lst_pipe)
+			exit_error(ERR_MALLOC);
+		(*lst_pipe)->lst_line = new_lst_line(msh, str);
+		(*lst_pipe)->next = NULL;
+		return ;
+	}
+	copy_lst = *lst_pipe;
+	while (copy_lst->next != NULL)
+		copy_lst = copy_lst->next;
+	copy_lst->next = (t_pipe *) malloc(sizeof(t_pipe));
+	if (!copy_lst->next)
+		exit_error(ERR_MALLOC);
+	copy_lst->next->lst_line = new_lst_line(msh, str);
+	copy_lst->next->next = NULL;
 }
 
 
@@ -91,8 +109,11 @@ t_pipe	*new_lst_pipe(t_msh *msh)
 	if (!split_pipe)
 		return (NULL);
 	i = -1;
+	lst_pipe = NULL;
 	while (split_pipe[++i])
 	{
+		addback_lst_pipe(msh, &lst_pipe, split_pipe[i]);
 	}
-	return (NULL);
+	free_double_str(&split_pipe);
+	return (lst_pipe);
 }

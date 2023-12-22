@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/18 20:19:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/21 01:27:18 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,3 @@ int	decide_type(char *str)
 	else
 		return (TYPE_CMD);
 }
-/*
-FLG
-STR
-HDC
-APPEND
-IPUT
-OPUT
-*/

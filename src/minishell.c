@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/20 18:21:12 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 03:12:16 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int main(int ac, char **av, char **ev)
 			if (check_pipe_in_word(msh->read_line))
 				msh->lst_pipe = new_lst_pipe(msh);
 			else
-				msh->lst_line = new_lst_line(msh);
+				msh->lst_line = new_lst_line(msh, msh->read_line);
 		}
 		else
 			write(2, ERR_QUOTE, ft_strlen(ERR_QUOTE));

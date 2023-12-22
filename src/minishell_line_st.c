@@ -6,22 +6,20 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 20:44:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 02:10:25 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //crear t_line con todo el contenido despues de separar de read_line
-t_line	*new_lst_line(t_msh *msh)
+t_line	*new_lst_line(t_msh *msh, char *read_line)
 {
 	char	is_quotes;
 	t_line	*lst_line;
-	char 	*read_line;
 
-	if (!msh || !msh->read_line)
+	if (!msh || !msh->read_line || !read_line)
 		return (NULL);
-	read_line = msh->read_line;
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
