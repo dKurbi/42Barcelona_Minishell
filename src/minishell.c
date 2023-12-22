@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/22 03:12:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:05:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	PRINT_split_line(char **double_str)
 
 	if (!double_str)
 	{
-		printf("NULL: split_line\n");
+		printf("NULL: SPLIT LINE **SPLIT\n");
 		return ;
 	}
 	i = 0;
@@ -92,24 +92,24 @@ int main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	if (ac != 1)
-		exit_error(ERR_AC);
+		print_error_exit(ERR_AC);
 	(void)(av);
 	msh = mshnew(ev);
 	if (!msh)
-		exit_error(ERR_MALLOC);
+		print_error_exit(ERR_MALLOC);
 	while (1)
 	{
 		msh->read_line = readline("prueba comillas-> ");
 		if (!msh->read_line)
-			exit_error(ERR_MALLOC);
+			print_error_exit(ERR_MALLOC);
 		if (!ft_strncmp(msh->read_line, "exit", 4) && \
 			ft_strlen(msh->read_line) == 4)
 			break ;
 		
-		printf("las comillas son %i, la primera comilla esta en %i\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
+		printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
-		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+		/*if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			if (check_pipe_in_word(msh->read_line))
 				msh->lst_pipe = new_lst_pipe(msh);
@@ -117,8 +117,13 @@ int main(int ac, char **av, char **ev)
 				msh->lst_line = new_lst_line(msh, msh->read_line);
 		}
 		else
-			write(2, ERR_QUOTE, ft_strlen(ERR_QUOTE));
+			print_warning(ERR_QUOTE);
+		*/
+		//char	**split_pipe = ft_split_pipe(msh->read_line);
+		//PRINT_split_line(split_pipe);
 
+		printf("how many words: %zu\n", ft_split_words(msh->read_line));
+		
 		PRINT_lst_line(msh);//para printear
 		PRINT_lst_pipe(msh);//para printear
 

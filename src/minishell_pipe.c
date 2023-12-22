@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 03:15:20 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:23:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	pipe_divide_word(char *str, t_line **lst_line)
 		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
 		divided_str = ft_substr(str, i, bef_pipe);
 		if (!divided_str)
-			exit_error(ERR_MALLOC);
+			print_error_exit(ERR_MALLOC);
 		add_new_line_node(divided_str, decide_type(divided_str), lst_line);
 		i = bef_pipe + 1;
 	}
@@ -82,7 +82,7 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 	{
 		*lst_pipe = (t_pipe *) malloc(sizeof(t_pipe));
 		if (!*lst_pipe)
-			exit_error(ERR_MALLOC);
+			print_error_exit(ERR_MALLOC);
 		(*lst_pipe)->lst_line = new_lst_line(msh, str);
 		(*lst_pipe)->next = NULL;
 		return ;
@@ -92,7 +92,7 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 		copy_lst = copy_lst->next;
 	copy_lst->next = (t_pipe *) malloc(sizeof(t_pipe));
 	if (!copy_lst->next)
-		exit_error(ERR_MALLOC);
+		print_error_exit(ERR_MALLOC);
 	copy_lst->next->lst_line = new_lst_line(msh, str);
 	copy_lst->next->next = NULL;
 }
@@ -108,6 +108,7 @@ t_pipe	*new_lst_pipe(t_msh *msh)
 	split_pipe = ft_split_pipe(msh->read_line);
 	if (!split_pipe)
 		return (NULL);
+	PRINT_split_line(split_pipe);
 	i = -1;
 	lst_pipe = NULL;
 	while (split_pipe[++i])

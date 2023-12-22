@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 02:10:25 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:02:58 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,20 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	if (!is_quotes)
 		lst_line = new_lst_without_quotes(read_line, &lst_line, msh);
 	else if (is_quotes == 1)
-		lst_line = new_lst_with_quotes(read_line, msh);
+		lst_line = new_lst_with_quotes(read_line, &lst_line, msh);
 	return (lst_line);
 }
 
 //crear t_line sin comillas (cat -> << -> EOF) (echo->$PATH)
-t_line	*new_lst_without_quotes(char *read_line, t_line **lst_line, t_msh *msh)
+t_line	*new_lst_without_quotes(char *rline, t_line **lst_line, t_msh *msh)
 {
 	char	**split_line;
 	int		i;
 
-	if (!read_line)
-		return (NULL);
-	split_line = ft_split(read_line, ' ');
+	(void)(msh);
+	split_line = ft_split(rline, ' ');
 	if (!split_line)
-		exit_error(ERR_MALLOC);
+		print_error_exit(ERR_MALLOC);
 	i = -1;
 	while (split_line[++i])
 		add_new_line_node(split_line[i], \
@@ -49,50 +48,49 @@ t_line	*new_lst_without_quotes(char *read_line, t_line **lst_line, t_msh *msh)
 }
 
 //crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
-t_line	*new_lst_with_quotes(char *read_line, t_msh *msh)
+t_line	*new_lst_with_quotes(char *rline, t_line **lst_line, t_msh *msh)
 {
 	int		i;
-	t_line	*new_list;
 	char	*text;
 	int		w_q_is;
 	int		w_q_is_next;
 	char	which_act_quote;
 	int		word_last_pos;
 
-	if (!read_line)
-		return (NULL);
+	(void)(msh);
 	i = 0;
-	new_list = NULL;
 	text = NULL;
 	w_q_is = 0;
 	w_q_is_next = 0;
 	which_act_quote = '\0';
 	word_last_pos = 0;
-	while (read_line[i] != '\0')
+	while (rline[i] != '\0')
 	{
-		while (read_line[i] == ' ' || read_line[i] == '\t')
+		while (rline[i] == ' ' || rline[i] == '\t')
 			i++;
-		w_q_is = where_next_any_quote_is(read_line, i);
+		w_q_is = where_next_any_quote_is(rline, i);
 		if (w_q_is == i)
 		{
-			which_act_quote = read_line[w_q_is];
-			w_q_is_next = where_next_quote_is(read_line, which_act_quote, w_q_is + 1);
-			text = ft_substr(read_line, i, w_q_is_next - i + 1);
+			which_act_quote = rline[w_q_is];
+			w_q_is_next = where_next_quote_is(rline, which_act_quote, w_q_is + 1);
+			text = ft_substr(rline, i, w_q_is_next - i + 1);
 			if (!text)
-				exit_error(ERR_MALLOC);
-			add_new_line_node(text, decide_type(text), &new_list);
+				print_error_exit(ERR_MALLOC);
+			add_new_line_node(text, decide_type(text), lst_line);
 			i = w_q_is_next;
 		}
 		else
 		{
-			word_last_pos = calculate_last_pos_word(read_line, i);
-			text = ft_substr(read_line, i, word_last_pos - i + 1);
-			add_new_line_node(text, decide_type(text), &new_list);
+			word_last_pos = calculate_last_pos_word(rline, i);
+			text = ft_substr(rline, i, word_last_pos - i + 1);
+			if (!text)
+				print_error_exit(ERR_MALLOC);
+			add_new_line_node(text, decide_type(text), lst_line);
 			i = word_last_pos;
 		}
 		i++;
 	}
-	return (new_list);
+	return (*lst_line);
 }
 
 //anadir al final t_line nuevo a ya existe t_line **
