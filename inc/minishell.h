@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 20:04:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:04:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <term.h>
 # include <curses.h>
 # include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include "libft/libft.h"
 
 // error code
