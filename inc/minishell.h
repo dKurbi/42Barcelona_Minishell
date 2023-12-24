@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 20:04:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/24 04:26:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
 void		append_until_required(char *str, char required_char);
-
+	i--;
 //	pipe
 //	minishell_pipe.c
 int			check_pipe_in_word(char *str);

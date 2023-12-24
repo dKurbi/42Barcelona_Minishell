@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/22 20:19:36 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/24 04:25:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,24 @@
 int	ft_split_leninword(char *s, int i)
 {
 	int	init;
+	int	minus_spaces;
 
+	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+		i++;
+	minus_spaces = 0;
 	init = i;
 	while (s[i] && s[i] != PIPE)
 	{
+		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+			i++;
 		if (s[i] == QUOTE || s[i] == DQUOTE)
 			i = where_next_quote_is(s, s[i], i + 1) + 1;
-		else
+		else if (s[i] != PIPE)
 			i++;
 	}
-	return (i - init);
+	while (s[--i] && (s[i] == ' ' || s[i] == '\t'))//no esta correcto!!!!
+		minus_spaces++;
+	return (i - init - minus_spaces);
 }
 
 size_t	ft_split_words(char *s)
@@ -36,23 +44,6 @@ size_t	ft_split_words(char *s)
 	numwords = 0;
 	while (s[i])
 	{
-		/*
-		while (s[i] && s[i] != QUOTE && s[i] != DQUOTE && s[i] != PIPE)
-			i++;
-		printf("split words: %s\n", &s[i]);
-		if (s[i] == QUOTE || s[i] == DQUOTE)
-			i = where_next_quote_is(s, s[i], i + 1) + 1;
-		else 
-		{
-			numwords++;
-			if (s[i] == '\0')
-				break ;
-			i++;
-		}
-		if (s[i] == '\0')
-			break ;
-		
-		*/
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
 		if (s[i] == PIPE)
@@ -60,21 +51,13 @@ size_t	ft_split_words(char *s)
 			numwords++;
 			i++;
 		}
-		else if (s[i] == QUOTE || s[i] == DQUOTE)
+		while (s[i] == QUOTE || s[i] == DQUOTE)
 			i = where_next_quote_is(s, s[i], i + 1) + 1;
-		else
-		{
-			while (s[i] && s[i] != ' ' && s[i] != '\t' && s[i] != PIPE)
-				i++;
-			if (s[i] == PIPE)
-			{
-				numwords++;
-				i++;
-			}
-		}
+		while (s[i] && s[i] != ' ' && s[i] != '\t' \
+				&& s[i] != PIPE && s[i] != QUOTE && s[i] != DQUOTE)
+			i++;
 		if (s[i] == '\0')
 			numwords++;
-		
 	}
 	return (numwords);
 }
@@ -93,16 +76,11 @@ char	**ft_split_fail(char **splited)
 	return (NULL);
 }
 
-char	**ft_split_loop(char *s, char **splited)
+char	**ft_split_loop(char *s, char **splited, size_t i, size_t j)
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
 	while (s[i])
 	{
-		if (s[i] != PIPE)
+/* 		if (s[i] != PIPE)
 		{
 			splited[j] = ft_substr(s, i, ft_split_leninword(s, i));
 			printf("ft_split_pipe: ft_split_loop: splitted [j]: %s\n", splited[j]);
@@ -111,15 +89,10 @@ char	**ft_split_loop(char *s, char **splited)
 			s = s + ft_split_leninword(s, i);
 		}
 		else
-			s++;
-	}
-
-/* 	while (s[i])
-	{
+			s++; */
 		
-	} */
 
-	
+	}
 	splited[j] = NULL;
 	return (splited);
 }
@@ -138,5 +111,5 @@ char	**ft_split_pipe(char *s)
 	splited = (char **)malloc(sizeof(char *) * (words + 1));
 	if (splited == NULL)
 		return (NULL);
-	return (ft_split_loop(s, splited));
+	return (ft_split_loop(s, splited, 0, 0));
 }

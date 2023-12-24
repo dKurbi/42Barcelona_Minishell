@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/22 20:05:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/24 04:09:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int main(int ac, char **av, char **ev)
 		//char	**split_pipe = ft_split_pipe(msh->read_line);
 		//PRINT_split_line(split_pipe);
 
-		printf("how many words: %zu\n", ft_split_words(msh->read_line));
+		printf("what does this functio: %u\n", ft_split_leninword(msh->read_line, 0));
 		
 		PRINT_lst_line(msh);//para printear
 		PRINT_lst_pipe(msh);//para printear
