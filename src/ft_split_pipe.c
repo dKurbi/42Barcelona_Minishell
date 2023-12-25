@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/24 04:25:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 04:45:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 int	ft_split_leninword(char *s, int i)
 {
 	int	init;
-	int	minus_spaces;
+	int	minus_space;
 
-	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
-		i++;
-	minus_spaces = 0;
+	minus_space = 0;
 	init = i;
+	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+	{
+		i++;
+		minus_space++;
+	}
 	while (s[i] && s[i] != PIPE)
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
@@ -30,9 +33,10 @@ int	ft_split_leninword(char *s, int i)
 		else if (s[i] != PIPE)
 			i++;
 	}
-	while (s[--i] && (s[i] == ' ' || s[i] == '\t'))//no esta correcto!!!!
-		minus_spaces++;
-	return (i - init - minus_spaces);
+	i--;
+	while (s[i] != '\0' && i >= 0 && (s[i] == ' ' || s[i] == '\t'))
+		i--;
+	return (i - init - minus_space + 1);
 }
 
 size_t	ft_split_words(char *s)
@@ -62,7 +66,7 @@ size_t	ft_split_words(char *s)
 	return (numwords);
 }
 
-char	**ft_split_fail(char **splited)
+static char	**ft_split_fail(char **splited)
 {
 	size_t	i;
 
@@ -80,18 +84,19 @@ char	**ft_split_loop(char *s, char **splited, size_t i, size_t j)
 {
 	while (s[i])
 	{
-/* 		if (s[i] != PIPE)
-		{
-			splited[j] = ft_substr(s, i, ft_split_leninword(s, i));
-			printf("ft_split_pipe: ft_split_loop: splitted [j]: %s\n", splited[j]);
-			if (!splited[j++])
-				return (ft_split_fail(splited));
-			s = s + ft_split_leninword(s, i);
-		}
-		else
-			s++; */
-		
-
+		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+			i++;
+		/* printf("our &s - %s\n", &s[i]);
+		printf("our ft_split_leninword - %i\n", ft_split_leninword(s, i));
+		printf("our i - %li\n", i); */
+		splited[j] = ft_substr(s, i, ft_split_leninword(s, i));
+		if (splited[j] == NULL)
+			return (ft_split_fail(splited));
+		i = i + ft_split_leninword(s, i) + 1;
+		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+			i++;
+		i++;
+		j++;
 	}
 	splited[j] = NULL;
 	return (splited);
@@ -104,10 +109,7 @@ char	**ft_split_pipe(char *s)
 
 	if (!s)
 		return (NULL);
-	printf("\n\ns a la entrada de ft_split_pipe: %s\n", s);
-	printf("and len - %zu\n", ft_strlen(s));
 	words = ft_split_words(s);
-	printf("ft_split_pipe: ft_split_pipe: words: %zu\n", words);
 	splited = (char **)malloc(sizeof(char *) * (words + 1));
 	if (splited == NULL)
 		return (NULL);

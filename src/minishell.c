@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/24 04:09:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 03:41:53 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,9 @@ int main(int ac, char **av, char **ev)
 		else
 			print_warning(ERR_QUOTE);
 		*/
-		//char	**split_pipe = ft_split_pipe(msh->read_line);
-		//PRINT_split_line(split_pipe);
+		char	**split_pipe = ft_split_pipe(msh->read_line);
+		PRINT_split_line(split_pipe);
 
-		printf("what does this functio: %u\n", ft_split_leninword(msh->read_line, 0));
 		
 		PRINT_lst_line(msh);//para printear
 		PRINT_lst_pipe(msh);//para printear
