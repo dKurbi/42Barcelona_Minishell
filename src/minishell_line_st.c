@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 14:02:58 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:21:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	lst_line = NULL;
 	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
-		lst_line = new_lst_without_quotes(read_line, &lst_line, msh);
-	else if (is_quotes == 1)
-		lst_line = new_lst_with_quotes(read_line, &lst_line, msh);
+		lst_line = new_lst_without_quotes(msh, &lst_line, read_line);
+	/*else if (is_quotes == 1)
+		lst_line = new_lst_with_quotes(msh, &lst_line, read_line);*/
 	return (lst_line);
 }
 
 //crear t_line sin comillas (cat -> << -> EOF) (echo->$PATH)
-t_line	*new_lst_without_quotes(char *rline, t_line **lst_line, t_msh *msh)
+t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	char	**split_line;
 	int		i;
 
-	(void)(msh);
+	printf("NO QUOTS!!!!\n\n");
 	split_line = ft_split(rline, ' ');
 	if (!split_line)
-		print_error_exit(ERR_MALLOC);
+		print_error_exit(&msh, ERR_MALLOC);
 	i = -1;
 	while (split_line[++i])
 		add_new_line_node(split_line[i], \
@@ -48,7 +48,7 @@ t_line	*new_lst_without_quotes(char *rline, t_line **lst_line, t_msh *msh)
 }
 
 //crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
-t_line	*new_lst_with_quotes(char *rline, t_line **lst_line, t_msh *msh)
+/*t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int		i;
 	char	*text;
@@ -66,7 +66,7 @@ t_line	*new_lst_with_quotes(char *rline, t_line **lst_line, t_msh *msh)
 	word_last_pos = 0;
 	while (rline[i] != '\0')
 	{
-		while (rline[i] == ' ' || rline[i] == '\t')
+		while (rline[i] && rline[i] == ' ' || rline[i] == '\t')
 			i++;
 		w_q_is = where_next_any_quote_is(rline, i);
 		if (w_q_is == i)
@@ -92,6 +92,7 @@ t_line	*new_lst_with_quotes(char *rline, t_line **lst_line, t_msh *msh)
 	}
 	return (*lst_line);
 }
+*/
 
 //anadir al final t_line nuevo a ya existe t_line **
 void	add_new_line_node(char *line, int type_str, t_line **lst_line)

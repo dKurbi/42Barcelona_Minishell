@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/24 16:53:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:18:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
-# define ERR_QUOTE "other quote required\n"
+# define ERR_QUOTE "quote>\n"
 # define ERR_PIPE "content after pipe required\n"
 
 // type code
@@ -101,7 +101,8 @@ typedef struct s_msh
 	char		*read_line;
 	char		**ev;
 	int			pipe_active; //para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
-	t_line		*lst_line; //he puesto aqui para que no declaramos muchas estructuras en funciones
+	int			exit_status;
+	t_line		*lst_line;
 	t_pipe 		*lst_pipe;
 	t_exec		exec;
 	t_parser	parser;
@@ -134,13 +135,13 @@ y despues arrehglar las funciones new_lst_line y new_lst_pipe
 
 //	split pipe
 //	ft_split_pipe.c
-int			ft_split_leninword(char *s, int i);
-size_t		ft_split_words(char *s);
-char		**ft_split_pipe(char *s);
+int		ft_split_len_word(char *s, int i);
+int		ft_split_calc_words(char *s);
+char	**ft_split_pipe(char *s);
 
 //	error
 //	minishell_error.c
-void		print_error_exit(char *s_err);
+void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
 
 //	struct
@@ -164,7 +165,6 @@ char		*get_cmd(t_msh *msh);
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
-void		append_until_required(char *str, char required_char);
 
 //	pipe
 //	minishell_pipe.c
@@ -172,13 +172,13 @@ int			check_pipe_in_word(char *str);
 void		pipe_divide_word(char *str, t_line **lst_line);
 t_pipe		*new_lst_pipe(t_msh *msh);
 
-//	line_st
+//	t_line*
 //	minishell_line_st.c
-void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
+t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
+t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
+void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
-t_line		*new_lst_without_quotes(char *rline, t_line **lst_line, t_msh *msh);
-t_line		*new_lst_with_quotes(char *rline, t_line **lst_line, t_msh *msh);
 
 //	free
 //	minishell_free.c
@@ -193,7 +193,9 @@ void		free_lst_pipe(t_pipe **lst_pipe);
 int			check_ifempty_str(char *str);
 int			calculate_last_pos_word(char *str, int i);
 
-//	elimminar despues!!!
+
+//	ATENCIO!!!
+//	eliminar despues!!!
 void		PRINT_lst_line(t_msh *msh);
 void		PRINT_lst_pipe(t_msh *msh);
 void		PRINT_split_line(char **double_str);

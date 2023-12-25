@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/25 03:41:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:22:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	PRINT_split_line(char **double_str)
 		return ;
 	}
 	i = 0;
+	printf("\n\n");
 	while (double_str[i])
 		printf("%s\n", double_str[i++]);
 }
-
 
 void	PRINT_lst_pipe(t_msh *msh)
 {
@@ -66,7 +66,9 @@ void	PRINT_lst_pipe(t_msh *msh)
 	}
 }
 
-/* int	main(int ac, char **av, char **env)
+/* 
+(EL MODELO PARA HACER LUEGO)
+int	main(int ac, char **av, char **env)
 {
 	t_msh	*msh;
 
@@ -92,24 +94,25 @@ int main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	if (ac != 1)
-		print_error_exit(ERR_AC);
+		print_error_exit(NULL, ERR_AC);
 	(void)(av);
 	msh = mshnew(ev);
 	if (!msh)
-		print_error_exit(ERR_MALLOC);
+		print_error_exit(NULL, ERR_MALLOC);
 	while (1)
 	{
 		msh->read_line = readline("prueba comillas-> ");
 		if (!msh->read_line)
-			print_error_exit(ERR_MALLOC);
+			print_error_exit(&msh, ERR_MALLOC);
 		if (!ft_strncmp(msh->read_line, "exit", 4) && \
 			ft_strlen(msh->read_line) == 4)
-			break ;
-		
+			break ;//muy warning: esto tendremos que hacer en los executings (execve, etc...)		
 		printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
-		/*if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+
+
+		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			if (check_pipe_in_word(msh->read_line))
 				msh->lst_pipe = new_lst_pipe(msh);
@@ -118,15 +121,12 @@ int main(int ac, char **av, char **ev)
 		}
 		else
 			print_warning(ERR_QUOTE);
-		*/
-		char	**split_pipe = ft_split_pipe(msh->read_line);
-		PRINT_split_line(split_pipe);
 
-		
+		printf("\n");
 		PRINT_lst_line(msh);//para printear
 		PRINT_lst_pipe(msh);//para printear
 
-		printf("...check free0\n");
+		printf("\n...check free0\n");
 		free_str(&msh->read_line);
 		printf("...check free1\n");
 		free_lst_line(&msh->lst_line);

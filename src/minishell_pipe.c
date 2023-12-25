@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/22 14:23:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 20:09:22 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,42 +38,6 @@ int	check_pipe_in_word(char *str)
 	return (0);
 }
 
-/* dividr cuando pipe:
-pipe|ls|pipe = pipe | ls | pipe
-pipe| ls = pipe | ls
-ls |pipe = ls | pipe
-pipe|ls| = pipe ls */
-void	pipe_divide_word(char *str, t_line **lst_line)
-{
-	int		i;
-	int		bef_pipe;
-	char	*divided_str;
-
-	if (str == NULL)
-		return ;
-	i = 0;
-	bef_pipe = 0;
-	divided_str = NULL;
-	if (str[i] == PIPE)
-	{
-		add_new_line_node(STR_PIPE, decide_type(STR_PIPE), lst_line);
-		i++;
-	}
-	while (str[i])
-	{
-		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
-		bef_pipe = i;
-		while (str[bef_pipe] && str[bef_pipe] != PIPE)
-			bef_pipe++;
-		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
-		divided_str = ft_substr(str, i, bef_pipe);
-		if (!divided_str)
-			print_error_exit(ERR_MALLOC);
-		add_new_line_node(divided_str, decide_type(divided_str), lst_line);
-		i = bef_pipe + 1;
-	}
-}
-
 void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 {
 	t_pipe	*copy_lst;
@@ -82,7 +46,7 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 	{
 		*lst_pipe = (t_pipe *) malloc(sizeof(t_pipe));
 		if (!*lst_pipe)
-			print_error_exit(ERR_MALLOC);
+			print_error_exit(&msh, ERR_MALLOC);
 		(*lst_pipe)->lst_line = new_lst_line(msh, str);
 		(*lst_pipe)->next = NULL;
 		return ;
@@ -92,12 +56,12 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 		copy_lst = copy_lst->next;
 	copy_lst->next = (t_pipe *) malloc(sizeof(t_pipe));
 	if (!copy_lst->next)
-		print_error_exit(ERR_MALLOC);
+		print_error_exit(&msh, ERR_MALLOC);
 	copy_lst->next->lst_line = new_lst_line(msh, str);
 	copy_lst->next->next = NULL;
 }
 
-
+//crear nuevo t_pipe* CON argumentos (no esta creando solo NULLS o zeros (0))
 t_pipe	*new_lst_pipe(t_msh *msh)
 {
 	char	**split_pipe;

@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/24 17:32:05 by iassambe         ###   ########.fr        #
+#    Updated: 2023/12/25 18:47:38 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ DEPS = $(OBJS:.o=.d)
 all: $(NAME)
 
 $(NAME): $(COMPILED_LIBFT) $(COMPILED_READLINE) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(DEPFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(MINIFLAGS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(DEPFLAGS) $(LIBFTFLAGS) $(READLINEFLAGS) $(MINIFLAGS) -o $(NAME)
 	@$(ECHO) "Minishell $(COL_GREEN)Compiled!$(COL_RESET)"
 
 $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(LIB_MINISHELL) Makefile

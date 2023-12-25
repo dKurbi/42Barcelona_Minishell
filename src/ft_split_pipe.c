@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/25 04:45:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/25 18:43:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_split_leninword(char *s, int i)
+int	ft_split_len_word(char *s, int i)
 {
 	int	init;
 	int	minus_space;
@@ -39,10 +39,10 @@ int	ft_split_leninword(char *s, int i)
 	return (i - init - minus_space + 1);
 }
 
-size_t	ft_split_words(char *s)
+int	ft_split_calc_words(char *s)
 {
-	ssize_t	i;
-	size_t	numwords;
+	int	i;
+	int	numwords;
 
 	i = 0;
 	numwords = 0;
@@ -66,52 +66,50 @@ size_t	ft_split_words(char *s)
 	return (numwords);
 }
 
-static char	**ft_split_fail(char **splited)
+static char	**ft_split_free(char **split)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (splited[i])
+	while (split[i])
 	{
-		free(splited[i]);
+		free(split[i]);
 		i++;
 	}
-	free(splited);
+	free(split);
 	return (NULL);
 }
 
-char	**ft_split_loop(char *s, char **splited, size_t i, size_t j)
+char	**ft_split_create_loop(char *s, char **split, int i, int j)
 {
-	while (s[i])
+	while (s[i] && i < (int)ft_strlen(s))
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
-		/* printf("our &s - %s\n", &s[i]);
-		printf("our ft_split_leninword - %i\n", ft_split_leninword(s, i));
-		printf("our i - %li\n", i); */
-		splited[j] = ft_substr(s, i, ft_split_leninword(s, i));
-		if (splited[j] == NULL)
-			return (ft_split_fail(splited));
-		i = i + ft_split_leninword(s, i) + 1;
+		split[j] = ft_substr(s, i, ft_split_len_word(s, i));
+		if (split[j] == NULL)
+			return (ft_split_free(split));
+		i = i + ft_split_len_word(s, i) + 1;
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
-		i++;
+		if (s[i] == PIPE)
+			i++;
 		j++;
 	}
-	splited[j] = NULL;
-	return (splited);
+	split[j] = NULL;
+	return (split);
 }
 
 char	**ft_split_pipe(char *s)
 {
-	char	**splited;
-	size_t	words;
+	char	**split;
+	int		words;
 
 	if (!s)
 		return (NULL);
-	words = ft_split_words(s);
-	splited = (char **)malloc(sizeof(char *) * (words + 1));
-	if (splited == NULL)
+	words = ft_split_calc_words(s);
+	split = (char **)malloc(sizeof(char *) * (words + 1));
+	if (split == NULL)
 		return (NULL);
-	return (ft_split_loop(s, splited, 0, 0));
+	return (ft_split_create_loop(s, split, 0, 0));
 }
