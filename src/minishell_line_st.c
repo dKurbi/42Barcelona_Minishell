@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/27 05:35:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:34:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
 		lst_line = new_lst_without_quotes(msh, &lst_line, read_line);
-	/*else if (is_quotes == 1)
-		lst_line = new_lst_with_quotes(msh, &lst_line, read_line);*/
+	else if (is_quotes == 1)
+		lst_line = new_lst_with_quotes(msh, &lst_line, read_line);
 	printf("status newlstline2\n");
 	return (lst_line);
 }
@@ -48,88 +48,71 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	return (*lst_line);
 }
 
+int	new_lst_decide(t_line **lst_line, char *rline, int i, int last)//WARNING!!! CAMBIAR FUNCION
+{
+	char	*text;//rename to str
+
+	text = NULL;
+	if (rline[i] == QUOTE || rline[i] == DQUOTE)
+	{
+		text = ft_substr(rline, i, \
+					where_next_quote_is(rline, rline[i], i + 1) - i + 1);//WARN: change to: text = str_create_special_case(text)  for: ls<<EOF
+		if (!text)
+			return (-1);
+		add_new_line_node(text, TYPE_STR, lst_line);
+		i = where_next_quote_is(rline, rline[i], i + 1) + 1;
+	}
+	else
+	{
+		text = ft_substr(rline, i, last - i);
+		if (!text)
+			return (-1);
+		add_new_line_node(text, decide_type(text), lst_line);
+		i = last;
+	}
+	return (i);
+}
+
 //crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
 t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int		i;
-	char	*text;
-	int		word_last_pos;
+	int		last;
 
 	i = 0;
-	text = NULL;
-	word_last_pos = 0;
+	last = 0;
 	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
-/* 		while (rline[i] && rline[i] == ' ' || rline[i] == '\t')
-			i++;
-		w_q_is = where_next_any_quote_is(rline, i);
-		if (w_q_is == i)
-		{
-			which_act_quote = rline[w_q_is];
-			w_q_is_next = where_next_quote_is(rline, which_act_quote, w_q_is + 1);
-			text = ft_substr(rline, i, w_q_is_next - i + 1);
-			if (!text)
-				print_error_exit(ERR_MALLOC);
-			add_new_line_node(text, decide_type(text), lst_line);
-			i = w_q_is_next;
-		}
-		else
-		{
-			word_last_pos = calculate_last_pos_word(rline, i);
-			text = ft_substr(rline, i, word_last_pos - i + 1);
-			if (!text)
-				print_error_exit(ERR_MALLOC);
-			add_new_line_node(text, decide_type(text), lst_line);
-			i = word_last_pos;
-		}
-		i++; */
-		
 		while (rline[i] && (rline[i] == ' ' || rline[i] == '\t'))
 			i++;
-		word_last_pos = i;
-		while (rline[i] && (rline[i] != QUOTE && rline != DQUOTE))
-			word_last_pos++;
-		if (rline[i] == QUOTE || rline[i] == DQUOTE)
+		if (i >= (int)ft_strlen(rline))
+			break ;
+		last = i;
+		while (rline[last] && rline[last] != QUOTE \
+		&& rline[last] != DQUOTE && rline[last] != ' ' && rline[last] != '\t')
+			last++;
+		/*if (rline[i] == QUOTE || rline[i] == DQUOTE)
 		{
 			text = ft_substr(rline, i, \
-						where_next_quote_is(rline, rline[i], i + 1) - i + 1);//NO ESTA CORRECTO!!
+						where_next_quote_is(rline, rline[i], i + 1) - i + 1);
 			if (!text)
 				print_error_exit(&msh, ERR_MALLOC);
-			add_new_line_node(text, TYPE_STR, &lst_line);
+			add_new_line_node(text, TYPE_STR, lst_line);
 			i = where_next_quote_is(rline, rline[i], i + 1) + 1;
 		}
 		else
 		{
-			text = ft_substr(rline, i, word_last_pos - i + 1);//NO ESTA TESTEADO
+			text = ft_substr(rline, i, last - i);
 			if (!text)
 				print_error_exit(&msh, ERR_MALLOC);
-			add_new_line_node(text, decide_type(text), &lst_line);
-			i = word_last_pos + 1;
-		}
+			add_new_line_node(text, decide_type(text), lst_line);
+			i = last;
+		}*/
+		i = new_lst_decide(lst_line, rline, i, last);
+		if (i < 0)
+			print_error_exit(&msh, ERR_MALLOC);
 	}
 	return (*lst_line);
-}
-
-//anadir al final t_line nuevo a ya existe t_line **
-void	add_new_line_node(char *line, int type_str, t_line **lst_line)
-{
-	t_line	*new_node;
-	t_line	*last_node;
-	t_line 	*lst;
-
-	lst = *lst_line;
-	if (lst_line)
-	{
-		last_node = (t_line *) ft_lst_line_last((void *) lst);
-		new_node = (t_line *) ft_calloc(1, sizeof(t_line));
-		new_node->str = line;
-		new_node->type = type_str;
-		new_node->next = NULL;
-		if (last_node)
-			last_node->next = new_node;
-		else
-			*lst_line = new_node;
-	}
 }
 
 t_line	*ft_lst_line_last(t_line *lst)

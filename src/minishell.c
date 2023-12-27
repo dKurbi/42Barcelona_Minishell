@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/26 21:20:20 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/27 20:07:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	PRINT_lst_line(t_msh *msh)
 	while (copy_lst)
 	{
 		printf("lst_line->read_line = %s\n", copy_lst->str);
+		for (int i = 0; copy_lst->str[i]; i++)
+			printf("%d and ", copy_lst->str[i]);
+		printf("\n");
 		printf("lst_line->type = %d\n\n", copy_lst->type + '0') ;
 		copy_lst = copy_lst->next;
 	}
