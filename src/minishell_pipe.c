@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/25 20:09:22 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/26 22:53:46 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,20 @@ int	check_pipe_in_word(char *str)
 			return (1);
 	}
 	i = 0;
-	while (str[i])
+	while (str[i] && i < (int)ft_strlen(str))
 	{
 		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
-		while (str[i] != QUOTE && str[i] != DQUOTE)
+		while (str[i] && str[i] != PIPE)
 		{
+			if (str[i] == QUOTE || str[i] == DQUOTE)
+				i = where_next_quote_is(str, str[i], i + 1);
+			i++;
 			if (str[i] == PIPE)
 				return (1);
-			i++;
 		}
-		i = where_next_quote_is(str, str[i], i + 1) + 1;
+		if (str[i] == PIPE)
+			return (1);
 	}
 	return (0);
 }

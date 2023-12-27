@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/25 20:22:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/26 21:20:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,21 @@ int main(int ac, char **av, char **ev)
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
 
+		printf("status1\n\n");
 
 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
+			printf("status2\n\n");
 			if (check_pipe_in_word(msh->read_line))
+			{
+				printf("in lstpipe creation!!!\n");
 				msh->lst_pipe = new_lst_pipe(msh);
+			}
 			else
+			{
+				printf("in lstline creation!!!\n");
 				msh->lst_line = new_lst_line(msh, msh->read_line);
+			}
 		}
 		else
 			print_warning(ERR_QUOTE);
