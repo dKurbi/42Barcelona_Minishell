@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/27 20:34:15 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 05:29:47 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,6 @@ t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 		while (rline[last] && rline[last] != QUOTE \
 		&& rline[last] != DQUOTE && rline[last] != ' ' && rline[last] != '\t')
 			last++;
-		/*if (rline[i] == QUOTE || rline[i] == DQUOTE)
-		{
-			text = ft_substr(rline, i, \
-						where_next_quote_is(rline, rline[i], i + 1) - i + 1);
-			if (!text)
-				print_error_exit(&msh, ERR_MALLOC);
-			add_new_line_node(text, TYPE_STR, lst_line);
-			i = where_next_quote_is(rline, rline[i], i + 1) + 1;
-		}
-		else
-		{
-			text = ft_substr(rline, i, last - i);
-			if (!text)
-				print_error_exit(&msh, ERR_MALLOC);
-			add_new_line_node(text, decide_type(text), lst_line);
-			i = last;
-		}*/
 		i = new_lst_decide(lst_line, rline, i, last);
 		if (i < 0)
 			print_error_exit(&msh, ERR_MALLOC);
