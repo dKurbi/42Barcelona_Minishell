@@ -24,4 +24,6 @@ muy|"bien"|trabajo
 
 ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls
 
+         | wc
+
 more commands comming soon...

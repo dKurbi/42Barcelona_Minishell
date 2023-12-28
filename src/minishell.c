@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/28 18:16:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:30:34 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,15 @@ void	PRINT_split_line(char **double_str)
 		return ;
 	}
 	i = 0;
-	printf("\n\n");
+	printf("\n\nPrint split_line:\n");
 	while (double_str[i])
-		printf("%s\n", double_str[i++]);
+	{
+		printf("\n%s\n", double_str[i]);
+		for (int j = 0; double_str[i][j]; j++)
+			printf("%d and", double_str[i][j]);
+		i++;
+	}
+	printf("\n\n");
 }
 
 void	PRINT_lst_pipe(t_pipe *lst_pipe)
@@ -116,7 +122,7 @@ int main(int ac, char **av, char **ev)
 			add_history(msh->read_line);
 
 
-		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+		/*if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			printf("status2\n\n");
 			if (check_pipe_in_word(msh->read_line))
@@ -132,8 +138,11 @@ int main(int ac, char **av, char **ev)
 		}
 		else
 			print_warning(ERR_QUOTE);
-
+		*/
+	
 		printf("\n");
+		char	**split = ft_split_pipe(msh->read_line);
+		PRINT_split_line(split);
 		PRINT_lst_line(msh->lst_line);//para printear
 		PRINT_lst_pipe(msh->lst_pipe);//para printear
 

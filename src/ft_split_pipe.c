@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/25 18:43:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 20:40:33 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_split_len_word(char *s, int i)
 		i++;
 		minus_space++;
 	}
-	while (s[i] && s[i] != PIPE)
+	while (s[i] && s[i] != PIPE && i < (int)ft_strlen(s))//INCORECTO AQUI
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
@@ -86,14 +86,22 @@ char	**ft_split_create_loop(char *s, char **split, int i, int j)
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
-		split[j] = ft_substr(s, i, ft_split_len_word(s, i));
-		if (split[j] == NULL)
-			return (ft_split_free(split));
-		i = i + ft_split_len_word(s, i) + 1;
-		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
-			i++;
 		if (s[i] == PIPE)
+		{
+			split[j] = ft_strdup("");
 			i++;
+		}
+		else
+		{
+			split[j] = ft_substr(s, i, ft_split_len_word(s, i));
+			if (split[j] == NULL)
+				return (ft_split_free(split));
+			i = i + ft_split_len_word(s, i) + 1;
+			while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+				i++;
+			if (s[i] == PIPE)
+				i++;
+		}
 		j++;
 	}
 	split[j] = NULL;
@@ -108,6 +116,7 @@ char	**ft_split_pipe(char *s)
 	if (!s)
 		return (NULL);
 	words = ft_split_calc_words(s);
+	printf("words - %d\n", words);
 	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (split == NULL)
 		return (NULL);
