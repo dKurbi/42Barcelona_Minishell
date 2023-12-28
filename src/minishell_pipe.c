@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/26 22:53:46 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:17:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 {
 	t_pipe	*copy_lst;
 
-	if (!*lst_pipe)
+	if (*lst_pipe == NULL)
 	{
 		*lst_pipe = (t_pipe *) malloc(sizeof(t_pipe));
 		if (!*lst_pipe)
@@ -75,12 +75,12 @@ t_pipe	*new_lst_pipe(t_msh *msh)
 	split_pipe = ft_split_pipe(msh->read_line);
 	if (!split_pipe)
 		return (NULL);
-	PRINT_split_line(split_pipe);
-	i = -1;
+	i = 0;
 	lst_pipe = NULL;
-	while (split_pipe[++i])
+	while (split_pipe[i])
 	{
 		addback_lst_pipe(msh, &lst_pipe, split_pipe[i]);
+		i++;
 	}
 	free_double_str(&split_pipe);
 	return (lst_pipe);

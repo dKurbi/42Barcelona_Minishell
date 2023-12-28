@@ -6,23 +6,23 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/27 20:07:21 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:16:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //esto tendremos que eliminar despues, esto es solo para comprobar si esta bien estructura
-void	PRINT_lst_line(t_msh *msh)
+void	PRINT_lst_line(t_line *lst_line)
 {
 	t_line	*copy_lst;
 
-	if (!msh->lst_line)
+	if (!lst_line)
 	{
 		printf("NULL: lst_line\n");
 		return ;
 	}
-	copy_lst = msh->lst_line;
+	copy_lst = lst_line;
 	while (copy_lst)
 	{
 		printf("lst_line->read_line = %s\n", copy_lst->str);
@@ -51,20 +51,21 @@ void	PRINT_split_line(char **double_str)
 		printf("%s\n", double_str[i++]);
 }
 
-void	PRINT_lst_pipe(t_msh *msh)
+void	PRINT_lst_pipe(t_pipe *lst_pipe)
 {
 	t_pipe	*copy_lst;
 
-	if (!msh->lst_pipe)
+	if (!lst_pipe)
 	{
 		printf("NULL: lst_pipe\n");
 		return ;
 	}
-	copy_lst = msh->lst_pipe;
+	copy_lst = lst_pipe;
 	while (copy_lst)
 	{
 		printf("lst pipe: ");
-		PRINT_lst_line(msh);
+		PRINT_lst_line(copy_lst->lst_line);
+		printf("\nNEXT!!!\n");
 		copy_lst = copy_lst->next;
 	}
 }
@@ -114,7 +115,6 @@ int main(int ac, char **av, char **ev)
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
 
-		printf("status1\n\n");
 
 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
@@ -134,17 +134,17 @@ int main(int ac, char **av, char **ev)
 			print_warning(ERR_QUOTE);
 
 		printf("\n");
-		PRINT_lst_line(msh);//para printear
-		PRINT_lst_pipe(msh);//para printear
+		PRINT_lst_line(msh->lst_line);//para printear
+		PRINT_lst_pipe(msh->lst_pipe);//para printear
 
-		printf("\n...check free0\n");
+	//	printf("\n...check free0\n");
 		free_str(&msh->read_line);
-		printf("...check free1\n");
+		//printf("...check free1\n");
 		free_lst_line(&msh->lst_line);
-		printf("...check free2\n");
+		//printf("...check free2\n");
 		free_lst_pipe(&msh->lst_pipe);
-		printf("...check free3\n");
-		printf("\n");
+		//printf("...check free3\n");
+		//printf("\n");
 	}
 	free_msh(&msh);
 	return (0);

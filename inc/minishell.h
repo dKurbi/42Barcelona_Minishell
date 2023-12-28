@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/28 05:01:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/28 17:05:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
 
-
 typedef struct s_exec
 {
 	int		pip[2];
@@ -103,41 +102,16 @@ typedef struct s_msh
 	int			pipe_active; //para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
 	int			exit_status;
 	t_line		*lst_line;
-	t_pipe 		*lst_pipe;
+	t_pipe		*lst_pipe;
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
 
-/*
-AYUDA!:
-
-Guardamos todas las palabras de char ** (en split de pipe) a lst_pipe, para que:
-
-cada vez creamos nuevos lst_line con sus argumentos.
-
-Ejemplo:
-//nota importante: quitar espacios en los siguentes argumentos (como aqui [" ls"])
-char** : echo "path|path" comilla 'ls|ls' | ls  ==> ["echo "path|path" comilla 'ls|ls' "],[" ls"]
-
-despues: t_lst_pipe:
-
-t_line: echo->"path|path"->comilla->'ls|ls' 
-t_pipe=t_pipe->next
-
-t_line = ls
-t_pipe->next = NULL;
-
-y despues arrehglar las funciones new_lst_line y new_lst_pipe
-
-*/
-
-
-
 //	split pipe
 //	ft_split_pipe.c
-int		ft_split_len_word(char *s, int i);
-int		ft_split_calc_words(char *s);
-char	**ft_split_pipe(char *s);
+int			ft_split_len_word(char *s, int i);
+int			ft_split_calc_words(char *s);
+char		**ft_split_pipe(char *s);
 
 //	error
 //	minishell_error.c
@@ -170,6 +144,7 @@ int			where_next_any_quote_is(char *str, int i);
 //	minishell_pipe.c
 int			check_pipe_in_word(char *str);
 t_pipe		*new_lst_pipe(t_msh *msh);
+void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
 
 //	t_line*
 //	minishell_line_st.c
@@ -195,8 +170,10 @@ int			calculate_last_pos_word(char *str, int i);
 
 //	ATENCIO!!!
 //	eliminar despues!!!
-void		PRINT_lst_line(t_msh *msh);
-void		PRINT_lst_pipe(t_msh *msh);
+void		PRINT_lst_line(t_line *lst_line);
+void		PRINT_lst_pipe(t_pipe *lst_pipe);
 void		PRINT_split_line(char **double_str);
+
+
 
 #endif
