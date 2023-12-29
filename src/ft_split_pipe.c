@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/28 20:40:33 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/29 03:51:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_split_len_word(char *s, int i)
 			i++;
 		if (s[i] == QUOTE || s[i] == DQUOTE)
 			i = where_next_quote_is(s, s[i], i + 1) + 1;
-		else if (s[i] != PIPE)
+		else if (s[i] != PIPE && s[i] != '\0')
 			i++;
 	}
 	i--;

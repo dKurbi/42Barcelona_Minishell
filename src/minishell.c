@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/28 20:30:34 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/29 03:54:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,31 +122,22 @@ int main(int ac, char **av, char **ev)
 			add_history(msh->read_line);
 
 
-		/*if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
-			printf("status2\n\n");
 			if (check_pipe_in_word(msh->read_line))
-			{
-				printf("in lstpipe creation!!!\n");
 				msh->lst_pipe = new_lst_pipe(msh);
-			}
 			else
-			{
-				printf("in lstline creation!!!\n");
 				msh->lst_line = new_lst_line(msh, msh->read_line);
-			}
 		}
 		else
 			print_warning(ERR_QUOTE);
-		*/
+		
 	
 		printf("\n");
-		char	**split = ft_split_pipe(msh->read_line);
-		PRINT_split_line(split);
 		PRINT_lst_line(msh->lst_line);//para printear
 		PRINT_lst_pipe(msh->lst_pipe);//para printear
 
-	//	printf("\n...check free0\n");
+		//printf("\n...check free0\n");
 		free_str(&msh->read_line);
 		//printf("...check free1\n");
 		free_lst_line(&msh->lst_line);
