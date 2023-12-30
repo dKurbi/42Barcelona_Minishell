@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 16:35:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:00:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int main(int ac, char **av, char **ev)
 		
 		PRINT_lst_line(msh->lst_line);//para printear
 		PRINT_lst_pipe(msh->lst_pipe);//para printear
-		//free_str(&msh->read_line);
+		free_str(&msh->read_line);
 		free_lst_line(&msh->lst_line);
 		free_lst_pipe(&msh->lst_pipe);
 	}

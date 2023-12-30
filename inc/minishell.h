@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/30 18:16:02 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/30 19:52:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@
 # define TYPE_PIPE 4// |
 
 
-//output redirection - >
+//output redirection: >
 # define TYPE_OPUT_RED 5
 
-//input redirection - <
+//input redirection: <
 # define TYPE_IPUT_RED 6
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
 

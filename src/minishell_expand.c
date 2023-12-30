@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 18:27:46 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:11:52 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ char 	*clean_var(char *str)
 	i = 0;
 	len = ft_strlen(str);
 	rtn = NULL;
-	while (str[i] && str[i] != ' ' && str[i] != '\"')
+	while (str[i] && str[i] != ' ' && str[i] != DQUOTE)
 	{
 		i++;
-		if(str[i] == '$')
-			break;
+		if (str[i] == '$')
+			break ;
 	}
-	if (len == i) 
+	if (len == i)
 		return (str);
 	rtn = ft_substr(str, 0 , i);
 	return (rtn);
@@ -42,22 +42,25 @@ char	*expand(char *var, t_msh *msh)
 	rtn = ft_strdup("\0");
 	if (var[0] == '$' && var[1] != '?')
 	{
-		len  = ft_strlen(var);
+		len = ft_strlen(var);
 		var = ft_substr(var, 1, len - 1);
-		var = ft_strjoin(var, "=");
-		i = 0;
-		while (msh->ev[i])
+		var = get_ft_strjoin_modif(var, "=");
+		i = -1;
+		while (msh->ev[++i])
 		{
 			if (ft_strncmp(msh->ev[i], var, len) == 0)
 			{
+				free(rtn);
 				rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
 				return (rtn);
 			}
-			i++;
 		}
 	}
 	else if (var[0] == '$' && var[1] == '?')
-		rtn = ft_itoa (msh->exit_status);
+	{
+		free(rtn);
+		rtn = ft_itoa(msh->exit_status);
+	}
 	return (rtn);
 }
 
@@ -100,22 +103,8 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 	rtn = NULL;
 	while (str[i])
 	{
-/* 		dp = where_is_dollar(&str[i]);
-		if (dp != -1)
-		{
-			rtn = get_ft_strjoin_modif(rtn, ft_substr(&str[i], i, dp));
-			aux[1] = expand(&str[dp], msh);
-			rtn = get_ft_strjoin_modif(aux[0], aux[1]);
-			free_str(&aux[1]);
-		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\"')
-			i++;
-		} 
-		else 
-		{
-			aux[0] = ft_strlen(&str[i])
-		} */
 		dp = where_is_dollar(str, i);
-		if (dp != -1 )
+		if (dp != -1)
 		{
 			aux[0] = ft_substr(str, i, dp - i);
 			aux[1] = expand(&str[dp], msh);
@@ -130,6 +119,9 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 			i = ft_strlen(str);
 		}
 		rtn = get_ft_strjoin_modif(rtn, add_join);
+		free_str(&add_join);
+		free_str(&aux[1]);
 	}
+	free_str(&str);
 	return (rtn);
 }
