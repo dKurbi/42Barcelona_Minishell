@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/27 20:24:13 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 15:24:59 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 {
 	t_line	*new_node;
 	t_line	*last_node;
-	t_line 	*lst;
+	t_line	*lst;
 
 	lst = *lst_line;
 	if (lst_line)

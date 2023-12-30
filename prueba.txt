@@ -1,0 +1,18 @@
+"$HOME"
+
+"$HOME$USER"
+
+"$HOME    $USER"
+
+"$HOME  $USER      "
+
+"$HOME    $USER    hola"
+
+
+"$HOME    $USERhola"
+
+"$HOME poco $USER"
+
+"$      $HOME$USER"
+
+"$$HOME"

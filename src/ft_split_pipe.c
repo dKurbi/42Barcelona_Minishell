@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 03:30:21 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 15:26:17 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_split_len_word(char *s, int i)
 		i++;
 		minus_space++;
 	}
-	while (s[i] && s[i] != PIPE && i < (int)ft_strlen(s))//INCORECTO AQUI
+	while (s[i] && s[i] != PIPE && i < (int)ft_strlen(s)) //INCORECTO AQUI
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;

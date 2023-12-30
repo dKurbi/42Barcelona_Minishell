@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 03:34:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 16:35:45 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	PRINT_lst_line(t_line *lst_line)
 	{
 		printf("lst_line->read_line = %s\n", copy_lst->str);
 		for (int i = 0; copy_lst->str[i]; i++)
-			printf("%d and ", copy_lst->str[i]);
+			printf("%c and ", copy_lst->str[i]);
 		printf("\n");
-		printf("lst_line->type = %d\n\n", copy_lst->type + '0') ;
+		printf("lst_line->type = %d\n", copy_lst->type + '0');
+		printf("lst_line->type = %d\n\n", copy_lst->type);
 		copy_lst = copy_lst->next;
 	}
 }
@@ -102,6 +103,7 @@ int	main(int ac, char **av, char **env)
 int main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
+//	char  	*exp;
 
 	if (ac != 1)
 		print_error_exit(NULL, ERR_AC);
@@ -112,17 +114,19 @@ int main(int ac, char **av, char **ev)
 	while (1)
 	{
 		msh->read_line = readline("Minishell-> ");
+		//exp = expand (msh->read_line, msh);
+		//printf("%s\n", exp);
 		if (!msh->read_line)
 			print_error_exit(&msh, ERR_MALLOC);
 		if (!ft_strncmp(msh->read_line, "exit", 4) && \
 			ft_strlen(msh->read_line) == 4)
 			break ;//muy warning: esto tendremos que hacer en los executings (execve, etc...)		
-		printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
+		//printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
 
 		//comentado pero hay que descomentar despues (eliminar /* */)
-/* 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+ 		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			if (check_pipe_in_word(msh->read_line))
 				msh->lst_pipe = new_lst_pipe(msh);
@@ -130,15 +134,15 @@ int main(int ac, char **av, char **ev)
 				msh->lst_line = new_lst_line(msh, msh->read_line);
 		}
 		else
-			print_warning(ERR_QUOTE); */
-		
-		addstr_to_lst_line("cat<<EOF", &msh->lst_line);//NECESITA MAS TEST, con este ejemplo funciona bien
+			print_warning(ERR_QUOTE); 
+
+		//addstr_to_lst_line(msh->read_line, &msh->lst_line);//NECESITA MAS TEST, con este ejemplo funciona bien
 	
 		printf("\n");
+		
 		PRINT_lst_line(msh->lst_line);//para printear
 		PRINT_lst_pipe(msh->lst_pipe);//para printear
-
-		free_str(&msh->read_line);
+		//free_str(&msh->read_line);
 		free_lst_line(&msh->lst_line);
 		free_lst_pipe(&msh->lst_pipe);
 	}

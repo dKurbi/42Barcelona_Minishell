@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/30 03:24:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 18:16:02 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,13 @@
 # define TYPE_HDC 2// <<
 # define TYPE_APND 3// >>
 # define TYPE_PIPE 4// |
-# define TYPE_OPUT_RED 5// >
-# define TYPE_IPUT_RED 6// >
+
+
+//output redirection - >
+# define TYPE_OPUT_RED 5
+
+//input redirection - <
+# define TYPE_IPUT_RED 6
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
 
 // 	varios code
@@ -51,8 +56,14 @@
 # define DQUOTE 34
 # define PIPE 124
 # define CHAR_SPACE 32
-# define OPUT_RED 62// > signo
-# define IPUT_RED 60// < signo
+
+//output redirection - >
+# define OPUT_RED 62
+
+//input redirection - <
+# define IPUT_RED 60
+
+
 
 //	strings
 # define STR_PIPE "|"
@@ -153,6 +164,7 @@ t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
+int			new_lst_with_quotes_decide(t_msh *msh, t_line **lst_line, char *rline, int i, int last);
 
 //	operators
 //	minishell_operators.c
@@ -173,6 +185,11 @@ void		free_lst_pipe(t_pipe **lst_pipe);
 int			check_ifempty_str(char *str);
 int			calculate_last_pos_word(char *str, int i);
 
+//	Expand
+char		*expand(char *var, t_msh *msh);
+char		*case_dollar(char *str, t_msh *msh);
+char		*clean_var(char *str);
+char		*case_dollar_with_quotes(char *str, t_msh *msh);
 
 //	ATENCIO!!!
 //	eliminar despues!!!

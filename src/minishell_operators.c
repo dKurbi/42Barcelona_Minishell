@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_operators.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/30 03:22:13 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 16:17:10 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //check <<, >, etc.
 int	check_operators(char *str)
 {
-	int i;
+	int	i;
 
 	if (!str)
 		return (0);
@@ -44,7 +44,7 @@ void	decide_operators(char *str, int i, t_line **lst_line)
 	else if (str[i] && (str[i] == OPUT_RED))
 		add_new_line_node(ft_strdup(">"), TYPE_OPUT_RED, lst_line);
 	else if (str[i] && (str[i] == IPUT_RED))
-		add_new_line_node(ft_strdup(">"), TYPE_IPUT_RED, lst_line);
+		add_new_line_node(ft_strdup("<"), TYPE_IPUT_RED, lst_line);
 }
 
 //para pasar de <<EOF a EOF (por ejemplo)
@@ -61,7 +61,7 @@ void	addstr_to_lst_line(char *str, t_line **lst_line)
 	int		last;
 	char	*sub_str;
 
-	if (check_operators(str) == 0)	
+	if (check_operators(str) == 0)
 	{
 		add_new_line_node(str, decide_type(str), lst_line);
 		return ;
