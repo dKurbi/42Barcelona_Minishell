@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/28 17:05:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:24:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,12 @@ t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
+
+//	operators
+//	minishell_operators.c
+int			check_operators(char *str);
+void		addstr_to_lst_line(char *str, t_line **lst_line);
+
 
 //	free
 //	minishell_free.c

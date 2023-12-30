@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/29 03:51:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:30:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ char	**ft_split_pipe(char *s)
 	if (!s)
 		return (NULL);
 	words = ft_split_calc_words(s);
-	printf("words - %d\n", words);
 	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (split == NULL)
 		return (NULL);

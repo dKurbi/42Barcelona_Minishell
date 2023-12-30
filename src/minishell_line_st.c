@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/28 18:17:35 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:32:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	if (!split_line)
 		print_error_exit(&msh, ERR_MALLOC);
 	i = -1;
-	while (split_line[++i])//ft strdup porque esta mal free_double_str (tambe hace free en t_line*)
+	while (split_line[++i])
 		add_new_line_node(ft_strdup(split_line[i]), \
 						decide_type(split_line[i]), lst_line);
 	free_double_str(&split_line);
 	return (*lst_line);
 }
 
-int	new_lst_decide(t_line **lst_line, char *rline, int i, int last)//WARNING!!! CAMBIAR FUNCION
+int	new_lst_decide(t_line **lst_line, char *rline, int i, int last)
 {
 	char	*text;//rename to str
 
@@ -54,7 +54,7 @@ int	new_lst_decide(t_line **lst_line, char *rline, int i, int last)//WARNING!!! 
 	if (rline[i] == QUOTE || rline[i] == DQUOTE)
 	{
 		text = ft_substr(rline, i, \
-					where_next_quote_is(rline, rline[i], i + 1) - i + 1);//WARN: change to: text = str_create_special_case(text)  for: ls<<EOF
+					where_next_quote_is(rline, rline[i], i + 1) - i + 1);
 		if (!text)
 			return (-1);
 		add_new_line_node(text, TYPE_STR, lst_line);
