@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 17:40:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:17:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,59 +23,65 @@ int	check_pipe_in_word(char *str)
 			return (1);
 	}
 	i = 0;
-	while (str[i])
+	while (str[i] && i < (int)ft_strlen(str))
 	{
 		while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 			i++;
-		while (str[i] != QUOTE && str[i] != DQUOTE)
+		while (str[i] && str[i] != PIPE)
 		{
+			if (str[i] == QUOTE || str[i] == DQUOTE)
+				i = where_next_quote_is(str, str[i], i + 1);
+			i++;
 			if (str[i] == PIPE)
 				return (1);
-			i++;	
 		}
-		i = where_next_quote_is(str, str[i], i + 1) + 1;
+		if (str[i] == PIPE)
+			return (1);
 	}
 	return (0);
 }
 
-/* dividr cuando pipe:
-pipe|ls|pipe = pipe | ls | pipe
-pipe| ls = pipe | ls
-ls |pipe = ls | pipe
-pipe|ls| = pipe ls */
-void	pipe_divide_word(char *str, t_line **lst_line)
+void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 {
-	int		i;
-	int		bef_pipe;
-	char	*divided_str;
+	t_pipe	*copy_lst;
 
-	if (str == NULL)
+	if (*lst_pipe == NULL)
+	{
+		*lst_pipe = (t_pipe *) malloc(sizeof(t_pipe));
+		if (!*lst_pipe)
+			print_error_exit(&msh, ERR_MALLOC);
+		(*lst_pipe)->lst_line = new_lst_line(msh, str);
+		(*lst_pipe)->next = NULL;
 		return ;
-	i = 0;
-	bef_pipe = 0;
-	divided_str = NULL;
-	if (str[i] == PIPE)
-	{
-		add_new_line_node(STR_PIPE, decide_type(STR_PIPE), lst_line);
-		i++;
 	}
-	while (str[i])
-	{
-		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
-		bef_pipe = i;
-		while (str[bef_pipe] && str[bef_pipe] != PIPE)
-			bef_pipe++;
-		printf("i in pipe_divide_word - %d, befPipe - %d\n", i, bef_pipe);
-		divided_str = ft_substr(str, i, bef_pipe);
-		if (!divided_str)
-			exit_error(ERR_MALLOC);
-		add_new_line_node(divided_str, decide_type(divided_str), lst_line);
-		i = bef_pipe + 1;
-	}
+	copy_lst = *lst_pipe;
+	while (copy_lst->next != NULL)
+		copy_lst = copy_lst->next;
+	copy_lst->next = (t_pipe *) malloc(sizeof(t_pipe));
+	if (!copy_lst->next)
+		print_error_exit(&msh, ERR_MALLOC);
+	copy_lst->next->lst_line = new_lst_line(msh, str);
+	copy_lst->next->next = NULL;
 }
 
-t_pipe	*new_pipe_list(t_msh *msh)
+//crear nuevo t_pipe* CON argumentos (no esta creando solo NULLS o zeros (0))
+t_pipe	*new_lst_pipe(t_msh *msh)
 {
-	(void)(msh);
-	return (NULL);
+	char	**split_pipe;
+	int		i;
+	t_pipe	*lst_pipe;
+
+	msh->pipe_active = 1;
+	split_pipe = ft_split_pipe(msh->read_line);
+	if (!split_pipe)
+		return (NULL);
+	i = 0;
+	lst_pipe = NULL;
+	while (split_pipe[i])
+	{
+		addback_lst_pipe(msh, &lst_pipe, split_pipe[i]);
+		i++;
+	}
+	free_double_str(&split_pipe);
+	return (lst_pipe);
 }

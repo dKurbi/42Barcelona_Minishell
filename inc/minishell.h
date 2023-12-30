@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 18:12:38 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:24:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include <term.h>
 # include <curses.h>
 # include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "readline/readline.h"
+# include "readline/history.h"
 # include "libft/libft.h"
 
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
-# define ERR_QUOTE "other quote required\n"
+# define ERR_QUOTE "quote>\n"
 # define ERR_PIPE "content after pipe required\n"
 
 // type code
@@ -58,7 +58,6 @@
 # define STR_PIPE "|"
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
-
 
 typedef struct s_exec
 {
@@ -93,7 +92,7 @@ typedef struct s_line
 typedef struct s_pipe
 {
 	t_line			*lst_line;
-	struct s_line	*next;
+	struct s_pipe	*next;
 }				t_pipe;
 
 typedef struct s_msh
@@ -101,84 +100,86 @@ typedef struct s_msh
 	char		*read_line;
 	char		**ev;
 	int			pipe_active; //para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
-	t_line		*lst_line; //he puesto aqui para que no declaramos muchas estructuras en funciones
-	t_pipe 		*lst_pipe;
+	int			exit_status;
+	t_line		*lst_line;
+	t_pipe		*lst_pipe;
 	t_exec		exec;
 	t_parser	parser;
 }		t_msh;
 
-
-/*
-AYUDA!:
-
-Guardamos todas las palabras de char ** (en split de pipe) a lst_pipe, para que:
-
-cada vez creamos nuevos lst_line con sus argumentos.
-
-Ejemplo:
-//nota importante: quitar espacios en los siguentes argumentos (como aqui [" ls"])
-char** : echo "path|path" comilla 'ls|ls' | ls  ==> ["echo "path|path" comilla 'ls|ls' "],[" ls"]
-
-despues: t_lst_pipe:
-
-t_line: echo->"path|path"->comilla->'ls|ls' 
-t_pipe=t_pipe->next
-
-t_line = ls
-t_pipe->next = NULL;
-
-y despues arrehglar las funciones new_lst_line y new_lst_pipe
-
-*/
-
-
-
-//split pipe
-int			ft_split_leninword(char *s, int i);
+//	split pipe
+//	ft_split_pipe.c
+int			ft_split_len_word(char *s, int i);
+int			ft_split_calc_words(char *s);
 char		**ft_split_pipe(char *s);
 
 //	error
-void		exit_error(char *s_err);
+//	minishell_error.c
+void		print_error_exit(t_msh **msh, char *s_err);
+void		print_warning(char *s_warn);
 
 //	struct
+//	minishell_struct.c
 t_msh		*mshnew(char **env);
 t_parser	parsernew(void);
 t_exec		execnew(void);
 
 //  parser
+//	minishell_parser.c
 void		parser_line(t_msh *msh);
 int			decide_type(char *str);
 
 //  getter
+//	minishell_getter.c
 char		*get_raw_cmd(t_msh *msh);
 char		*get_cmd(t_msh *msh);
 
-// quotes
+//	quotes
+//	minishell_quotes.c
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
-void		append_until_required(char *str, char required_char);
 
-//pipe
+//	pipe
+//	minishell_pipe.c
 int			check_pipe_in_word(char *str);
-void		pipe_divide_word(char *str, t_line **lst_line);
-t_pipe		*new_pipe_list(t_msh *msh);
+t_pipe		*new_lst_pipe(t_msh *msh);
+void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
 
-// line_st
+//	t_line*
+//	minishell_line_st.c
+t_line		*new_lst_line(t_msh *msh, char *read_line);
+t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
+t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*new_line_list(t_msh *msh);
 t_line		*ft_lst_line_last(t_line *lst);
-t_line		*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh);
-t_line		*new_list_with_quotes(char *str, t_msh *msh);
 
-// free
+//	operators
+//	minishell_operators.c
+int			check_operators(char *str);
+void		addstr_to_lst_line(char *str, t_line **lst_line);
+
+
+//	free
+//	minishell_free.c
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 void		free_lst_line(t_line **lst);
 void		free_msh(t_msh **msh);
+void		free_lst_pipe(t_pipe **lst_pipe);
+
+//	utils
+//	minishell_utils.c
+int			check_ifempty_str(char *str);
+int			calculate_last_pos_word(char *str, int i);
 
 
-//elimminar despues
-void		PRINT_lst_line(t_msh *msh);
+//	ATENCIO!!!
+//	eliminar despues!!!
+void		PRINT_lst_line(t_line *lst_line);
+void		PRINT_lst_pipe(t_pipe *lst_pipe);
+void		PRINT_split_line(char **double_str);
+
+
 
 #endif

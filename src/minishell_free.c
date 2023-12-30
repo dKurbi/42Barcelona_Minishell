@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 18:01:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:31:43 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,23 @@ void	free_lst_line(t_line **lst_line)
 		*lst_line = copy_lst_line;
 	}
 	*lst_line = NULL;
+}
+
+//free t_pipe*
+void	free_lst_pipe(t_pipe **lst_pipe)
+{
+	t_pipe	*copy_lst;
+
+	if (!*lst_pipe)
+		return ;
+	copy_lst = *lst_pipe;
+	while (*lst_pipe != NULL)
+	{
+		copy_lst = (*lst_pipe)->next;
+		if ((*lst_pipe) != NULL)
+			free_lst_line(&(*lst_pipe)->lst_line);
+		free(*lst_pipe);
+		*lst_pipe = copy_lst;
+	}
+	*lst_pipe = NULL;
 }

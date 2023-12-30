@@ -3,144 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/19 16:55:49 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/30 03:32:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_line	*new_line_list(t_msh *msh)
+//crear t_line con todo el contenido despues de separar de read_line
+t_line	*new_lst_line(t_msh *msh, char *read_line)
 {
-	int		i;
 	char	is_quotes;
 	t_line	*lst_line;
-	char 	*str;
 
-	if (!msh || !msh->read_line)
+	if (!msh || !msh->read_line || !read_line)
 		return (NULL);
-	i = 0;
-	str = msh->read_line;
 	lst_line = NULL;
-	is_quotes = is_quotes_pair(str, 0, -1);
+	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
-		lst_line = new_list_without_quotes(str, &lst_line, msh);
+		lst_line = new_lst_without_quotes(msh, &lst_line, read_line);
 	else if (is_quotes == 1)
-		lst_line = new_list_with_quotes(str, msh);
+		lst_line = new_lst_with_quotes(msh, &lst_line, read_line);
 	return (lst_line);
 }
 
-//aqui tendremos pipe tambien
-t_line	*new_list_without_quotes(char *str, t_line **lst_line, t_msh *msh)
+//crear t_line sin comillas (cat -> << -> EOF) (echo->$PATH)
+t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
-	char	**line;
+	char	**split_line;
 	int		i;
-	int		word_last_pos;
 
-	word_last_pos = 0;
-	i = 0;
-	line = ft_split(str, ' ');
-	if (!line)
-		exit_error(ERR_MALLOC);
-	while (line[i])
-	{
-		if (check_pipe_in_word(line[i]))
-		{
-			msh->pipe_active = 1;
-			pipe_divide_word(line[i], lst_line);
-		}
-		else
-			add_new_line_node(line[i], TYPE_STR, lst_line);
-		i++;
-	}
-	free(line);
+	split_line = ft_split(rline, ' ');
+	if (!split_line)
+		print_error_exit(&msh, ERR_MALLOC);
+	i = -1;
+	while (split_line[++i])
+		add_new_line_node(ft_strdup(split_line[i]), \
+						decide_type(split_line[i]), lst_line);
+	free_double_str(&split_line);
 	return (*lst_line);
 }
 
-//como en el split, pero por aqui calcular todo que no es delimitador y devolver la POSICION
-int	calculate_last_pos_word(char *str, int i)
+int	new_lst_decide(t_line **lst_line, char *rline, int i, int last)
 {
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t' \
-			&& str[i] != QUOTE && str [i] != DQUOTE)
-		i++;
+	char	*text;//rename to str
+
+	text = NULL;
+	if (rline[i] == QUOTE || rline[i] == DQUOTE)
+	{
+		text = ft_substr(rline, i, \
+					where_next_quote_is(rline, rline[i], i + 1) - i + 1);
+		if (!text)
+			return (-1);
+		add_new_line_node(text, TYPE_STR, lst_line);
+		i = where_next_quote_is(rline, rline[i], i + 1) + 1;
+	}
+	else
+	{
+		text = ft_substr(rline, i, last - i);
+		if (!text)
+			return (-1);
+		add_new_line_node(text, decide_type(text), lst_line);
+		i = last;
+	}
 	return (i);
 }
 
-t_line	*new_list_with_quotes(char *str, t_msh *msh)
+//crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
+t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int		i;
-	t_line	*new_list;
-	char	*text;
-	int		w_q_is;
-	int		w_q_is_next;
-	char	which_act_quote;
-	int		word_last_pos;
+	int		last;
 
-	if (!str)
-		return (NULL);
 	i = 0;
-	new_list = NULL;
-	text = NULL;
-	w_q_is = 0;
-	w_q_is_next = 0;
-	which_act_quote = '\0';
-	word_last_pos = 0;
-	while (str[i] != '\0')
+	last = 0;
+	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
-		while (str[i] == ' ' || str[i] == '\t')
+		while (rline[i] && (rline[i] == ' ' || rline[i] == '\t'))
 			i++;
-		w_q_is = where_next_any_quote_is(str, i);
-		if (w_q_is == i)
-		{
-			which_act_quote = str[w_q_is];
-			w_q_is_next = where_next_quote_is(str, which_act_quote, w_q_is + 1);
-			text = ft_substr(str, i, w_q_is_next - i + 1);
-			if (!text)
-				exit_error(ERR_MALLOC);
-			add_new_line_node(text, TYPE_STR, &new_list);
-			i = w_q_is_next;
-		}
-		else
-		{
-			word_last_pos = calculate_last_pos_word(str, i);
-			text = ft_substr(str, i, word_last_pos - i + 1);
-			if (check_pipe_in_word(text))
-			{
-				msh->pipe_active = 1;
-				pipe_divide_word(text, &new_list);
-			}
-			else
-				add_new_line_node(text, TYPE_STR, &new_list);
-			i = word_last_pos;
-		}
-		i++;
+		if (i >= (int)ft_strlen(rline))
+			break ;
+		last = i;
+		while (rline[last] && rline[last] != QUOTE \
+		&& rline[last] != DQUOTE && rline[last] != ' ' && rline[last] != '\t')
+			last++;
+		i = new_lst_decide(lst_line, rline, i, last);
+		if (i < 0)
+			print_error_exit(&msh, ERR_MALLOC);
 	}
-	return (new_list);
-}
-
-void	add_new_line_node(char *line, int type_str, t_line **lst_line)
-{
-	t_line	*new_node;
-	t_line	*last_node;
-	t_line 	*lst;
-
-	lst = *lst_line;
-	if (lst_line)
-	{
-		last_node = (t_line *) ft_lst_line_last((void *) lst);
-		new_node = (t_line *) ft_calloc(1, sizeof(t_line));
-		new_node->str = line;
-		new_node->type = type_str;
-		new_node->next = NULL;
-		if (last_node)
-			last_node->next = new_node;
-		else
-			*lst_line = new_node;
-	}
+	return (*lst_line);
 }
 
 t_line	*ft_lst_line_last(t_line *lst)
