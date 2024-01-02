@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 20:00:09 by iassambe         ###   ########.fr       */
+/*   Updated: 2023/12/31 18:30:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,10 @@ int main(int ac, char **av, char **ev)
 		else
 			print_warning(ERR_QUOTE); 
 
-		//addstr_to_lst_line(msh->read_line, &msh->lst_line);//NECESITA MAS TEST, con este ejemplo funciona bien
-	
 		printf("\n");
-		
 		PRINT_lst_line(msh->lst_line);//para printear
 		PRINT_lst_pipe(msh->lst_pipe);//para printear
+		
 		free_str(&msh->read_line);
 		free_lst_line(&msh->lst_line);
 		free_lst_pipe(&msh->lst_pipe);

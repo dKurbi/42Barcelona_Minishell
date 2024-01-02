@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_line_st.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/30 18:15:38 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/31 06:05:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 
 int	new_lst_with_quotes_decide(t_msh *msh, t_line **lst_line, char *rline, int i, int last)
 {
-	char	*str;//rename to str
+	char	*str;
 
 	str = NULL;
 	if (rline[i] == QUOTE || rline[i] == DQUOTE)
