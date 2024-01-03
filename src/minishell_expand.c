@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/03 03:58:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 13:23:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,14 @@ char	*expand(char *var, t_msh *msh)
 		free(var);
 		var = get_ft_strjoin_modif(sub_str, "=");
 		i = -1;
+		printf("expand bef while\n");
 		while (msh->ev[++i])
 		{
 			if (ft_strncmp(msh->ev[i], var, len) == 0)
 			{
-				free_3_str(&var, &rtn, NULL);
+				printf("expand loop\n");
+				free(var);
+				free(rtn);
 				rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
 				return (rtn);
 			}
@@ -109,28 +112,40 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 	int		dp;
 
 	i = 0;
+	add_join = NULL;
 	rtn = NULL;
 	aux[1] = NULL;
 	while (str[i])
 	{
+		printf("str\n");
 		dp = where_is_dollar(str, i);
 		if (dp != -1)
 		{
+			printf("if str\n");
 			aux[0] = ft_substr(str, i, dp - i);
+			printf("if substr\n");
 			aux[1] = expand(&str[dp], msh);
+			printf("if expand\n");
 			add_join = get_ft_strjoin_modif(aux[0], aux[1]);
+			printf("if get_join\n");
 			i = dp + 1;
 			while (str[i] && str[i]!= ' ' && str[i] != '\t' && str[i] != '\"' && str[i] != '$')
 				i++;
 		}
 		else
 		{
+			printf("else str\n");
 			add_join = ft_substr(str, i, ft_strlen(str));
 			i = ft_strlen(str);
 		}
+		printf("joinrtn\n");
 		rtn = get_ft_strjoin_modif(rtn, add_join);
-		free_3_str(&add_join, &aux[1], NULL);
+		printf("free addjoin str\n");
+		free(add_join);
+		printf("free aux1 str\n");
+		free_str(&aux[1]);
 	}
+	printf("OUT\n");
 	free_str(&str);
 	return (rtn);
 }
