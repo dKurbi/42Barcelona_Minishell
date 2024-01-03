@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/31 18:30:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 00:19:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int	main(int ac, char **av, char **env)
 int main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
-//	char  	*exp;
 
 	if (ac != 1)
 		print_error_exit(NULL, ERR_AC);
@@ -114,18 +113,17 @@ int main(int ac, char **av, char **ev)
 	while (1)
 	{
 		msh->read_line = readline("Minishell-> ");
-		//exp = expand (msh->read_line, msh);
-		//printf("%s\n", exp);
 		if (!msh->read_line)
 			print_error_exit(&msh, ERR_MALLOC);
 		if (!ft_strncmp(msh->read_line, "exit", 4) && \
 			ft_strlen(msh->read_line) == 4)
-			break ;//muy warning: esto tendremos que hacer en los executings (execve, etc...)		
-		//printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
+			break ;//muy warning: esto tendremos que hacer en los executings (execve, etc...)
+				
+		printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
+		
 		if (check_ifempty_str(msh->read_line) == 0)
 			add_history(msh->read_line);
 
-		//comentado pero hay que descomentar despues (eliminar /* */)
  		if (is_quotes_pair(msh->read_line, 0, -1) != -1)
 		{
 			if (check_pipe_in_word(msh->read_line))

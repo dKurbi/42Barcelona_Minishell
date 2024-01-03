@@ -6,16 +6,16 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/31 06:56:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 03:58:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char 	*clean_var(char *str)
+char	*clean_var(char *str)
 {
-	int 	i;
-	char 	*rtn;
+	int		i;
+	char	*rtn;
 	int		len;
 
 	i = 0;
@@ -29,7 +29,7 @@ char 	*clean_var(char *str)
 	}
 	if (len == i)
 		return (ft_strdup(str));
-	rtn = ft_substr(str, 0 , i);
+	rtn = ft_substr(str, 0, i);
 	return (rtn);
 }
 
@@ -42,8 +42,7 @@ char	*expand(char *var, t_msh *msh)
 
 	var = clean_var(var);
 	rtn = ft_strdup("\0");
-	sub_str = NULL;
-	if (var[0] == '$' && var[1] != '?')
+	if (var[0] == '$' && var[1] && var[1] != '?')
 	{
 		len = ft_strlen(var);
 		sub_str = ft_substr(var, 1, len - 1);
@@ -54,17 +53,15 @@ char	*expand(char *var, t_msh *msh)
 		{
 			if (ft_strncmp(msh->ev[i], var, len) == 0)
 			{
-				free(rtn);
+				free_3_str(&var, &rtn, NULL);
 				rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
-				free(var);
 				return (rtn);
 			}
 		}
 	}
 	else if (var[0] == '$' && var[1] == '?')
 	{
-		free(var);
-		free(rtn);
+		free_3_str(&var, &rtn, NULL);
 		rtn = ft_itoa(msh->exit_status);
 	}
 	free_str(&var);
@@ -90,24 +87,30 @@ char	*case_dollar(char *str, t_msh *msh)
 
 	dp = where_is_dollar(str, 0);
 	txt[0] = ft_substr(str, 0, dp);
+	if (!txt[0])
+		return (NULL);
 	txt[1] = expand(&str[dp], msh);
+	if (!txt[1])
+	{
+		free(txt[0]);
+		return (NULL);
+	}
 	rtn = ft_strjoin(txt[0], txt[1]);
-	free_str(&txt[0]);
-	free_str(&txt[1]);
-	free_str(&str);
+	free_3_str(&txt[0], &txt[1], &str);
 	return (rtn);
 }
 
 char	*case_dollar_with_quotes(char *str, t_msh *msh)
 {
-	char 	*rtn;
+	char	*rtn;
 	char	*add_join;
 	char	*aux[2];
-	int 	i;
+	int		i;
 	int		dp;
 
 	i = 0;
 	rtn = NULL;
+	aux[1] = NULL;
 	while (str[i])
 	{
 		dp = where_is_dollar(str, i);
@@ -119,7 +122,6 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 			i = dp + 1;
 			while (str[i] && str[i]!= ' ' && str[i] != '\t' && str[i] != '\"' && str[i] != '$')
 				i++;
-			free_str(&aux[1]);
 		}
 		else
 		{
@@ -127,8 +129,7 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 			i = ft_strlen(str);
 		}
 		rtn = get_ft_strjoin_modif(rtn, add_join);
-		free_str(&add_join);
-		free_str(&aux[1]);
+		free_3_str(&add_join, &aux[1], NULL);
 	}
 	free_str(&str);
 	return (rtn);

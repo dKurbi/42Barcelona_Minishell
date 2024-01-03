@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/01 19:15:25 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 03:45:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,16 +174,17 @@ void		addstr_to_lst_line(char *str, t_line **lst_line);
 
 //	free
 //	minishell_free.c
-void		free_str(char **str);
-void		free_double_str(char ***double_str);
 void		free_lst_line(t_line **lst);
 void		free_msh(t_msh **msh);
 void		free_lst_pipe(t_pipe **lst_pipe);
+void		free_3_str(char **s1, char **s2, char **s3);
 
 //	utils
 //	minishell_utils.c
 int			check_ifempty_str(char *str);
 int			calculate_last_pos_word(char *str, int i);
+void		free_str(char **str);
+void		free_double_str(char ***double_str);
 
 //	Expand
 char		*expand(char *var, t_msh *msh);

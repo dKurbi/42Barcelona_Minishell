@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/20 17:33:27 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 03:43:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,29 @@ int	calculate_last_pos_word(char *str, int i)
 			&& str[i] != QUOTE && str [i] != DQUOTE)
 		i++;
 	return (i);
+}
+
+//free memoria de char *
+void	free_str(char **str)
+{
+	if (*str != NULL)
+		free(*str);
+	*str = NULL;
+}
+
+//free memoria de char **
+void	free_double_str(char ***double_str)
+{
+	int	i;
+
+	if (*double_str == NULL)
+		return ;
+	i = 0;
+	while ((*double_str)[i])
+	{
+		free_str(&(*double_str)[i]);
+		i++;
+	}
+	free(*double_str);
+	*double_str = NULL;
 }
