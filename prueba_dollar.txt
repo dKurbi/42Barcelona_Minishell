@@ -1,3 +1,23 @@
+>>>SIN COMILLAS:
+
+$HOME
+
+$aaa
+
+$aaa$HOME
+
+$HOME$ZSH
+
+$ZSH$aaa
+
+$ZSHaaa
+
+
+
+>>>COMILLAS DOBLES:
+
+
+
 "$HOME"
 
 "$HOME$USER"

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 03:43:02 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:38:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_ifempty_str(char *str)
 	return (0);
 }
 
-//como en el split, pero por aqui calcular todo que no es delimitador y devolver la POSICION
+//como en el split,  aqui calcular todo que no es delim. y return la POSICION
 int	calculate_last_pos_word(char *str, int i)
 {
 	if (!str)
@@ -61,4 +61,17 @@ void	free_double_str(char ***double_str)
 	}
 	free(*double_str);
 	*double_str = NULL;
+}
+
+//el ultimo t_line del total
+t_line	*ft_lst_line_last(t_line *lst)
+{
+	t_line	*lastlist;
+
+	if (lst == NULL)
+		return (NULL);
+	lastlist = lst;
+	while (lastlist->next != NULL)
+		lastlist = lastlist->next;
+	return (lastlist);
 }

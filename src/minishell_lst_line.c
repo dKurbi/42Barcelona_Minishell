@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_line_st.c                                :+:      :+:    :+:   */
+/*   minishell_lst_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/16 18:29:07 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/31 06:05:09 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
+/*   Updated: 2024/01/03 20:32:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	if (!msh || !msh->read_line || !read_line)
 		return (NULL);
 	lst_line = NULL;
+	if (read_line[0] == '\0')
+	{
+		add_new_line_node(ft_strdup(""), decide_type(""), &lst_line);
+		return (lst_line);
+	}
 	is_quotes = is_quotes_pair(read_line, 0, -1);
 	if (!is_quotes)
 		lst_line = new_lst_without_quotes(msh, &lst_line, read_line);
@@ -78,7 +83,7 @@ int	new_lst_with_quotes_decide(t_msh *msh, t_line **lst_line, char *rline, int i
 	return (i);
 }
 
-//crear t_line con comillas (echo->'string1'->"string2") (cat->"archivo|archivo")
+//crear t_line con comillas
 t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int		i;
@@ -101,16 +106,4 @@ t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 			print_error_exit(&msh, ERR_MALLOC);
 	}
 	return (*lst_line);
-}
-
-t_line	*ft_lst_line_last(t_line *lst)
-{
-	t_line	*lastlist;
-
-	if (lst == NULL)
-		return (NULL);
-	lastlist = lst;
-	while (lastlist->next != NULL)
-		lastlist = lastlist->next;
-	return (lastlist);
 }

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 12:59:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:32:18 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,8 @@
 # define TYPE_HDC 2// <<
 # define TYPE_APND 3// >>
 # define TYPE_PIPE 4// |
-
-
 //output redirection: >
 # define TYPE_OPUT_RED 5
-
 //input redirection: <
 # define TYPE_IPUT_RED 6
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
@@ -56,14 +53,10 @@
 # define DQUOTE 34
 # define PIPE 124
 # define CHAR_SPACE 32
-
 //output redirection - >
 # define OPUT_RED 62
-
 //input redirection - <
 # define IPUT_RED 60
-
-
 
 //	strings
 # define STR_PIPE "|"
@@ -110,7 +103,7 @@ typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
-	int			pipe_active; //para ver si hay un pipe ( | ) y si hay - ir a la ruta de pipes (fork dup2 etc...)
+	int			pipe_active;
 	int			exit_status;
 	t_line		*lst_line;
 	t_pipe		*lst_pipe;
@@ -123,6 +116,11 @@ typedef struct s_msh
 int			ft_split_len_word(char *s, int i);
 int			ft_split_calc_words(char *s);
 char		**ft_split_pipe(char *s);
+
+//	cases
+//	minishell_case.c
+char		*case_dollar(char *str, t_msh *msh);
+char		*case_dollar_with_quotes(char *str, t_msh *msh);
 
 //	error
 //	minishell_error.c
@@ -158,19 +156,17 @@ t_pipe		*new_lst_pipe(t_msh *msh);
 void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
 
 //	t_line*
-//	minishell_line_st.c
+//	minishell_lst_line.c
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-t_line		*ft_lst_line_last(t_line *lst);
 int			new_lst_with_quotes_decide(t_msh *msh, t_line **lst_line, char *rline, int i, int last);
 
 //	operators
 //	minishell_operators.c
 int			check_operators(char *str);
 void		addstr_to_lst_line(char *str, t_line **lst_line);
-
 
 //	free
 //	minishell_free.c
@@ -185,12 +181,13 @@ int			check_ifempty_str(char *str);
 int			calculate_last_pos_word(char *str, int i);
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
+t_line		*ft_lst_line_last(t_line *lst);
 
 //	Expand
+//	minishell_expand.c
 char		*expand(char *var, t_msh *msh);
-char		*case_dollar(char *str, t_msh *msh);
 char		*clean_var(char *str);
-char		*case_dollar_with_quotes(char *str, t_msh *msh);
+int			where_is_dollar(char *str, int i);
 
 //	ATENCIO!!!
 //	eliminar despues!!!
