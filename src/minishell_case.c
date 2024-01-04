@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 20:11:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:25:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*case_dollar(char *str, t_msh *msh)
 		else
 			break ;
 		rtn = get_ft_strjoin_modif(rtn, add_join);
-		free(add_join);
+		free_str(&add_join);
 	}
 	free_str(&str);
 	return (rtn);

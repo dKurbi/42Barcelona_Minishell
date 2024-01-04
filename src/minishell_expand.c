@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/03 18:55:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/04 03:28:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
 		if (ft_strncmp(msh->ev[i], var, len) == 0)
 		{
 			free(rtn);
+			free_str(&var);
 			rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
 			break ;
 		}
@@ -65,9 +66,9 @@ char	*expand(char *var, t_msh *msh)
 	else if (var[0] == '$' && var[1] == '?')
 	{
 		free(rtn);
+		free_str(&var);
 		rtn = ft_itoa(msh->exit_status);
 	}
-	free_str(&var);
 	return (rtn);
 }
 
