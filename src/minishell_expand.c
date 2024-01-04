@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/04 03:28:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:56:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
 	int		i;
 
 	sub_str = ft_substr(var, 1, len - 1);
-	free(var);
+	free_str(&var);
 	var = get_ft_strjoin_modif(sub_str, "=");
 	i = -1;
 	while (msh->ev[++i])
@@ -52,6 +52,7 @@ char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
 			break ;
 		}
 	}
+	free_str(&var);
 	return (rtn);
 }
 
@@ -61,7 +62,9 @@ char	*expand(char *var, t_msh *msh)
 
 	var = clean_var(var);
 	rtn = ft_strdup("\0");
-	if (var[0] == '$' && var[1] && var[1] != '?')
+	if (var[0] == '$' && var[1] == '\0')
+		free_str(&var);
+	else if (var[0] == '$' && var[1] && var[1] != '?')
 		rtn = expand_dollar_ev(msh, var, rtn, ft_strlen(var));
 	else if (var[0] == '$' && var[1] == '?')
 	{

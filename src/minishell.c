@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/04 03:38:35 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:25:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,6 @@ void	PRINT_lst_pipe(t_pipe *lst_pipe)
 	}
 }
 
-//1 - hay error, 0 - bien
-int	principal_check(t_msh *msh)
-{
-	if (!msh->read_line)
-		print_error_exit(&msh, ERR_MALLOC);
-	if (!ft_strncmp(msh->read_line, "exit", 4) && \
-		ft_strlen(msh->read_line) == 4)
-		return (1);
-	if (msh->read_line[0] != '\0')
-		add_history(msh->read_line);
-	return (0);
-}
-
 /* 
 (EL MODELO PARA HACER LUEGO)
 int	main(int ac, char **av, char **env)
@@ -126,7 +113,7 @@ int main(int ac, char **av, char **ev)
 	while (1)
 	{
 		msh->read_line = readline("Minishell-> ");
-		if (principal_check(msh))//para checkear al principio
+		if (initial_check(msh))//para checkear al principio
 			break ;
 		printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
  		if (is_quotes_pair(msh->read_line, 0, -1) != -1)

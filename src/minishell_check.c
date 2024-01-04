@@ -3,16 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2023/12/30 15:26:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:25:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//luego servira para main() para manejar la entrada de readline
-void	check_readline(t_msh *msh)
+//1 - hay error, 0 - bien
+int	initial_check(t_msh *msh)
 {
+	if (!msh->read_line)
+		print_error_exit(&msh, ERR_MALLOC);
+	if (!ft_strncmp(msh->read_line, "exit", 4) && \
+		ft_strlen(msh->read_line) == 4)
+		return (1);
+	if (msh->read_line[0] != '\0')
+		add_history(msh->read_line);
+	return (0);
 }

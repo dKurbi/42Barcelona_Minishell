@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 20:32:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:40:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,10 @@ char		**ft_split_pipe(char *s);
 char		*case_dollar(char *str, t_msh *msh);
 char		*case_dollar_with_quotes(char *str, t_msh *msh);
 
+//	check
+//	minishell_check.c
+int			initial_check(t_msh *msh);
+
 //	error
 //	minishell_error.c
 void		print_error_exit(t_msh **msh, char *s_err);
@@ -132,6 +136,7 @@ void		print_warning(char *s_warn);
 t_msh		*mshnew(char **env);
 t_parser	parsernew(void);
 t_exec		execnew(void);
+void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 
 //  parser
 //	minishell_parser.c
@@ -160,18 +165,18 @@ void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
-void		add_new_line_node(char *line, int type_str, t_line **lst_line);
-int			new_lst_with_quotes_decide(t_msh *msh, t_line **lst_line, char *rline, int i, int last);
 
 //	operators
 //	minishell_operators.c
 int			check_operators(char *str);
+void		decide_operators(char *str, int i, t_line **lst_line);
+int			skip_operators(char *str, int i);
 void		addstr_to_lst_line(char *str, t_line **lst_line);
 
 //	free
 //	minishell_free.c
-void		free_lst_line(t_line **lst);
 void		free_msh(t_msh **msh);
+void		free_lst_line(t_line **lst);
 void		free_lst_pipe(t_pipe **lst_pipe);
 void		free_3_str(char **s1, char **s2, char **s3);
 
@@ -188,6 +193,9 @@ t_line		*ft_lst_line_last(t_line *lst);
 char		*expand(char *var, t_msh *msh);
 char		*clean_var(char *str);
 int			where_is_dollar(char *str, int i);
+
+
+
 
 //	ATENCIO!!!
 //	eliminar despues!!!
