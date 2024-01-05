@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/04 19:35:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/05 02:13:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,8 @@ int	new_lst_loop(t_msh *msh, t_line **lst_line, char *rline, int i)
 t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int		i;
-	int		last;
 
 	i = 0;
-	last = 0;
 	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
 		i = new_lst_loop(msh, lst_line, rline, i);
