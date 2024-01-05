@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/04 19:40:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:06:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_msh
 //	ft_split_pipe.c
 int			ft_split_len_word(char *s, int i);
 int			ft_split_calc_words(char *s);
+char		**ft_split_free(char **split);
 char		**ft_split_pipe(char *s);
 
 //	cases
@@ -147,6 +148,7 @@ int			decide_type(char *str);
 //	minishell_getter.c
 char		*get_raw_cmd(t_msh *msh);
 char		*get_cmd(t_msh *msh);
+char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
 //	quotes
 //	minishell_quotes.c
@@ -182,8 +184,12 @@ void		free_3_str(char **s1, char **s2, char **s3);
 
 //	utils
 //	minishell_utils.c
-int			check_ifempty_str(char *str);
+int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
+
+//	utils
+//	minishell_utils.c
+int			check_ifempty_str(char *str);
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 t_line		*ft_lst_line_last(t_line *lst);

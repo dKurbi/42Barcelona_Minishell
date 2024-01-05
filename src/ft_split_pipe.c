@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/03 18:56:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:29:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_split_calc_words(char *s)
 	return (numwords);
 }
 
-static char	**ft_split_free(char **split)
+char	**ft_split_free(char **split)
 {
 	int	i;
 

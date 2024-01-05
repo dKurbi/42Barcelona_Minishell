@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 17:38:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:06:39 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,6 @@ int	check_ifempty_str(char *str)
 	if (i == ft_strlen(str))
 		return (1);
 	return (0);
-}
-
-//como en el split,  aqui calcular todo que no es delim. y return la POSICION
-int	calculate_last_pos_word(char *str, int i)
-{
-	if (!str)
-		return (0);
-	while (str[i] && str[i] != ' ' && str[i] != '\t' \
-			&& str[i] != QUOTE && str [i] != DQUOTE)
-		i++;
-	return (i);
 }
 
 //free memoria de char *
