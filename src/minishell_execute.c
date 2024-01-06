@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/06 03:44:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 18:33:59 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	execution_cmd(t_msh *msh, int mode)//ejecutar los comandos ejemplo: "ls -la"
+void	execution_cmd(t_msh *msh, int mode) //ejecutar los comandos ejemplo: "ls -la"
 {
 	(void)(msh);
 	(void)(mode);
 }
 
-void	execution_pipes(t_msh *msh)//ejecutar los comandos ejemplo: "ls -la | wc -l"
+void	execution_pipes(t_msh *msh) //ejecutar los comandos ejemplo: "ls -la | wc -l"
 {
 	(void)(msh);
+	while (msh->lst_line)
+	{
+		execution_cmd(msh, EXECUTE_PIPE);
+	}
 }
 
 //luego para executing

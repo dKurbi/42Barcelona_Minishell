@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/06 03:41:42 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 19:32:14 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,18 @@
 # define ERR_MALLOC "memory allocation error\n"
 # define ERR_QUOTE "quote>\n"
 # define ERR_PIPE "content after pipe required\n"
+# define ERR_SYNTAX "syntax error near unexpected token\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
 # define TYPE_CMD 1// ls
 # define TYPE_HDC 2// <<
 # define TYPE_APND 3// >>
-# define TYPE_PIPE 4// |
 //output redirection: >
-# define TYPE_OPUT_RED 5
+# define TYPE_OPUT_RED 4
 //input redirection: <
-# define TYPE_IPUT_RED 6
+# define TYPE_IPUT_RED 5
+# define TYPE_PIPE 6// |
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
 
 // 	varios code
@@ -62,6 +63,8 @@
 # define STR_PIPE "|"
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
+# define STR_OUTPUT ">"
+# define STR_INPUT "<"
 
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
@@ -129,6 +132,10 @@ char		*case_dollar_with_quotes(char *str, t_msh *msh);
 //	check
 //	minishell_check.c
 int			initial_check(t_msh *msh);
+
+//	check syntax
+//	minishell_check_syntax.c
+int			check_syntax(t_msh *msh);
 
 //	error
 //	minishell_error.c
@@ -206,6 +213,10 @@ t_line		*ft_lst_line_last(t_line *lst);
 char		*expand(char *var, t_msh *msh);
 char		*clean_var(char *str);
 int			where_is_dollar(char *str, int i);
+
+// Signal
+
+void handle_signal(int sign, siginfo_t *sa, void *data);
 
 
 

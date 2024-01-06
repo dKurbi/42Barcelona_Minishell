@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/05 18:03:12 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:44:12 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int	decide_type(char *str)
 		return (-1);
 	if (str[0] == '-' || (str[0] == '-' && str[1] == '-'))
 		return (TYPE_FLG);
-	else if (str[0] == PIPE)
-		return (TYPE_PIPE);
 	else if ((str[0] == QUOTE && str[ft_strlen(str) - 1] == QUOTE) || \
 				(str[0] == DQUOTE && str[ft_strlen(str) - 1] == DQUOTE))
 		return (TYPE_STR);

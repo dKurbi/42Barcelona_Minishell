@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_ctrl_c_h_barra.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 14:16:33 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/05 19:49:52 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:39:26 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ void	handle_signal(int sig)
 	exit(0);
 }
 
-int	main(void)
+int	main(int ac, char **av, char **ev)
 {
-	char	*s;
-	sig_t	sigt;
-
-	s = "sig reading";
-	sigt = handle_signal;
-	printf("%s\n", s);
-	signal(SIGINT, handle_signal);
-	signal(SIGQUIT, handle_signal);
-	while (1)
-	{
-		printf("yes\n");
-	}
+	char **argv;
+	
+	argv = (char **)malloc(sizeof(char *) * 3);
+/* 	argv[0] = "\"echo\"";
+	argv[1] = "-l";
+	argv[2] = "-a"; */
+	argv[0] = "-l";
+	argv[1] = "-a";
+	(void)(ac);
+	(void)(av);
+	if (execve("/bin/echo", argv, ev) < 0)
+		printf("fail\n");
 	return (0);
 }
