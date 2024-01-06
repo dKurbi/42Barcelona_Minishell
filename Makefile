@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/05 18:13:28 by iassambe         ###   ########.fr        #
+#    Updated: 2024/01/06 03:43:17 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRCS = PRINT.c \
 		minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
 		minishell_getter.c minishell_quotes.c minishell_lst_line.c \
 		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c minishell_operators.c \
-		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c
+		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
+		minishell_execute.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 

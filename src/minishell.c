@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/05 18:12:38 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:42:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int main(int ac, char **av, char **ev)
 		else
 			print_warning(ERR_QUOTE); 
 
+		execution(msh);
 
 		printf("\n");//parte debug: printear
 		PRINT_lst_line(msh->lst_line);//para printear

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/05 18:06:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/06 03:41:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@
 # define STR_PIPE "|"
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
+
+# define EXECUTE_PIPE 1
+# define EXECUTE_COMMAND 0
 
 typedef struct s_exec
 {
@@ -131,6 +134,10 @@ int			initial_check(t_msh *msh);
 //	minishell_error.c
 void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
+
+//	execute
+//	minishell_execute.c
+void		execution(t_msh *msh);
 
 //	struct
 //	minishell_struct.c
