@@ -3,61 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 18:27:46 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:56:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char 	*clean_var(char *str)
+char	*clean_var(char *str)
 {
-	int 	i;
-	char 	*rtn;
+	int		i;
+	char	*rtn;
 	int		len;
 
 	i = 0;
 	len = ft_strlen(str);
 	rtn = NULL;
-	while (str[i] && str[i] != ' ' && str[i] != '\"')
+	while (str[i] && str[i] != ' ' && str[i] != DQUOTE)
 	{
 		i++;
-		if(str[i] == '$')
-			break;
+		if (str[i] == '$')
+			break ;
 	}
-	if (len == i) 
-		return (str);
-	rtn = ft_substr(str, 0 , i);
+	if (len == i)
+		return (ft_strdup(str));
+	rtn = ft_substr(str, 0, i);
 	return (rtn);
 }
+
+char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
+{
+	char	*sub_str;
+	int		i;
+
+	sub_str = ft_substr(var, 1, len - 1);
+	free_str(&var);
+	var = get_ft_strjoin_modif(sub_str, "=");
+	i = -1;
+	while (msh->ev[++i])
+	{
+		if (ft_strncmp(msh->ev[i], var, len) == 0)
+		{
+			free(rtn);
+			free_str(&var);
+			rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
+			break ;
+		}
+	}
+	free_str(&var);
+	return (rtn);
+}
+
 char	*expand(char *var, t_msh *msh)
 {
-	int		i;
-	int		len;
 	char	*rtn;
 
 	var = clean_var(var);
 	rtn = ft_strdup("\0");
-	if (var[0] == '$' && var[1] != '?')
-	{
-		len  = ft_strlen(var);
-		var = ft_substr(var, 1, len - 1);
-		var = ft_strjoin(var, "=");
-		i = 0;
-		while (msh->ev[i])
-		{
-			if (ft_strncmp(msh->ev[i], var, len) == 0)
-			{
-				rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
-				return (rtn);
-			}
-			i++;
-		}
-	}
+	if (var[0] == '$' && var[1] == '\0')
+		free_str(&var);
+	else if (var[0] == '$' && var[1] && var[1] != '?')
+		rtn = expand_dollar_ev(msh, var, rtn, ft_strlen(var));
 	else if (var[0] == '$' && var[1] == '?')
-		rtn = ft_itoa (msh->exit_status);
+	{
+		free(rtn);
+		free_str(&var);
+		rtn = ft_itoa(msh->exit_status);
+	}
 	return (rtn);
 }
 
@@ -70,66 +84,4 @@ int	where_is_dollar(char *str, int i)
 		i++;
 	}
 	return (-1);
-}
-
-char	*case_dollar(char *str, t_msh *msh)
-{
-	int		dp;
-	char	*txt[2];
-	char	*rtn;
-
-	dp = where_is_dollar(str, 0);
-	txt[0] = ft_substr(str, 0, dp);
-	txt[1] = expand(&str[dp], msh);
-	rtn = ft_strjoin(txt[0], txt[1]);
-	free_str(&txt[0]);
-	free_str(&txt[1]);
-	free_str(&str);
-	return (rtn);
-}
-
-char	*case_dollar_with_quotes(char *str, t_msh *msh)
-{
-	char 	*rtn;
-	char	*add_join;
-	char	*aux[2];
-	int 	i;
-	int		dp;
-
-	i = 0;
-	rtn = NULL;
-	while (str[i])
-	{
-/* 		dp = where_is_dollar(&str[i]);
-		if (dp != -1)
-		{
-			rtn = get_ft_strjoin_modif(rtn, ft_substr(&str[i], i, dp));
-			aux[1] = expand(&str[dp], msh);
-			rtn = get_ft_strjoin_modif(aux[0], aux[1]);
-			free_str(&aux[1]);
-		while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\"')
-			i++;
-		} 
-		else 
-		{
-			aux[0] = ft_strlen(&str[i])
-		} */
-		dp = where_is_dollar(str, i);
-		if (dp != -1 )
-		{
-			aux[0] = ft_substr(str, i, dp - i);
-			aux[1] = expand(&str[dp], msh);
-			add_join = get_ft_strjoin_modif(aux[0], aux[1]);
-			i = dp + 1;
-			while (str[i] && str[i]!= ' ' && str[i] != '\t' && str[i] != '\"' && str[i] != '$')
-				i++;
-		}
-		else
-		{
-			add_join = ft_substr(str, i, ft_strlen(str));
-			i = ft_strlen(str);
-		}
-		rtn = get_ft_strjoin_modif(rtn, add_join);
-	}
-	return (rtn);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 15:24:59 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/03 20:28:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_parser	parsernew(void)
 	parser.cmd = NULL;
 	parser.path = NULL;
 	parser.split_path = NULL;
+	parser.split_read_line = NULL;
 	parser.raw_cmd = NULL;
 	return (parser);
 }

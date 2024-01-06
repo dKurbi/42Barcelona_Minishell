@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
+#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2023/12/30 15:48:10 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/01/06 03:43:17 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,10 +38,12 @@ LIB_MINISHELL = inc/minishell.h
 COMPILED_LIBFT = libft.a
 COMPILED_READLINE = inc/readline/libreadline.a
 
-SRCS = minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
-		minishell_getter.c minishell_quotes.c minishell_line_st.c \
+SRCS = PRINT.c \
+		minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
+		minishell_getter.c minishell_quotes.c minishell_lst_line.c \
 		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c minishell_operators.c \
-		minishell_expand.c
+		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
+		minishell_execute.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
@@ -52,7 +54,7 @@ $(NAME): $(COMPILED_LIBFT) $(COMPILED_READLINE) $(OBJS)
 	@$(ECHO) "Minishell $(COL_GREEN)Compiled!$(COL_RESET)"
 
 $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(LIB_MINISHELL) Makefile
-	$(MKDIR) $(DIR_OBJS)
+	@$(MKDIR) $(DIR_OBJS)
 	$(CC) $(CFLAGS) $(DEPFLAGS) $(INCLUDEFLAGS) -c $< -o $@
 
 $(COMPILED_LIBFT):
@@ -61,7 +63,13 @@ $(COMPILED_LIBFT):
 config_readline:
 	cd inc/readline/ && ./configure
 
-$(COMPILED_READLINE): #config_readline
+configure: config_readline
+
+configure_readline: config_readline
+
+config: config_readline
+
+$(COMPILED_READLINE): #config_readline WARNING: descomentarlo cuando sera evaluacion
 	$(MAKE) -C $(DIR_READLINE)
 
 clean:
@@ -76,6 +84,9 @@ fclean: clean
 re: fclean all
 
 r: re
+
+norminette:
+	norminette inc/minishell.h src/*.c
 
 -include $(DEPS)
 

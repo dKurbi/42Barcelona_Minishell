@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/21 01:27:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:03:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 	}
 	return (path);
 }
+
 void parser_line(t_msh *msh)
 {
 	msh->parser.path = find_path(msh);
@@ -40,10 +41,10 @@ void parser_line(t_msh *msh)
 	msh->parser.cmd = get_cmd(msh);
 } */
 
-//decidioms que sera: pipe str comando si es heredoc si es append (>>), etc...
+//decidioms que sera: pipe strm comandom heredoc o append (<<, >>), etc...
 int	decide_type(char *str)
 {
-	if (!str || str[0] == '\0')
+	if (!str)
 		return (-1);
 	if (str[0] == '-' || (str[0] == '-' && str[1] == '-'))
 		return (TYPE_FLG);

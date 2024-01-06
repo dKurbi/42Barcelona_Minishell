@@ -1,3 +1,0 @@
-si no compila makefile nuevo - escribe este comando en terminal (tarda 13 segundos)
-
-make config_readline
