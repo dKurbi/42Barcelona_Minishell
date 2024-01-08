@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/dkurcbar/Desktop/MiGitHub/Minishell_MyGit/inc/readline
+BUILD_DIR = /mnt/c/Users/Diego/Documents/42\ Barcelona\ proyectos/minishell/inc/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}

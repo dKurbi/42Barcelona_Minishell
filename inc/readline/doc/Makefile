@@ -49,7 +49,7 @@ RM = rm -f
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /Users/dkurcbar/Desktop/MiGitHub/Minishell_MyGit/inc/readline
+BUILD_DIR = /mnt/c/Users/Diego/Documents/42\ Barcelona\ proyectos/minishell/inc/readline
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

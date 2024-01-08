@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /Users/dkurcbar/Desktop/MiGitHub/Minishell_MyGit/inc/readline
+BUILD_DIR = /mnt/c/Users/Diego/Documents/42\ Barcelona\ proyectos/minishell/inc/readline
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

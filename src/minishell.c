@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/30 16:35:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2023/12/31 14:32:56 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int main(int ac, char **av, char **ev)
 		if (!msh->read_line)
 			print_error_exit(&msh, ERR_MALLOC);
 		if (!ft_strncmp(msh->read_line, "exit", 4) && \
-			ft_strlen(msh->read_line) == 4)
+			ft_strlen(msh->read_line) == 4 )
 			break ;//muy warning: esto tendremos que hacer en los executings (execve, etc...)		
 		//printf("las comillas son %i, la primera comilla esta en %i\n\n", is_quotes_pair(msh->read_line, 0, -1), where_next_any_quote_is(msh->read_line, 0));
 		if (check_ifempty_str(msh->read_line) == 0)
