@@ -6,11 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 14:40:38 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:33:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int		g_exit_status;
 
 char	*clean_var(char *str)
 {
