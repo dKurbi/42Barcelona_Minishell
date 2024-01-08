@@ -6,12 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 04:29:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:22:16 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+int			g_exit_status;
 /* 
 (EL MODELO PARA HACER LUEGO)
 int	main(int ac, char **av, char **env)
@@ -51,6 +52,7 @@ int main(int ac, char **av, char **ev)
 		print_error_exit(NULL, ERR_MALLOC);
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		exit(1);
+	g_exit_status = 0;
 	while (1)
 	{
 		msh->read_line = readline("Minishell-> ");
