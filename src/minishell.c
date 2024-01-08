@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/06 19:40:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/08 04:29:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,20 @@ int	main(int ac, char **av, char **env)
 } */
 int main(int ac, char **av, char **ev)
 {
-	t_msh	*msh;
+	t_msh				*msh;
 	struct sigaction	sa;
-	 union sigval value;
-    
+
 	sa.sa_sigaction = handle_signal;
 	sa.sa_flags = SA_SIGINFO;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		exit(1);
 
 	if (ac != 1)
 		print_error_exit(NULL, ERR_AC);
 	(void)(av);
 	msh = mshnew(ev);
-	value.sival_ptr = (void *) msh;
 	if (!msh)
 		print_error_exit(NULL, ERR_MALLOC);
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+		exit(1);
 	while (1)
 	{
 		msh->read_line = readline("Minishell-> ");
@@ -66,8 +64,9 @@ int main(int ac, char **av, char **ev)
 				msh->lst_line = new_lst_line(msh, msh->read_line);
 		}
 		else
-			print_warning(ERR_QUOTE); 
-		if(msh->lst_pipe)
+			print_warning(ERR_QUOTE);
+
+		if (msh->lst_pipe)
 			printf("el pipe no es nulo\n");
 		if (!check_syntax(msh))
 		{
