@@ -1,0 +1,29 @@
+ls | cat
+
+ls | ls
+
+echo "a" | split
+
+echo "a|b" | split
+
+echo "a|b" | split "a" '  a '
+
+wc|ls
+
+   wc    |ls
+
+   wc    |   ls  
+
+cat| la
+
+echo "a" b 'ccc' "dd" | "comando"
+
+muy|bien|trabajo
+
+muy|"bien"|trabajo
+
+ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls
+
+         | wc
+
+comando solo y sin nada

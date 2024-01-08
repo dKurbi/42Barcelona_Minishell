@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 17:31:06 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:45:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@
 # include "readline/readline.h"
 # include "readline/history.h"
 # include "libft/libft.h"
+
+# ifndef __linux__
+
+int	g_exit_status;
+
+# endif
 
 // error code
 # define ERR_AC "only provide ./minishell\n"
@@ -142,6 +148,7 @@ int			initial_check(t_msh *msh);
 //	check syntax
 //	minishell_check_syntax.c
 int			check_syntax(t_msh *msh);
+int			is_redirection(int type);
 
 //	error
 //	minishell_error.c
@@ -193,7 +200,7 @@ t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 int			check_operators(char *str);
 void		decide_operators(char *str, int i, t_line **lst_line);
 int			skip_operators(char *str, int i);
-void		addstr_to_lst_line(char *str, t_line **lst_line);
+void		addstr_to_lst_line(char *str, t_line **lst_line, int i);
 
 //	free
 //	minishell_free.c
@@ -225,12 +232,14 @@ int			where_is_dollar(char *str, int i);
 void		handle_signal(int sign, siginfo_t *sa, void *data);
 void		signal_control_main(t_msh *msh);
 
+// Env
+char	**create_env(char **env);
+
 //	ATENCIO!!!
 //	eliminar despues!!!
 void		PRINT_lst_line(t_line *lst_line);
 void		PRINT_lst_pipe(t_pipe *lst_pipe);
 void		PRINT_split_line(char **double_str);
 void		PRINT_comillas(char *read_line);
-
 
 #endif

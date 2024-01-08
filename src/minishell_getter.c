@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/06 18:11:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:43:35 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 	i = 0;
 	while (copy_lst != NULL)
 	{
-		exe_arg[i] = ft_strdup(copy_lst->str);
-		if (exe_arg[i++] == NULL)
-			return (ft_split_free(exe_arg));
+		if (!is_redirection(copy_lst->type))
+		{
+			exe_arg[i] = ft_strdup(copy_lst->str);
+			if (exe_arg[i++] == NULL)
+				return (ft_split_free(exe_arg));
+		}
+		else
+			copy_lst = copy_lst->next;
+		if (copy_lst)
 		copy_lst = copy_lst->next;
 	}
 	exe_arg[i] = NULL;

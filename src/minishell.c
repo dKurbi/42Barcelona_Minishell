@@ -6,13 +6,13 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 17:43:34 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:29:39 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		g_exit_status;
+
 
 void	free_main_loop(t_msh *msh)
 {
@@ -35,11 +35,11 @@ int	preparing_commands(t_msh *msh)
 		print_warning(ERR_QUOTE);
 		return (1);
 	}
-	/*if (check_syntax(msh))
+	if (check_syntax(msh))
 	{
 		print_warning(ERR_SYNTAX);
 		return (1);
-	}*/
+	}
 	return (0);
 }
 
@@ -62,6 +62,11 @@ int	main(int ac, char **av, char **ev)
 			break ;
 		if (preparing_commands(msh) != 1)
 			execution(msh);
+
+		char **exe_arg = get_exec_argv(msh, msh->lst_line);
+		
+		PRINT_split_line(exe_arg);
+			
 		PRINT_comillas(msh->read_line);
 		PRINT_lst_line(msh->lst_line);
 		PRINT_lst_pipe(msh->lst_pipe);
