@@ -6,11 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/04 18:56:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:33:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int		g_exit_status;
 
 char	*clean_var(char *str)
 {
@@ -70,7 +72,7 @@ char	*expand(char *var, t_msh *msh)
 	{
 		free(rtn);
 		free_str(&var);
-		rtn = ft_itoa(msh->exit_status);
+		rtn = ft_itoa(g_exit_status);
 	}
 	return (rtn);
 }

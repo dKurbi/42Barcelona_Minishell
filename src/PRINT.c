@@ -66,3 +66,10 @@ void	PRINT_lst_pipe(t_pipe *lst_pipe)
 		copy_lst = copy_lst->next;
 	}
 }
+
+void	PRINT_comillas(char *read_line)
+{
+	if (!read_line)
+		return ;
+	printf("las comillas son %i, la primera comilla esta en %i\n\n\n", is_quotes_pair(read_line, 0, -1), where_next_any_quote_is(read_line, 0));
+}

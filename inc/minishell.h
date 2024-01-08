@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/06 19:32:14 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:31:06 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+//para mi
+# ifdef __linux__
+#  define _GNU_SOURCE
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,6 +41,7 @@
 # define ERR_QUOTE "quote>\n"
 # define ERR_PIPE "content after pipe required\n"
 # define ERR_SYNTAX "syntax error near unexpected token\n"
+# define ERR_SIG "signal catching error\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
@@ -214,19 +220,17 @@ char		*expand(char *var, t_msh *msh);
 char		*clean_var(char *str);
 int			where_is_dollar(char *str, int i);
 
-// Signal
-
-void handle_signal(int sign, siginfo_t *sa, void *data);
-
-
-
+//	Signal
+//	minishell_signal.c
+void		handle_signal(int sign, siginfo_t *sa, void *data);
+void		signal_control_main(t_msh *msh);
 
 //	ATENCIO!!!
 //	eliminar despues!!!
 void		PRINT_lst_line(t_line *lst_line);
 void		PRINT_lst_pipe(t_pipe *lst_pipe);
 void		PRINT_split_line(char **double_str);
-
+void		PRINT_comillas(char *read_line);
 
 
 #endif

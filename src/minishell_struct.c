@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/03 20:28:56 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 04:51:19 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_msh	*mshnew(char **env)
 {
-	t_msh	*msh;
+	t_msh		*msh;
+	static int	exit_status;
 
 	msh = (t_msh *)malloc(sizeof(t_msh));
 	if (!msh)
@@ -24,7 +25,8 @@ t_msh	*mshnew(char **env)
 	msh->lst_pipe = NULL;
 	msh->read_line = NULL;
 	msh->pipe_active = 0;
-	msh->exit_status = 0;
+	exit_status = 0;
+	msh->exit_status = exit_status;
 	msh->parser = parsernew();
 	msh->exec = execnew();
 	return (msh);

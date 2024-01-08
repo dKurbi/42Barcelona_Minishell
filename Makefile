@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
+#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/06 19:33:37 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/01/08 16:42:57 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ re: fclean all
 r: re
 
 norminette:
-	norminette inc/minishell.h src/*.c
+	norminette inc/minishell.h src/ft* src/minishell*
 
 -include $(DEPS)
 
