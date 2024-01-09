@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 19:02:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 04:05:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-
 
 t_msh	*mshnew(char **env)
 {

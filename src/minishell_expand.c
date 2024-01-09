@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 18:46:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 03:57:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//int		g_exit_status;
+#ifdef __linux__
+
+extern int	g_exit_status;
+
+#endif
 
 char	*clean_var(char *str)
 {

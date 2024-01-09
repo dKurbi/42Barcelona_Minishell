@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 20:29:39 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 04:09:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+#ifdef __linux__
 
+int	g_exit_status;
+
+#endif
 
 void	free_main_loop(t_msh *msh)
 {
@@ -65,11 +69,10 @@ int	main(int ac, char **av, char **ev)
 
 		char **exe_arg = get_exec_argv(msh, msh->lst_line);
 		
-		PRINT_split_line(exe_arg);
-			
 		PRINT_comillas(msh->read_line);
 		PRINT_lst_line(msh->lst_line);
 		PRINT_lst_pipe(msh->lst_pipe);
+		PRINT_split_line(exe_arg);
 		free_main_loop(msh);
 	}
 	free_msh(&msh);

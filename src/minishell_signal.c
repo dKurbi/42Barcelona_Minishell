@@ -6,13 +6,17 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 17:29:34 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/09 03:58:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		g_exit_status;
+#ifdef __linux__
+
+extern int	g_exit_status;
+
+#endif
 
 void	handle_signal(int sign, siginfo_t *sa, void *data)
 {
