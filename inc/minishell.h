@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 20:45:15 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 04:10:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void		handle_signal(int sign, siginfo_t *sa, void *data);
 void		signal_control_main(t_msh *msh);
 
 // Env
-char	**create_env(char **env);
+char		**create_env(char **env);
 
 //	ATENCIO!!!
 //	eliminar despues!!!

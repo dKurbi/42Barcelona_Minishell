@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check_syntax.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:33:37 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 17:42:43 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 04:09:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	is_redirection(int type)
 
 int	check_syntax_line(t_line *line)
 {
-	t_line *copy_line;
+	t_line	*copy_line;
 
 	copy_line = line;
 	while (copy_line)

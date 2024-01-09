@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 20:43:35 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 04:06:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 		else
 			copy_lst = copy_lst->next;
 		if (copy_lst)
-		copy_lst = copy_lst->next;
+			copy_lst = copy_lst->next;
 	}
 	exe_arg[i] = NULL;
 	return (exe_arg);
