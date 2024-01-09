@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 04:09:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:16:16 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,9 @@ int	main(int ac, char **av, char **ev)
 			break ;
 		if (preparing_commands(msh) != 1)
 			execution(msh);
-
-		char **exe_arg = get_exec_argv(msh, msh->lst_line);
-		
 		PRINT_comillas(msh->read_line);
 		PRINT_lst_line(msh->lst_line);
 		PRINT_lst_pipe(msh->lst_pipe);
-		PRINT_split_line(exe_arg);
 		free_main_loop(msh);
 	}
 	free_msh(&msh);

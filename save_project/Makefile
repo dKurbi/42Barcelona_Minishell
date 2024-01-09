@@ -6,7 +6,7 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/08 19:03:42 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/01/09 17:28:36 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS = PRINT.c \
 		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c minishell_operators.c \
 		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
 		minishell_execute.c minishell_check_syntax.c minishell_signal.c \
-		minishell_env.c
+		minishell_env.c minishell_exec_redirection.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 

@@ -6,13 +6,11 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 19:02:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:55:09 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-
 
 t_msh	*mshnew(char **env)
 {
@@ -52,12 +50,13 @@ t_exec	execnew(void)
 {
 	t_exec	exec;
 
-	exec.cmd = NULL;
-	exec.exe_arg = NULL;
+	exec.fd_stdin = -1;
+	exec.fd_stdout = -1;
+	exec.exec_arg = NULL;
+	exec.cmd_with_path = NULL;
+	exec.cmd_no_path = NULL;
 	exec.path = NULL;
 	exec.proc = 0;
-	exec.raw_cmd = NULL;
-	exec.split_path = NULL;
 	exec.wait_status = 0;
 	return (exec);
 }

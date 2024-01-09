@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 19:05:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:56:57 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_msh(t_msh **msh)
 	{
 		free_str(&(*msh)->read_line);
 		free_double_str(&(*msh)->ev);
+		free_exec(&(*msh)->exec);
 		free_lst_line(&(*msh)->lst_line);
 		free(*msh);
 	}
@@ -72,3 +73,23 @@ void	free_3_str(char **s1, char **s2, char **s3)
 	if (*s3 != NULL)
 		free_str(s3);
 }
+
+void	free_exec(t_exec *exec)
+{
+	close(exec->fd_stdin);
+	close(exec->fd_stdout);
+	free_double_str(&exec->exec_arg);
+	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
+}
+
+/*
+	int		pip[2];
+	int		old_pip[2];
+	int		fd_stdin;//nuevos variables para hacer pipes(para recibir)
+	int		fd_stdout;//nuevos variables para hacer pipes(para redirigir)
+	char	**exec_arg;
+	char	*cmd_with_path;
+	char	*cmd_no_path;
+	char	*path;
+	pid_t	proc;
+	int		wait_status;*/

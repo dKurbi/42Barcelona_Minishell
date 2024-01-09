@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/05 18:06:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:41:30 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int	calculate_len_lst_line(t_line *lst_line)
 	copy_lst = lst_line;
 	while (copy_lst != NULL)
 	{
-		len++;
-		copy_lst = copy_lst->next;
+		if (!is_redirection(copy_lst->type))
+			len++;
+		else
+			copy_lst = copy_lst->next;
+		if (copy_lst)
+			copy_lst = copy_lst->next;
 	}
 	return (len);
 }

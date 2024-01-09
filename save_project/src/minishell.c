@@ -6,13 +6,17 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/08 20:15:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:16:16 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+#ifdef __linux__
 
+int	g_exit_status;
+
+#endif
 
 void	free_main_loop(t_msh *msh)
 {
@@ -46,9 +50,6 @@ int	preparing_commands(t_msh *msh)
 int	main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
-	int 	i;
-	int		fd;
-	
 
 	if (ac != 1)
 		print_error_exit(NULL, ERR_AC);
@@ -58,11 +59,8 @@ int	main(int ac, char **av, char **ev)
 		print_error_exit(NULL, ERR_MALLOC);
 	g_exit_status = 0;
 	signal_control_main(msh);
-	fd = open("prueba.txt", O_RDWR);
-	dup2(fd, STDOUT_FILENO);
 	while (1)
 	{
-		i = dup(STDIN_FILENO);
 		msh->read_line = readline("Minishell-> ");
 		if (initial_check(msh))
 			break ;
@@ -73,7 +71,6 @@ int	main(int ac, char **av, char **ev)
 		PRINT_lst_pipe(msh->lst_pipe);
 		free_main_loop(msh);
 	}
-	close(fd);
 	free_msh(&msh);
 	return (0);
 }

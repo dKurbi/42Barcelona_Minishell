@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 19:03:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 19:28:33 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	g_exit_status;
 # define ERR_PIPE "content after pipe required\n"
 # define ERR_SYNTAX "syntax error near unexpected token\n"
 # define ERR_SIG "signal catching error\n"
+# define ERR_FILE_NO_EXIST "No such file or directory\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
@@ -77,6 +78,7 @@ int	g_exit_status;
 # define STR_APPEND ">>"
 # define STR_OUTPUT ">"
 # define STR_INPUT "<"
+# define STR_MINISHELL "minishell: "
 
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
@@ -84,13 +86,13 @@ int	g_exit_status;
 typedef struct s_exec
 {
 	int		pip[2];
+	int		old_pip[2];
 	int		fd_stdin;//nuevos variables para hacer pipes(para recibir)
 	int		fd_stdout;//nuevos variables para hacer pipes(para redirigir)
-	char	**exe_arg;
-	char	*cmd;
-	char	*raw_cmd;
+	char	**exec_arg;
+	char	*cmd_with_path;
+	char	*cmd_no_path;
 	char	*path;
-	char	**split_path;
 	pid_t	proc;
 	int		wait_status;
 }	t_exec;
@@ -144,19 +146,28 @@ char		*case_dollar_with_quotes(char *str, t_msh *msh);
 //	check
 //	minishell_check.c
 int			initial_check(t_msh *msh);
+int			check_file(char *file);
 
 //	check syntax
 //	minishell_check_syntax.c
 int			check_syntax(t_msh *msh);
+int			is_redirection(int type);
 
 //	error
 //	minishell_error.c
 void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
+void 		print_warning_file(char *file, char *s_warn);
+void		print_perror(char *s_err);
 
 //	execute
 //	minishell_execute.c
 void		execution(t_msh *msh);
+
+//	execute redir
+//	minishell_exec_redirection.c
+void		control_redirection(t_msh *msh);
+void		restore_redirection(t_msh *msh);
 
 //	struct
 //	minishell_struct.c
@@ -207,6 +218,7 @@ void		free_msh(t_msh **msh);
 void		free_lst_line(t_line **lst);
 void		free_lst_pipe(t_pipe **lst_pipe);
 void		free_3_str(char **s1, char **s2, char **s3);
+void		free_exec(t_exec *exec);
 
 //	utils
 //	minishell_utils.c
@@ -232,7 +244,7 @@ void		handle_signal(int sign, siginfo_t *sa, void *data);
 void		signal_control_main(t_msh *msh);
 
 // Env
-char	**create_env(char **env);
+char		**create_env(char **env);
 
 //	ATENCIO!!!
 //	eliminar despues!!!

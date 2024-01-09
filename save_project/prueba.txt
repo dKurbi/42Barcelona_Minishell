@@ -1,83 +1,0 @@
-[?2004hMinishell-> nuevo
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = nuevo
-n and u and e and v and o and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> exit
-[?2004lexit
-son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = hola
-h and o and l and a and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> dasda
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = dasda
-d and a and s and d and a and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> dasd
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = dasd
-d and a and s and d and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> sadf
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = sadf
-s and a and d and f and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> saddf
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = saddf
-s and a and d and d and f and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> sadf
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = sadf
-s and a and d and f and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> sadfasdfhola
-[?2004llas comillas son 0, la primera comilla esta en -1
-
-
-lst_line->read_line = sadfasdfhola
-s and a and d and f and a and s and d and f and h and o and l and a and 
-lst_line->type = 49
-lst_line->type = 1
-
-NULL: lst_pipe
-[?2004hMinishell-> exit
-[?2004lexit
