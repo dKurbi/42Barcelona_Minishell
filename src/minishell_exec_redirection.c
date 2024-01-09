@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 21:09:19 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:14:10 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void check_heredoc(t_msh *msh)
 }
 void heredoc_redir(t_msh *msh, t_line *copy)
 {
-	(void) msh;
-	(void) copy;
+	dup2(copy->fd, STDIN_FILENO);
+	close(copy->fd);
 }
 
 void	control_redirection(t_msh *msh)
