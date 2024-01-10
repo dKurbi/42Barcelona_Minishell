@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 20:42:59 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:27:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_msh	*mshnew(char **env)
 {
 	t_msh		*msh;
-	static int	exit_status;
 
 	msh = (t_msh *)malloc(sizeof(t_msh));
 	if (!msh)
@@ -27,8 +26,6 @@ t_msh	*mshnew(char **env)
 	msh->lst_pipe = NULL;
 	msh->read_line = NULL;
 	msh->pipe_active = 0;
-	exit_status = 0;
-	msh->exit_status = exit_status;
 	msh->parser = parsernew();
 	msh->exec = execnew();
 	return (msh);
@@ -76,6 +73,7 @@ void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 		last_node = (t_line *) ft_lst_line_last((void *) lst);
 		new_node = (t_line *) ft_calloc(1, sizeof(t_line));
 		new_node->str = line;
+		//new_node->fd = -2;
 		new_node->type = type_str;
 		new_node->next = NULL;
 		if (last_node)

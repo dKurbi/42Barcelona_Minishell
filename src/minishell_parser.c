@@ -3,33 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/06 17:44:12 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:03:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* char	*find_path(t_msh *msh)
-{
-	char	*path;
-	int		i;
-
-	i = -1;
-	path = NULL;
-	while (msh->ev[++i])
-	{
-		if (ft_strnstr(msh->ev[i], "PATH=", 5) != NULL)
-		{
-			path = msh->ev[i];
-			return (ft_strdup(path + 5));
-		}
-	}
-	return (path);
-}
-
+/*
 void parser_line(t_msh *msh)
 {
 	msh->parser.path = find_path(msh);

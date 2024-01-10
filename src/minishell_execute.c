@@ -3,17 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/09 19:18:27 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:41:53 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	execute_cmd(t_msh *msh)
+{
+	char	*tmp;
+
+	if (msh->exec.exec_arg[0][0] == QUOTE || msh->exec.exec_arg[0][0] == QUOTE)
+	{
+		if (msh->exec.exec_arg[0][0] == QUOTE)
+			tmp = ft_strtrim(msh->exec.exec_arg[0], "\'");
+		else
+			tmp = ft_strtrim(msh->exec.exec_arg[0], "\"");
+		free(msh->exec.exec_arg[0]);
+		msh->exec.exec_arg[0] = tmp;
+	}
+	msh->exec.path = get_path(msh);
+	if (!msh->exec.path)
+		return ;
+	printf("PATH - %s\n", msh->exec.path);
+	if (check_command(msh->exec.exec_arg[0]) == 0)
+	{
+		get_cmd_with_path(&msh);
+		if (check_command(msh->exec.cmd_with_path) == 0)
+			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
+	}
+	if (msh->exec.cmd_with_path == NULL)
+		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
+	else
+		execve(msh->exec.cmd_with_path, msh->exec.exec_arg, msh->ev);
+}
+
 //ejecutar los comandos ejemplo: "ls -la"
-void	execution_cmd(t_msh *msh, int mode)
+void	execution_line(t_msh *msh, int mode)
 {
 	if (mode == EXECUTE_COMMAND)
 	{
@@ -21,7 +50,9 @@ void	execution_cmd(t_msh *msh, int mode)
 		if (!msh->exec.exec_arg)
 			print_error_exit(&msh, ERR_MALLOC);
 		control_redirection(msh);
+		execute_cmd(msh);
 		restore_redirection(msh);
+		free_double_str(&msh->exec.exec_arg);
 	}
 	else if (mode == EXECUTE_PIPE)
 	{
@@ -36,7 +67,7 @@ void	execution_pipes(t_msh *msh)
 	(void)(msh);
 	while (msh->lst_line)
 	{
-		execution_cmd(msh, EXECUTE_PIPE);
+		execution_line(msh, EXECUTE_PIPE);
 	}
 }
 
@@ -48,5 +79,5 @@ void	execution(t_msh *msh)
 	if (msh->lst_pipe != NULL)
 		execution_pipes(msh);
 	else
-		execution_cmd(msh, EXECUTE_COMMAND);
+		execution_line(msh, EXECUTE_COMMAND);
 }

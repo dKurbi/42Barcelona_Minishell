@@ -7,6 +7,7 @@ void	PRINT_lst_line(t_line *lst_line)
 {
 	t_line	*copy_lst;
 
+	printf("\n\n");
 	if (!lst_line)
 	{
 		printf("NULL: lst_line\n");
@@ -52,6 +53,7 @@ void	PRINT_lst_pipe(t_pipe *lst_pipe)
 {
 	t_pipe	*copy_lst;
 
+	printf("\n\n");
 	if (!lst_pipe)
 	{
 		printf("NULL: lst_pipe\n");
@@ -72,4 +74,21 @@ void	PRINT_comillas(char *read_line)
 	if (!read_line)
 		return ;
 	printf("las comillas son %i, la primera comilla esta en %i\n\n\n", is_quotes_pair(read_line, 0, -1), where_next_any_quote_is(read_line, 0));
+}
+
+void	PRINT_fd(int fd)
+{
+	int	fd_copy;
+	char	*line;
+
+	fd_copy = dup(fd);
+	line = get_next_line(fd_copy);
+	printf("\n PRINT FD : \n");
+	while (line != NULL)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd_copy);
 }

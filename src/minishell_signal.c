@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 03:58:14 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/10 04:20:13 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	handle_signal(int sign, siginfo_t *sa, void *data)
 	if (sign == SIGINT)
 	{
 		g_exit_status = 130;
-		ft_printf("\n");
+		printf("\n");
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();

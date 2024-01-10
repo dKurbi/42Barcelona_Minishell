@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/09 20:56:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:44:19 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	g_exit_status;
 # define ERR_SYNTAX "syntax error near unexpected token\n"
 # define ERR_SIG "signal catching error\n"
 # define ERR_FILE_NO_EXIST "No such file or directory\n"
+# define ERR_NO_CMD "command not found\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
@@ -110,7 +111,7 @@ typedef struct s_parser
 typedef struct s_line
 {
 	char			*str;
-	int				fd;
+//	int				fd;
 	int				type;
 	struct s_line	*next;
 }		t_line;
@@ -149,6 +150,7 @@ char		*case_dollar_with_quotes(char *str, t_msh *msh);
 //	minishell_check.c
 int			initial_check(t_msh *msh);
 int			check_file(char *file);
+int			check_command(char *str);
 
 //	check syntax
 //	minishell_check_syntax.c
@@ -159,7 +161,7 @@ int			is_redirection(int type);
 //	minishell_error.c
 void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
-void 		print_warning_file(char *file, char *s_warn);
+void 		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
 
 //	execute
@@ -185,8 +187,9 @@ int			decide_type(char *str);
 
 //  getter
 //	minishell_getter.c
-char		*get_raw_cmd(t_msh *msh);
-char		*get_cmd(t_msh *msh);
+
+char		*get_path(t_msh *msh);
+void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
 //	quotes
@@ -254,5 +257,6 @@ void		PRINT_lst_line(t_line *lst_line);
 void		PRINT_lst_pipe(t_pipe *lst_pipe);
 void		PRINT_split_line(char **double_str);
 void		PRINT_comillas(char *read_line);
+void		PRINT_fd(int fd);
 
 #endif
