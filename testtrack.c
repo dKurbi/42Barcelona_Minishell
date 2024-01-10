@@ -1,21 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   testtrack.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:34:14 by iassambe          #+#    #+#             */
-/*   Updated: 2023/05/16 20:03:08 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/10 17:24:02 by iassambe          #+#    #+#             */
+/*   Updated: 2024/01/10 17:32:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdlib.h>
 
-int	ft_isdigit(int c)
+int	main(void)
 {
-	if (c >= '0' && c <= '9')
+	int	fd;
+	int	fd2;
+	int	fd3;
+
+	fd = open("a", O_RDONLY);
+	fd2 = open("b", O_RDONLY);
+	fd3 = open("c", O_RDONLY);
+
+
+	if (fd < 0 || fd2 < 0 || fd3 < 0)
+	{
+		printf("LOL FD-------\n");
 		return (1);
-	else
-		return (0);
+	}
+	close(fd2);
+	printf("%d\n", fd);
+	close(fd);
+	printf("%d\n", fd3);
+	close(fd3);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_operators.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 18:42:31 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:51:01 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	addstr_to_lst_line(char *str, t_line **lst_line, int i)
 		if (str[i] != IPUT_RED && str[i] != OPUT_RED)
 		{
 			sub_str = ft_substr(str, i, last - i);
-			add_new_line_node(sub_str, decide_type(str), lst_line);
+			add_new_line_node(sub_str, decide_type(sub_str), lst_line);
 		}
 		decide_operators(str, last, lst_line);
 		i = skip_operators(str, last);

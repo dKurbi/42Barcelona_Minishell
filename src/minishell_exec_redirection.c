@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 03:38:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:14:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,32 @@ void 	append_redir(t_msh *msh, t_line *copy)
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
+
 void 	write_herdoc(t_msh *msh, t_line *copy)
 {
 	char *line;
 	
 	line = NULL;
+	if (msh->exec.fd_here_doc[0] != -1)
+		close(msh->exec.fd_here_doc[0]);
 	if (pipe(msh->exec.fd_here_doc) == -1)
 		print_error_exit(&msh, ERR_PIPE);
 	line = readline("> ");
 	while (ft_strncmp(line, copy->next->str, ft_strlen(copy->next->str)) \
 			|| ft_strlen(line) != ft_strlen(copy->next->str))
 	{
-		ft_putstr_fd(line, msh->exec.fd_here_doc[0]);
+		ft_putstr_fd(line, msh->exec.fd_here_doc[1]);
+		ft_putchar_fd('\n', msh->exec.fd_here_doc[1]);
 		free_str(&line);
 		line = readline("> ");
 	}
+	ft_putchar_fd('\0', msh->exec.fd_here_doc[1]);
 	free_str(&line);
-	close (msh->exec.fd_here_doc[0]);
-	copy->fd = dup(msh->exec.fd_here_doc[1]);
+	close(msh->exec.fd_here_doc[1]);
+	//copy->fd = dup(msh->exec.fd_here_doc[0]);
+	//close(msh->exec.fd_here_doc[0]);
 }
+
 void check_heredoc(t_msh *msh)
 {
 	t_line *line_copy;
@@ -90,11 +97,12 @@ void check_heredoc(t_msh *msh)
 		line_copy = line_copy->next;
 	}
 }
-void heredoc_redir(t_msh *msh, t_line *copy)
+
+void heredoc_redir(t_msh *msh)
 {
 	(void)(msh);
-	dup2(copy->fd, STDIN_FILENO);
-	close(copy->fd);
+	dup2(msh->exec.fd_here_doc[0], STDIN_FILENO);
+	close(msh->exec.fd_here_doc[0]);
 }
 
 void	control_redirection(t_msh *msh)
@@ -114,12 +122,15 @@ void	control_redirection(t_msh *msh)
 		else if (copy_line->type == TYPE_APND)
 			append_redir(msh, copy_line);
 		else if (copy_line->type == TYPE_HDC)
-			heredoc_redir(msh, copy_line);
+			heredoc_redir(msh);
 		copy_line = copy_line->next;
 	}	 
 }
+
 void restore_redirection(t_msh *msh)
 {
 	dup2(msh->exec.fd_stdout, STDOUT_FILENO);
 	dup2(msh->exec.fd_stdin, STDIN_FILENO);
+	close(msh->exec.fd_stdout);
+	close(msh->exec.fd_stdin);
 }

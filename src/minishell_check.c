@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/09 19:26:31 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:46:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ int	check_file(char *file)
 	{
 		print_perror(file);
 		return (1);
+	}
+	return (0);
+}
+
+int	check_command(char *str)
+{
+	if (str[0] == '.')
+	{
+		return (0);
+		
+	}
+	else if (str[0] == '/')
+	{
+		return (0);
+
+	}
+	else
+	{
+		return (0);
 	}
 	return (0);
 }

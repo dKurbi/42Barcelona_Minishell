@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 16:08:46 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:45:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,61 @@ char	*get_raw_cmd(t_msh *msh)
 {
 	
 }
-
-char	*get_cmd(t_msh *msh)
-{
-	
-}
 */
+
+void	get_cmd_with_path(t_msh **msh)
+{
+	char	**split;
+	int		i;
+	char	*s;
+
+	split = ft_split((*msh)->exec.path, ':');
+	if (!split)
+		return ;
+	//px_find_cmd_loop(info, &split, -1);
+
+	i = -1;
+	s = NULL;
+	while (split[++i])
+	{
+		s = ft_strdup(split[i]);
+		if (!s)
+		{
+			ft_split_free(split);
+			return ;
+		}
+		free_str(&split[i]);
+		split[i] = ft_strjoin(s, "/");
+		(*msh)->exec.cmd_with_path = ft_strjoin(split[i], (*msh)->exec.exec_arg[0]);
+		if (access((*msh)->exec.cmd_with_path, X_OK) == 0)
+		{
+			free_str(&s);
+			break ;
+		}
+		free_str(&(*msh)->exec.cmd_with_path);
+		free_str(&s);
+	}
+	free_double_str(&split);
+}
+
+
+char	*get_path(t_msh *msh)
+{
+	char	*path;
+	int		i;
+
+	i = -1;
+	path = NULL;
+	while (msh->ev[++i])
+	{
+		if (ft_strnstr(msh->ev[i], "PATH=", 5) != NULL)
+		{
+			path = msh->ev[i];
+			return (ft_strdup(path + 5));
+		}
+	}
+	return (path);
+}
 
 //( execve(..., char *const argv[], ...); )
 //ATENCION: esto nos servira solo para los t_line,
