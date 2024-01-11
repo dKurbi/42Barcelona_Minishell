@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/11 18:05:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:31:08 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	control_redirection(t_msh *msh)
 	t_line	*copy_line;
 
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
-	msh->exec.fd_stdout = dup (STDOUT_FILENO);
+	msh->exec.fd_stdout = dup(STDOUT_FILENO);
 	copy_line = msh->lst_line;
 	check_heredoc(msh);
 	while (copy_line)

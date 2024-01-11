@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/11 17:42:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:31:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ void	execution_line(t_msh *msh, int mode)
 		msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
 		if (!msh->exec.exec_arg)
 			print_error_exit(&msh, ERR_MALLOC);
+		printf("control_redirection\n\n");
 		control_redirection(msh);
+		printf("execute_cmd\n\n");
 		execute_cmd(msh);
+		printf("restore_redirection\n\n");
 		restore_redirection(msh);
+		printf("free_double_str exec_line\n\n");
 		free_double_str(&msh->exec.exec_arg);
 	}
 	else if (mode == EXECUTE_PIPE)
