@@ -6,17 +6,11 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 20:45:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:42:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-/* 
-char	*get_raw_cmd(t_msh *msh)
-{
-	
-}
-*/
 
 void	get_cmd_with_path(t_msh **msh)
 {
@@ -27,10 +21,7 @@ void	get_cmd_with_path(t_msh **msh)
 	split = ft_split((*msh)->exec.path, ':');
 	if (!split)
 		return ;
-	//px_find_cmd_loop(info, &split, -1);
-
 	i = -1;
-	s = NULL;
 	while (split[++i])
 	{
 		s = ft_strdup(split[i]);
@@ -40,19 +31,15 @@ void	get_cmd_with_path(t_msh **msh)
 			return ;
 		}
 		free_str(&split[i]);
-		split[i] = ft_strjoin(s, "/");
-		(*msh)->exec.cmd_with_path = ft_strjoin(split[i], (*msh)->exec.exec_arg[0]);
+		split[i] = get_ft_strjoin_modif(s, "/");
+		(*msh)->exec.cmd_with_path = ft_strjoin(split[i], \
+									(*msh)->exec.exec_arg[0]);
 		if (access((*msh)->exec.cmd_with_path, X_OK) == 0)
-		{
-			free_str(&s);
 			break ;
-		}
 		free_str(&(*msh)->exec.cmd_with_path);
-		free_str(&s);
 	}
 	free_double_str(&split);
 }
-
 
 char	*get_path(t_msh *msh)
 {
@@ -72,6 +59,25 @@ char	*get_path(t_msh *msh)
 	return (path);
 }
 
+//2 - no es redir, 1 - malloc err, 0 - es redir
+int	get_exec_argv_loop(t_line *copy_lst, char ***exe_arg, int *i)
+{
+	while (copy_lst != NULL)
+	{
+		if (!is_redirection(copy_lst->type))
+		{
+			(*exe_arg)[*i] = ft_strdup(copy_lst->str);
+			if ((*exe_arg)[(*i)++] == NULL)
+				return (1);
+		}
+		else
+			copy_lst = copy_lst->next;
+		if (copy_lst)
+			copy_lst = copy_lst->next;
+	}
+	return (0);
+}
+
 //( execve(..., char *const argv[], ...); )
 //ATENCION: esto nos servira solo para los t_line,
 //porque tenemos que crear cada vez este argv** en 
@@ -89,19 +95,8 @@ char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 		print_error_exit(&msh, ERR_MALLOC);
 	copy_lst = lst_line;
 	i = 0;
-	while (copy_lst != NULL)
-	{
-		if (!is_redirection(copy_lst->type))
-		{
-			exe_arg[i] = ft_strdup(copy_lst->str);
-			if (exe_arg[i++] == NULL)
-				return (ft_split_free(exe_arg));
-		}
-		else
-			copy_lst = copy_lst->next;
-		if (copy_lst)
-			copy_lst = copy_lst->next;
-	}
+	if (get_exec_argv_loop(copy_lst, &exe_arg, &i) == 1)
+		return (ft_split_free(exe_arg));
 	exe_arg[i] = NULL;
 	return (exe_arg);
 }

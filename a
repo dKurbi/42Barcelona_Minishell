@@ -1,10 +1,2 @@
-PATH - /home/iassambe/.local/bin:/home/iassambe/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
-a
-inc
-Makefile
-minishell
-objs
-prueba_comando_con_y_sin_pipes.txt
-prueba_dollar.txt
-src
-testtrack.c
+PATH - /Users/iassambe/.brew/bin:/Users/iassambe/.brew/bin:/Users/iassambe/.brew/bin:/Users/iassambe/.brew/bin:/Users/iassambe/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware
+"a"

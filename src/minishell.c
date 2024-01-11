@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/11 04:35:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:24:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_main_loop(t_msh *msh)
 	free_str(&msh->read_line);
 	free_lst_line(&msh->lst_line);
 	free_lst_pipe(&msh->lst_pipe);
+	free_exec(&msh->exec);
 }
 
 int	preparing_commands(t_msh *msh)
@@ -69,8 +70,8 @@ int	main(int ac, char **av, char **ev)
 		//PRINT_comillas(msh->read_line);
 /* 		printf("\n\nDEBUG PRINTS:\n\n");
 		PRINT_lst_line(msh->lst_line);
-		PRINT_lst_pipe(msh->lst_pipe);
-		free_main_loop(msh); */
+		PRINT_lst_pipe(msh->lst_pipe);*/
+		free_main_loop(msh);
 	}
 	free_msh(&msh);
 	return (0);
