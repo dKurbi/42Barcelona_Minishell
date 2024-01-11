@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/10 20:41:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 04:40:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,14 @@ void	execute_cmd(t_msh *msh)
 	if (!msh->exec.path)
 		return ;
 	printf("PATH - %s\n", msh->exec.path);
-	if (check_command(msh->exec.exec_arg[0]) == 0)
+	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
 		get_cmd_with_path(&msh);
-		if (check_command(msh->exec.cmd_with_path) == 0)
+		if (check_command(msh->exec.cmd_with_path) == 1)
+		{
 			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
+			return ;
+		}
 	}
 	if (msh->exec.cmd_with_path == NULL)
 		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
