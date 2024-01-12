@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 14:40:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:46:26 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	execute_cmd(t_msh *msh)
 		print_error_exit(&msh, ERR_FORK);
 	if (msh->exec.proc == 0)
 		execute_child(msh, tmp);
-	
+	close(msh->exec.pip[0]);
+	close(msh->exec.pip[1]);
 	waitpid(msh->exec.proc, &g_exit_status, 0);
 	/////
 	g_exit_status = WEXITSTATUS(g_exit_status);

@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 13:45:27 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:51:53 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ int	main(int ac, char **av, char **ev)
 		if (preparing_commands(msh) != 1)
 			execution(msh);
 		//PRINT_comillas(msh->read_line);
-		printf("\n\nDEBUG PRINTS:\n\n");
+/* 		printf("\n\nDEBUG PRINTS:\n\n");
 		PRINT_lst_line(msh->lst_line);
 		PRINT_lst_pipe(msh->lst_pipe);
-		free_main_loop(msh);
+		free_main_loop(msh); */
 	}
+	rl_clear_history();
 	free_msh(&msh);
 	return (0);
 }
