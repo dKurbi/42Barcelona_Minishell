@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 20:13:34 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:26:07 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	free_msh(t_msh **msh)
 		free_double_str(&(*msh)->ev);
 		free_exec(&(*msh)->exec);
 		free_lst_line(&(*msh)->lst_line);
+		free_lst_pipe(&(*msh)->lst_pipe);
 		free(*msh);
 	}
 	*msh = NULL;
@@ -82,6 +83,15 @@ void	free_exec(t_exec *exec)
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }
 
+void	exit_free_child(t_msh *msh, int exit_status)
+{
+	close(msh->exec.pip[0]);
+	close(msh->exec.pip[1]);
+	free_msh(&msh);
+	rl_clear_history();
+	exit(exit_status);
+	
+}
 /*
 	int		pip[2];
 	int		old_pip[2];

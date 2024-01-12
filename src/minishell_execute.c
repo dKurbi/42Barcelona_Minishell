@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 14:46:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:41:33 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void execute_child(t_msh *msh, char *tmp)
 	if (!msh->exec.exec_arg)
 		print_error_exit(&msh, ERR_MALLOC);
 	if (!msh->exec.exec_arg[0])
-		exit(1);
+		exit_free_child(msh, 1);
 	if (msh->exec.exec_arg[0][0] == QUOTE || msh->exec.exec_arg[0][0] == QUOTE)
 	{
 		if (msh->exec.exec_arg[0][0] == QUOTE)
@@ -36,21 +36,25 @@ void execute_child(t_msh *msh, char *tmp)
 	}
 	msh->exec.path = get_path(msh);
 	if (!msh->exec.path)
-		exit(127);
+		exit_free_child(msh, 127);
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
 		get_cmd_with_path(&msh);
 		if (check_command(msh->exec.cmd_with_path) == 1)
 		{
 			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
-			exit(127);
+			exit_free_child(msh, 127);
 		}
 	}
 	if (msh->exec.cmd_with_path == NULL)
+	{
+		if (msh->exec.exec_arg[0][0] == POINT)
+			change_exe_arg_script(msh);
 		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
+	}
 	else
 		execve(msh->exec.cmd_with_path, msh->exec.exec_arg, msh->ev);
-	exit(g_exit_status);
+	exit_free_child(msh, g_exit_status);
 }
 
 void	execute_cmd(t_msh *msh)
@@ -58,7 +62,7 @@ void	execute_cmd(t_msh *msh)
 	char	*tmp;
 
 	tmp = NULL;
-	//signal_control_exec(msh);
+	signal_control_exec(msh);
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 	msh->exec.proc = fork();
@@ -69,8 +73,12 @@ void	execute_cmd(t_msh *msh)
 	close(msh->exec.pip[0]);
 	close(msh->exec.pip[1]);
 	waitpid(msh->exec.proc, &g_exit_status, 0);
-	/////
-	g_exit_status = WEXITSTATUS(g_exit_status);
+	if (WIFEXITED(g_exit_status))
+	{
+		g_exit_status = WEXITSTATUS(g_exit_status);
+		if (g_exit_status == 3)
+			g_exit_status = 131;
+	}
 }
 
 //ejecutar los comandos ejemplo: "ls -la"

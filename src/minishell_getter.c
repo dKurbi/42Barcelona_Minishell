@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/11 17:42:09 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 17:03:30 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,42 @@ char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 		return (ft_split_free(exe_arg));
 	exe_arg[i] = NULL;
 	return (exe_arg);
+}
+
+char	*get_shell(t_msh *msh)
+{
+	char	*shell_str;
+	int		i;
+
+	i = -1;
+	shell_str = NULL;
+	while (msh->ev[++i])
+	{
+		if (ft_strnstr(msh->ev[i], "SHELL=", 6) != NULL)
+		{
+			shell_str = msh->ev[i];
+			return (shell_str + 6);
+		}
+	}
+	return (shell_str);
+}
+
+void change_exe_arg_script(t_msh *msh)
+{
+	char **str;
+	int	i;
+
+	i = 0;
+	while (msh->exec.exec_arg[i])	
+		i++;
+	str = malloc(sizeof(char *) * (i + 2));
+	if (str == NULL)
+		print_error_exit(&msh, ERR_MALLOC);
+	str[0] = ft_strdup(get_shell(msh));
+	i = -1;
+	while(msh->exec.exec_arg[++i])
+		str[i + 1] = ft_strdup(msh->exec.exec_arg[i]);
+	str[i + 1] = NULL;
+	free_double_str(&msh->exec.exec_arg);
+	msh->exec.exec_arg = str;
 }

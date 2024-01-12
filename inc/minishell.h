@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 14:11:52 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:41:05 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	g_exit_status;
 # define OPUT_RED 62
 //input redirection - <
 # define IPUT_RED 60
+# define POINT 46
 
 //	strings
 # define STR_PIPE "|"
@@ -84,6 +85,9 @@ int	g_exit_status;
 
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
+
+# define MAIN_MODE 0
+# define EXEC_MODE 1
 
 typedef struct s_exec
 {
@@ -191,6 +195,8 @@ int			decide_type(char *str);
 char		*get_path(t_msh *msh);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
+char		*get_shell(t_msh *msh);
+void 		change_exe_arg_script(t_msh *msh);
 
 //	heredoc
 //	minishell_heredoc.c
@@ -230,6 +236,7 @@ void		free_lst_line(t_line **lst);
 void		free_lst_pipe(t_pipe **lst_pipe);
 void		free_3_str(char **s1, char **s2, char **s3);
 void		free_exec(t_exec *exec);
+void		exit_free_child(t_msh *msh, int exit_status);
 
 //	utils
 //	minishell_utils.c
@@ -252,7 +259,10 @@ int			where_is_dollar(char *str, int i);
 //	Signal
 //	minishell_signal.c
 void		handle_signal(int sign, siginfo_t *sa, void *data);
+void  		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
+void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
+//void		signal_control_main(t_msh *msh, int mode);
 
 // Env
 char		**create_env(char **env);
