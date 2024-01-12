@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 18:41:05 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:32:16 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,12 @@ void		print_warning(char *s_warn);
 void		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
 
+
+//luego reorganizarlo
+int			execute_child_argv(t_msh **msh);
+void		execute_child(t_msh *msh);
+void		execute_cmd(t_msh *msh);
+
 //	execute
 //	minishell_execute.c
 void		execution(t_msh *msh);
@@ -187,7 +193,6 @@ void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 
 //  parser
 //	minishell_parser.c
-void		parser_line(t_msh *msh);
 int			decide_type(char *str);
 
 //  getter
@@ -196,7 +201,7 @@ char		*get_path(t_msh *msh);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 char		*get_shell(t_msh *msh);
-void 		change_exe_arg_script(t_msh *msh);
+void		change_exec_arg_script(t_msh *msh);
 
 //	heredoc
 //	minishell_heredoc.c
@@ -258,11 +263,10 @@ int			where_is_dollar(char *str, int i);
 
 //	Signal
 //	minishell_signal.c
-void		handle_signal(int sign, siginfo_t *sa, void *data);
-void  		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
+void		handle_signal_main(int sign, siginfo_t *sa, void *data);
+void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
-//void		signal_control_main(t_msh *msh, int mode);
 
 // Env
 char		**create_env(char **env);

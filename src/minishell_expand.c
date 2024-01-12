@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 03:57:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:09:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 extern int	g_exit_status;
 
 #endif
+
+int	where_is_dollar(char *str, int i)
+{
+	while (str[i])
+	{
+		if (str[i] == '$')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 char	*clean_var(char *str)
 {
@@ -79,15 +90,4 @@ char	*expand(char *var, t_msh *msh)
 		rtn = ft_itoa(g_exit_status);
 	}
 	return (rtn);
-}
-
-int	where_is_dollar(char *str, int i)
-{
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (i);
-		i++;
-	}
-	return (-1);
 }

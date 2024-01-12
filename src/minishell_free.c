@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:26:07 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:15:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,6 @@ void	free_lst_pipe(t_pipe **lst_pipe)
 	*lst_pipe = NULL;
 }
 
-//esto es para que evitar norminette
-void	free_3_str(char **s1, char **s2, char **s3)
-{
-	if (*s1 != NULL)
-		free_str(s1);
-	if (*s2 != NULL)
-		free_str(s2);
-	if (*s3 != NULL)
-		free_str(s3);
-}
-
 void	free_exec(t_exec *exec)
 {
 	close(exec->fd_stdin);
@@ -90,16 +79,4 @@ void	exit_free_child(t_msh *msh, int exit_status)
 	free_msh(&msh);
 	rl_clear_history();
 	exit(exit_status);
-	
 }
-/*
-	int		pip[2];
-	int		old_pip[2];
-	int		fd_stdin;//nuevos variables para hacer pipes(para recibir)
-	int		fd_stdout;//nuevos variables para hacer pipes(para redirigir)
-	char	**exec_arg;
-	char	*cmd_with_path;
-	char	*cmd_no_path;
-	char	*path;
-	pid_t	proc;
-	int		wait_status;*/

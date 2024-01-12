@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/05 18:06:39 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:13:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,40 +27,22 @@ int	check_ifempty_str(char *str)
 	return (0);
 }
 
-//free memoria de char *
-void	free_str(char **str)
+void	change_exec_arg_script(t_msh *msh)
 {
-	if (*str != NULL)
-		free(*str);
-	*str = NULL;
-}
+	char	**str;
+	int		i;
 
-//free memoria de char **
-void	free_double_str(char ***double_str)
-{
-	int	i;
-
-	if (*double_str == NULL)
-		return ;
 	i = 0;
-	while ((*double_str)[i])
-	{
-		free_str(&(*double_str)[i]);
+	while (msh->exec.exec_arg[i])
 		i++;
-	}
-	free(*double_str);
-	*double_str = NULL;
-}
-
-//el ultimo t_line del total
-t_line	*ft_lst_line_last(t_line *lst)
-{
-	t_line	*lastlist;
-
-	if (lst == NULL)
-		return (NULL);
-	lastlist = lst;
-	while (lastlist->next != NULL)
-		lastlist = lastlist->next;
-	return (lastlist);
+	str = (char **) malloc(sizeof(char *) * (i + 2));
+	if (str == NULL)
+		print_error_exit(&msh, ERR_MALLOC);
+	str[0] = ft_strdup(get_shell(msh));
+	i = -1;
+	while (msh->exec.exec_arg[++i])
+		str[i + 1] = ft_strdup(msh->exec.exec_arg[i]);
+	str[i + 1] = NULL;
+	free_double_str(&msh->exec.exec_arg);
+	msh->exec.exec_arg = str;
 }
