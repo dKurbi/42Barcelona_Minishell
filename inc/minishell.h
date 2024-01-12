@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/10 20:44:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:06:30 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int			is_redirection(int type);
 //	minishell_error.c
 void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
-void 		print_warning_with_arg(char *file, char *s_warn);
+void		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
 
 //	execute
@@ -187,10 +187,15 @@ int			decide_type(char *str);
 
 //  getter
 //	minishell_getter.c
-
 char		*get_path(t_msh *msh);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
+
+//	heredoc
+//	minishell_heredoc.c
+void		write_herdoc(t_msh *msh, t_line *copy);
+void		check_heredoc(t_msh *msh);
+void		heredoc_redir(t_msh *msh);
 
 //	quotes
 //	minishell_quotes.c

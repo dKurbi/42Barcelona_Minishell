@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/10 20:46:56 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 04:33:30 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,15 @@ int	check_file(char *file)
 	return (0);
 }
 
+//return 1 - invalid, 0 - invalid
 int	check_command(char *str)
 {
-	if (str[0] == '.')
+	if (access(str, F_OK) == 0)
 	{
-		return (0);
-		
-	}
-	else if (str[0] == '/')
-	{
-		return (0);
-
+		if (access(str, X_OK) < 0)
+			return (1);
 	}
 	else
-	{
-		return (0);
-	}
+		return (1);
 	return (0);
 }

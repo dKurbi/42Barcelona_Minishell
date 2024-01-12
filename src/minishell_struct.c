@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 19:27:12 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:33:43 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 		last_node = (t_line *) ft_lst_line_last((void *) lst);
 		new_node = (t_line *) ft_calloc(1, sizeof(t_line));
 		new_node->str = line;
-		//new_node->fd = -2;
 		new_node->type = type_str;
 		new_node->next = NULL;
 		if (last_node)
