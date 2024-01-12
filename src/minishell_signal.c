@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_signal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 04:20:13 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:49:57 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	handle_signal(int sign, siginfo_t *sa, void *data)
 		rl_redisplay();
 	}
 }
+
+/* void	signal_control_exec(t_msh *msh)
+{
+	
+} */
+
 
 void	signal_control_main(t_msh *msh)
 {

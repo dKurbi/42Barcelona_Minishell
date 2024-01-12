@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/11 18:06:30 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:11:52 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	g_exit_status;
 # define ERR_SIG "signal catching error\n"
 # define ERR_FILE_NO_EXIST "No such file or directory\n"
 # define ERR_NO_CMD "command not found\n"
+# define ERR_FORK "forking error\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
