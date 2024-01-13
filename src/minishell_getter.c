@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 17:03:30 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:12:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,6 @@ int	get_exec_argv_loop(t_line *copy_lst, char ***exe_arg, int *i)
 	return (0);
 }
 
-//( execve(..., char *const argv[], ...); )
-//ATENCION: esto nos servira solo para los t_line,
-//porque tenemos que crear cada vez este argv** en 
 char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 {
 	char	**exe_arg;
@@ -117,24 +114,4 @@ char	*get_shell(t_msh *msh)
 		}
 	}
 	return (shell_str);
-}
-
-void change_exe_arg_script(t_msh *msh)
-{
-	char **str;
-	int	i;
-
-	i = 0;
-	while (msh->exec.exec_arg[i])	
-		i++;
-	str = malloc(sizeof(char *) * (i + 2));
-	if (str == NULL)
-		print_error_exit(&msh, ERR_MALLOC);
-	str[0] = ft_strdup(get_shell(msh));
-	i = -1;
-	while(msh->exec.exec_arg[++i])
-		str[i + 1] = ft_strdup(msh->exec.exec_arg[i]);
-	str[i + 1] = NULL;
-	free_double_str(&msh->exec.exec_arg);
-	msh->exec.exec_arg = str;
 }

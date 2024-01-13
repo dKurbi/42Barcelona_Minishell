@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/11 18:04:16 by iassambe         ###   ########.fr        #
+#    Updated: 2024/01/12 20:08:13 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,9 @@ SRCS = PRINT.c \
 		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c minishell_getter.c \
 		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
 		minishell_execute.c minishell_check_syntax.c minishell_signal.c \
-		minishell_env.c minishell_exec_redirection.c minishell_heredoc.c
+		minishell_env.c minishell_exec_redirection.c minishell_heredoc.c \
+		minishell_free_str.c minishell_builtin_cd.c minishell_execute_command.c \
+		minishell_execute_pipe.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
@@ -87,7 +89,7 @@ re: fclean all
 r: re
 
 norminette:
-	norminette inc/minishell.h src/ft* src/minishell*
+	norminette inc/libft/*.c inc/libft/*.h inc/minishell.h src/ft* src/minishell*
 
 -include $(DEPS)
 

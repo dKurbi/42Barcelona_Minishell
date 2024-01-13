@@ -6,25 +6,12 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:22:21 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/10 20:03:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:05:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*
-void parser_line(t_msh *msh)
-{
-	msh->parser.path = find_path(msh);
-	if (!msh->parser.path)
-		msh->parser.path = ft_strdup("");
-	find_pipes_quotes(msh);
-	msh->parser.split_path =  ft_split(msh->parser.path, ':');
-	msh->parser.raw_cmd = get_raw_cmd(msh);
-	msh->parser.cmd = get_cmd(msh);
-} */
-
-//decidioms que sera: pipe strm comandom heredoc o append (<<, >>), etc...
 int	decide_type(char *str)
 {
 	if (!str)

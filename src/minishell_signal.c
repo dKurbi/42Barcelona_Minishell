@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_signal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 18:58:32 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/12 20:01:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	handle_signal_main(int sign, siginfo_t *sa, void *data)
 		rl_redisplay();
 	}
 }
-void  handle_signal_exec_mode(int sign, siginfo_t *sa, void *data)
+
+void	handle_signal_exec_mode(int sign, siginfo_t *sa, void *data)
 {
 	(void)(sa);
 	(void)(data);
@@ -48,7 +49,6 @@ void  handle_signal_exec_mode(int sign, siginfo_t *sa, void *data)
 		printf("Quit: 3\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		
 	}
 }
 
@@ -64,6 +64,7 @@ void	signal_control_exec(t_msh *msh)
 	if (sigaction(SIGQUIT, &sa_exec, NULL) == -1)
 		print_error_exit(&msh, ERR_SIG);
 }
+
 void	signal_control_main(t_msh *msh)
 {
 	struct sigaction	sa;
