@@ -6,8 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:52:29 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:16:07 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/13 03:30:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	builtin_cd(t_msh *msh)
+{
+	(void)(msh);
+}

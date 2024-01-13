@@ -6,11 +6,17 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:30:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/13 03:06:08 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+#ifdef __linux__
+
+extern int	g_exit_status;
+
+#endif
 
 int	execute_child_argv(t_msh **msh)
 {
@@ -21,7 +27,8 @@ int	execute_child_argv(t_msh **msh)
 		print_error_exit(msh, ERR_MALLOC);
 	if (!(*msh)->exec.exec_arg[0])
 		return (1);
-	if ((*msh)->exec.exec_arg[0][0] == QUOTE || (*msh)->exec.exec_arg[0][0] == QUOTE)
+	if ((*msh)->exec.exec_arg[0][0] == QUOTE || \
+		(*msh)->exec.exec_arg[0][0] == DQUOTE)
 	{
 		if ((*msh)->exec.exec_arg[0][0] == QUOTE)
 			tmp = ft_strtrim((*msh)->exec.exec_arg[0], "\'");

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:32:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/13 03:29:43 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	g_exit_status;
 # define ERR_FILE_NO_EXIST "No such file or directory\n"
 # define ERR_NO_CMD "command not found\n"
 # define ERR_FORK "forking error\n"
+# define ERR_BUILTIN_HAS_ARGS "invalid option\n"
 
 // type code
 # define TYPE_STR 0// "hola que tal"
