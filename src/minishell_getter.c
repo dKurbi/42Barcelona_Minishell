@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 20:12:14 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/13 22:47:19 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ void	get_cmd_with_path(t_msh **msh)
 		free_str(&(*msh)->exec.cmd_with_path);
 	}
 	free_double_str(&split);
-}
-
-char	*get_path(t_msh *msh)
-{
-	char	*path;
-	int		i;
-
-	i = -1;
-	path = NULL;
-	while (msh->ev[++i])
-	{
-		if (ft_strnstr(msh->ev[i], "PATH=", 5) != NULL)
-		{
-			path = msh->ev[i];
-			return (ft_strdup(path + 5));
-		}
-	}
-	return (path);
 }
 
 //2 - no es redir, 1 - malloc err, 0 - es redir
@@ -96,22 +78,4 @@ char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 		return (ft_split_free(exe_arg));
 	exe_arg[i] = NULL;
 	return (exe_arg);
-}
-
-char	*get_shell(t_msh *msh)
-{
-	char	*shell_str;
-	int		i;
-
-	i = -1;
-	shell_str = NULL;
-	while (msh->ev[++i])
-	{
-		if (ft_strnstr(msh->ev[i], "SHELL=", 6) != NULL)
-		{
-			shell_str = msh->ev[i];
-			return (shell_str + 6);
-		}
-	}
-	return (shell_str);
 }

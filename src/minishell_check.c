@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 17:39:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/13 21:23:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,25 @@ int	check_command(char *str)
 			return (1);
 	}
 	else
+		return (1);
+	return (0);
+}
+
+int	check_ifbuiltin(char *str)
+{
+	if (!strncmp(str, "echo", 4) && ft_strlen(str) == 4)
+		return (1);
+	else if (!strncmp(str, "cd", 2) && ft_strlen(str) == 2)
+		return (1);
+	else if (!strncmp(str, "pwd", 3) && ft_strlen(str) == 3)
+		return (1);
+	else if (!strncmp(str, "export", 6) && ft_strlen(str) == 6)
+		return (1);
+	else if (!strncmp(str, "unset", 5) && ft_strlen(str) == 5)
+		return (1);
+	else if (!strncmp(str, "env", 3) && ft_strlen(str) == 3)
+		return (1);
+	else if (!strncmp(str, "exit", 4) && ft_strlen(str) == 4)
 		return (1);
 	return (0);
 }

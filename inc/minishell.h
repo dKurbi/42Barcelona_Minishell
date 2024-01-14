@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/13 03:29:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/14 04:16:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,16 @@ int			ft_split_calc_words(char *s);
 char		**ft_split_free(char **split);
 char		**ft_split_pipe(char *s);
 
+//	builtins exec
+//	minishell_builtin_???.c
+void		builtin_cd(t_msh *msh);
+void		builtin_echo(t_msh *msh);
+void		builtin_env(t_msh *msh);
+void		builtin_exit(t_msh *msh);
+void		builtin_export(t_msh *msh);
+void		builtin_pwd(t_msh *msh);
+void		builtin_unset(t_msh *msh);
+
 //	cases
 //	minishell_case.c
 char		*case_dollar(char *str, t_msh *msh);
@@ -157,6 +167,7 @@ char		*case_dollar_with_quotes(char *str, t_msh *msh);
 int			initial_check(t_msh *msh);
 int			check_file(char *file);
 int			check_command(char *str);
+int			check_ifbuiltin(char *str);
 
 //	check syntax
 //	minishell_check_syntax.c
@@ -170,7 +181,6 @@ void		print_warning(char *s_warn);
 void		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
 
-
 //luego reorganizarlo
 int			execute_child_argv(t_msh **msh);
 void		execute_child(t_msh *msh);
@@ -178,6 +188,7 @@ void		execute_cmd(t_msh *msh);
 
 //	execute
 //	minishell_execute.c
+void		execute_builtin(t_msh *msh);
 void		execution(t_msh *msh);
 
 //	execute redir
@@ -198,10 +209,8 @@ int			decide_type(char *str);
 
 //  getter
 //	minishell_getter.c
-char		*get_path(t_msh *msh);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
-char		*get_shell(t_msh *msh);
 void		change_exec_arg_script(t_msh *msh);
 
 //	heredoc
@@ -261,6 +270,12 @@ t_line		*ft_lst_line_last(t_line *lst);
 char		*expand(char *var, t_msh *msh);
 char		*clean_var(char *str);
 int			where_is_dollar(char *str, int i);
+
+//	Search (something in **env)
+//	minishell_search.c
+char		*search_pwd(t_msh *msh);
+char		*search_shell(t_msh *msh);
+char		*search_path(t_msh *msh);
 
 //	Signal
 //	minishell_signal.c

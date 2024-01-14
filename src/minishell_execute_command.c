@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/13 03:06:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/14 04:25:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ int	execute_child_argv(t_msh **msh)
 	return (0);
 }
 
-void	execute_child(t_msh *msh)
+void	execute_check_command(t_msh *msh)
 {
-	if (execute_child_argv(&msh))
-		exit_free_child(msh, 1);
-	msh->exec.path = get_path(msh);
-	if (!msh->exec.path)
-		exit_free_child(msh, 127);
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
+		if (check_ifbuiltin(msh->exec.exec_arg[0]))
+		{
+			write(1, "bui\n", 4);
+			execute_builtin(msh);
+			exit(g_exit_status);
+		}
 		get_cmd_with_path(&msh);
 		if (check_command(msh->exec.cmd_with_path) == 1)
 		{
@@ -56,6 +57,10 @@ void	execute_child(t_msh *msh)
 			exit_free_child(msh, 127);
 		}
 	}
+}
+
+void	execute_execve(t_msh *msh)
+{
 	if (msh->exec.cmd_with_path == NULL)
 	{
 		if (msh->exec.exec_arg[0][0] == POINT)
@@ -64,6 +69,17 @@ void	execute_child(t_msh *msh)
 	}
 	else
 		execve(msh->exec.cmd_with_path, msh->exec.exec_arg, msh->ev);
+}
+
+void	execute_child(t_msh *msh)
+{
+	if (execute_child_argv(&msh))
+		exit_free_child(msh, 1);
+	msh->exec.path = search_path(msh);
+	if (!msh->exec.path)
+		exit_free_child(msh, 127);
+	execute_check_command(msh);
+	execute_execve(msh);
 	exit_free_child(msh, g_exit_status);
 }
 

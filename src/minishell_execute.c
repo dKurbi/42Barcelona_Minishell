@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/13 03:27:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/14 04:20:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,23 @@ extern int	g_exit_status;
 
 #endif
 
-int	check_ifbuiltin(char *str)
+void	execute_builtin(t_msh *msh)
 {
-	if (!strncmp(str, "echo", 4) && ft_strlen(str) == 4)
-		return (1);
-	else if (!strncmp(str, "cd", 2) && ft_strlen(str) == 2)
-		return (1);
-	else if (!strncmp(str, "pwd", 3) && ft_strlen(str) == 3)
-		return (1);
-	else if (!strncmp(str, "export", 6) && ft_strlen(str) == 6)
-		return (1);
-	else if (!strncmp(str, "unset", 5) && ft_strlen(str) == 5)
-		return (1);
-	else if (!strncmp(str, "env", 3) && ft_strlen(str) == 3)
-		return (1);
-	else if (!strncmp(str, "exit", 4) && ft_strlen(str) == 4)
-		return (1);
-	return (0);
+	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
+		builtin_echo(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
+		builtin_cd(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "pwd", 3))
+		builtin_pwd(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "export", 6))
+		builtin_export(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "unset", 5))
+		builtin_unset(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "env", 3))
+		builtin_env(msh);
+	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
+		builtin_exit(msh);
 }
-
 
 //ejecutar los comandos ejemplo: "ls -la"
 void	execution_line(t_msh *msh, int mode)

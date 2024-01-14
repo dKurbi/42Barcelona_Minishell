@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:13:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/14 03:25:33 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	change_exec_arg_script(t_msh *msh)
 	str = (char **) malloc(sizeof(char *) * (i + 2));
 	if (str == NULL)
 		print_error_exit(&msh, ERR_MALLOC);
-	str[0] = ft_strdup(get_shell(msh));
+	str[0] = ft_strdup(search_shell(msh));
 	i = -1;
 	while (msh->exec.exec_arg[++i])
 		str[i + 1] = ft_strdup(msh->exec.exec_arg[i]);

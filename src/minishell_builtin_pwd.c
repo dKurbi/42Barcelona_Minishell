@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin_cd.c                             :+:      :+:    :+:   */
+/*   minishell_builtin_pwd.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 19:52:29 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 04:25:12 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/14 04:04:12 by iassambe          #+#    #+#             */
+/*   Updated: 2024/01/14 04:13:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	builtin_cd(t_msh *msh)
+void	builtin_pwd(t_msh *msh)
 {
 	(void)(msh);
 }
