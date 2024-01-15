@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:59:06 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/11 17:43:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:57:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ void	print_perror(char *s_err)
 {
 	write(STDOUT_FILENO, STR_MINISHELL, ft_strlen(STR_MINISHELL));
 	perror(s_err);
+}
+
+void	print_perror_with_arg(char *cmd, char *file)
+{
+	write(STDERR_FILENO, "minishell: ", ft_strlen("minishell: "));
+	write(STDOUT_FILENO, cmd, ft_strlen(cmd));
+	write(STDOUT_FILENO, ": ", ft_strlen(": "));
+	perror(file);
 }

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 22:45:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 23:48:02 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:14:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ char	*search_pwd(t_msh *msh)
 		}
 	}
 	return (pwd);
+}
+
+char	*search_oldpwd(t_msh *msh)
+{
+	char	*oldpwd;
+	int		i;
+
+	i = -1;
+	oldpwd = NULL;
+	while (msh->ev[++i])
+	{
+		if (ft_strnstr(msh->ev[i], "OLDPWD=", 7) != NULL)
+		{
+			oldpwd = msh->ev[i];
+			return (oldpwd + 7);
+		}
+	}
+	return (oldpwd);
 }

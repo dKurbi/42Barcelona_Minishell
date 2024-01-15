@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 23:53:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 00:13:48 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:32:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,9 @@
 
 int	main(void)
 {
-	char **argv;
-	char	*str = "/bin/cd";
+	char	*str;
 
-	argv = (char **)malloc(sizeof(char *) * 3);
-	printf("lol\n");
-	argv[0] = str;
-	argv[1] = "..";
-	argv[2] = NULL;
-	chdir("..");
+	str = getcwd(NULL, 0);
+	printf("%s\n", str);
 	//execve(str, argv, NULL);
 }

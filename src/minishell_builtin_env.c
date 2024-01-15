@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 02:55:17 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 20:33:07 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,20 @@ char	**create_env(char **env)
 	return (rtn);
 }
 
+void	builtin_env_print_all(t_msh *msh)
+{
+	int	i;
+
+	i = -1;
+	while (msh->ev[++i])
+	{
+		printf("%s\n", msh->ev[i]);
+	}
+}
+
 int	builtin_env(t_msh *msh)
 {
-	(void)(msh);
+	if (!msh->exec.exec_arg[1])
+		builtin_env_print_all(msh);
 	return (0);
 }

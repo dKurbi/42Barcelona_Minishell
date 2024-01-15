@@ -6,14 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 03:05:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:14:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-//para mi
 # ifdef __linux__
 #  define _GNU_SOURCE
 # endif
@@ -41,6 +40,7 @@ int	g_exit_status;
 
 # endif
 
+/* ************************************************************************** */
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
@@ -52,7 +52,10 @@ int	g_exit_status;
 # define ERR_NO_CMD "command not found\n"
 # define ERR_FORK "forking error\n"
 # define ERR_BUILTIN_HAS_ARGS "invalid option\n"
+# define ERR_NO_PWD "failed finding pwd\n"
+/* ************************************************************************** */
 
+/* ************************************************************************** */
 // type code
 # define TYPE_STR 0// "hola que tal"
 # define TYPE_CMD 1// ls
@@ -64,7 +67,9 @@ int	g_exit_status;
 # define TYPE_IPUT_RED 5
 # define TYPE_PIPE 6// |
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
+/* ************************************************************************** */
 
+/* ************************************************************************** */
 // 	varios code
 # define QUOTE 39
 # define DQUOTE 34
@@ -75,7 +80,9 @@ int	g_exit_status;
 //input redirection - <
 # define IPUT_RED 60
 # define POINT 46
+/* ************************************************************************** */
 
+/* ************************************************************************** */
 //	strings
 # define STR_PIPE "|"
 # define STR_HEREDOC "<<"
@@ -83,12 +90,17 @@ int	g_exit_status;
 # define STR_OUTPUT ">"
 # define STR_INPUT "<"
 # define STR_MINISHELL "minishell: "
+/* ************************************************************************** */
 
+/* ************************************************************************** */
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
+/* ************************************************************************** */
 
+/* ************************************************************************** */
 # define MAIN_MODE 0
 # define EXEC_MODE 1
+/* ************************************************************************** */
 
 typedef struct s_exec
 {
@@ -149,13 +161,13 @@ char		**ft_split_pipe(char *s);
 
 //	builtins exec
 //	minishell_builtin_???.c
-int		builtin_cd(t_msh *msh);
-int		builtin_echo(t_msh *msh);
-int		builtin_env(t_msh *msh);
-int		builtin_exit(t_msh *msh);
-int		builtin_export(t_msh *msh);
-int		builtin_pwd(t_msh *msh);
-int		builtin_unset(t_msh *msh);
+int			builtin_cd(t_msh *msh);
+int			builtin_echo(t_msh *msh);
+int			builtin_env(t_msh *msh);
+int			builtin_exit(t_msh *msh);
+int			builtin_export(t_msh *msh);
+int			builtin_pwd(t_msh *msh);
+int			builtin_unset(t_msh *msh);
 
 //	cases
 //	minishell_case.c
@@ -180,6 +192,7 @@ void		print_error_exit(t_msh **msh, char *s_err);
 void		print_warning(char *s_warn);
 void		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
+void		print_perror_with_arg(char *cmd, char *file);
 
 //luego reorganizarlo
 int			execute_child_argv(t_msh **msh);
@@ -276,6 +289,7 @@ int			where_is_dollar(char *str, int i);
 char		*search_pwd(t_msh *msh);
 char		*search_shell(t_msh *msh);
 char		*search_path(t_msh *msh);
+char		*search_oldpwd(t_msh *msh);
 
 //	Signal
 //	minishell_signal.c
