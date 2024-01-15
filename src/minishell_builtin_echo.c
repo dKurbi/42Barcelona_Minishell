@@ -6,13 +6,14 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 04:24:47 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 02:55:35 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	builtin_echo(t_msh *msh)
+int	builtin_echo(t_msh *msh)
 {
 	(void)(msh);
+	return (0);
 }

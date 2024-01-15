@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 04:20:56 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 03:06:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@ extern int	g_exit_status;
 
 void	execute_builtin(t_msh *msh)
 {
+	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
 	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
-		builtin_echo(msh);
+		g_exit_status = builtin_echo(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
-		builtin_cd(msh);
+		g_exit_status = builtin_cd(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "pwd", 3))
-		builtin_pwd(msh);
+		g_exit_status = builtin_pwd(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "export", 6))
-		builtin_export(msh);
+		g_exit_status = builtin_export(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "unset", 5))
-		builtin_unset(msh);
+		g_exit_status = builtin_unset(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "env", 3))
-		builtin_env(msh);
+		g_exit_status = builtin_env(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
-		builtin_exit(msh);
+		g_exit_status = builtin_exit(msh);
 }
 
 //ejecutar los comandos ejemplo: "ls -la"

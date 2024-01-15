@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 04:16:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 03:05:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,13 @@ char		**ft_split_pipe(char *s);
 
 //	builtins exec
 //	minishell_builtin_???.c
-void		builtin_cd(t_msh *msh);
-void		builtin_echo(t_msh *msh);
-void		builtin_env(t_msh *msh);
-void		builtin_exit(t_msh *msh);
-void		builtin_export(t_msh *msh);
-void		builtin_pwd(t_msh *msh);
-void		builtin_unset(t_msh *msh);
+int		builtin_cd(t_msh *msh);
+int		builtin_echo(t_msh *msh);
+int		builtin_env(t_msh *msh);
+int		builtin_exit(t_msh *msh);
+int		builtin_export(t_msh *msh);
+int		builtin_pwd(t_msh *msh);
+int		builtin_unset(t_msh *msh);
 
 //	cases
 //	minishell_case.c

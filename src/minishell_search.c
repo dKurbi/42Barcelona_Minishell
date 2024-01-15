@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 22:45:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/13 22:48:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:48:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ char	*search_pwd(t_msh *msh)
 	pwd = NULL;
 	while (msh->ev[++i])
 	{
-		if (ft_strnstr(msh->ev[i], "SHELL=", 6) != NULL)
+		if (ft_strnstr(msh->ev[i], "PWD=", 4) != NULL)
 		{
 			pwd = msh->ev[i];
-			return (pwd + 6);
+			return (pwd + 4);
 		}
 	}
 	return (pwd);

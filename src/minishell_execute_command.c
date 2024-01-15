@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 04:25:02 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/15 03:05:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ void	execute_check_command(t_msh *msh)
 {
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
-		if (check_ifbuiltin(msh->exec.exec_arg[0]))
-		{
-			write(1, "bui\n", 4);
-			execute_builtin(msh);
-			exit(g_exit_status);
-		}
 		get_cmd_with_path(&msh);
 		if (check_command(msh->exec.cmd_with_path) == 1)
 		{
@@ -86,6 +80,11 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_exec(msh);
+	if (check_ifbuiltin(msh->lst_line->str))
+	{
+		execute_builtin(msh);
+		return ;
+	}
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 	msh->exec.proc = fork();
