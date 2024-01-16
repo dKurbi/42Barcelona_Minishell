@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 20:33:07 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 04:07:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**create_env(char **env)
 	n_lines = 0;
 	while (env[n_lines])
 		n_lines++;
-	rtn = (char **)malloc(sizeof(char *) * (n_lines + 1));
+	rtn = (char **) malloc(sizeof(char *) * (n_lines + 1));
 	n_lines = -1;
 	while (env[++n_lines])
 	{

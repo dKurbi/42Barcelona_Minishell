@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/14 03:25:33 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 04:10:22 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,12 @@ void	change_exec_arg_script(t_msh *msh)
 	str[i + 1] = NULL;
 	free_double_str(&msh->exec.exec_arg);
 	msh->exec.exec_arg = str;
+}
+
+void	strtrim_quotes_all(t_msh *msh)
+{
+	t_line	*copy_line;
+	t_pipe	*copy_pipe;
+
+
 }
