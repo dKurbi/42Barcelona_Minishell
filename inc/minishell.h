@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 18:14:12 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:14:25 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ int	g_exit_status;
 # define ERR_FILE_NO_EXIST "No such file or directory\n"
 # define ERR_NO_CMD "command not found\n"
 # define ERR_FORK "forking error\n"
-# define ERR_BUILTIN_HAS_ARGS "invalid option\n"
+# define ERR_BUILTIN_HAS_ARGS "illegal option\n"
 # define ERR_NO_PWD "failed finding pwd\n"
+# define ERR_TOO_MANY "too many arguments\n"
+# define ERR_NUMERIC "numeric argument required\n"
 /* ************************************************************************** */
 
 /* ************************************************************************** */
@@ -237,6 +239,7 @@ void		heredoc_redir(t_msh *msh);
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
+void		strtrim_quotes_all(t_msh *msh);
 
 //	pipe
 //	minishell_pipe.c
@@ -270,6 +273,8 @@ void		exit_free_child(t_msh *msh, int exit_status);
 //	minishell_utils.c
 int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
+int			if_srcipt(char *str);
+void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
 
 //	utils
 //	minishell_utils.c
@@ -277,6 +282,7 @@ int			check_ifempty_str(char *str);
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 t_line		*ft_lst_line_last(t_line *lst);
+char		if_quote_start_final(char *str);
 
 //	Expand
 //	minishell_expand.c

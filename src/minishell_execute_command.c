@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 03:05:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:37:41 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	execute_execve(t_msh *msh)
 {
 	if (msh->exec.cmd_with_path == NULL)
 	{
-		if (msh->exec.exec_arg[0][0] == POINT)
+		if (if_srcipt(msh->exec.exec_arg[0]))
 			change_exec_arg_script(msh);
 		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
 	}

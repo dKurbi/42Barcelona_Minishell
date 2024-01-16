@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:33:46 by dkurcbar          #+#    #+#             */
-/*   Updated: 2023/12/16 18:57:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:30:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,59 @@ int	where_next_any_quote_is(char *str, int i)
 	else
 		rtn = quote_pos;
 	return (rtn);
+}
+
+void	strtrim_quotes_pipe(t_msh *msh, t_line *copy_line, char	*str_strtrim)
+{
+	t_pipe	*copy_pipe;
+
+	copy_pipe = msh->lst_pipe;
+	while (copy_pipe != NULL)
+	{
+		copy_line = copy_pipe->lst_line;
+		while (copy_line != NULL)
+		{
+			if (if_quote_start_final(copy_line->str) == QUOTE)
+				str_strtrim = ft_strtrim(copy_line->str, "\'");
+			else if (if_quote_start_final(copy_line->str) == DQUOTE)
+				str_strtrim = ft_strtrim(copy_line->str, "\"");
+			if (str_strtrim != NULL)
+			{
+				free(copy_line->str);
+				copy_line->str = ft_strdup(str_strtrim);
+			}
+			free_str(&str_strtrim);
+			copy_line = copy_line->next;
+		}
+		copy_pipe = copy_pipe->next;
+	}
+}
+
+void	strtrim_quotes_all(t_msh *msh)
+{
+	t_line	*copy_line;
+	char	*str_strtrim;
+
+	copy_line = NULL;
+	str_strtrim = NULL;
+	if (msh->lst_pipe != NULL)
+	{
+		strtrim_quotes_pipe(msh, copy_line, str_strtrim);
+		return ;
+	}
+	copy_line = msh->lst_line;
+	while (copy_line != NULL)
+	{
+		if (if_quote_start_final(copy_line->str) == QUOTE)
+			str_strtrim = ft_strtrim(copy_line->str, "\'");
+		else if (if_quote_start_final(copy_line->str) == DQUOTE)
+			str_strtrim = ft_strtrim(copy_line->str, "\"");
+		if (str_strtrim != NULL)
+		{
+			free(copy_line->str);
+			copy_line->str = ft_strdup(str_strtrim);
+		}
+		free_str(&str_strtrim);
+		copy_line = copy_line->next;
+	}
 }

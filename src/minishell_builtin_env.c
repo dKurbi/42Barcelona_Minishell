@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 04:07:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:41:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,10 @@ int	builtin_env(t_msh *msh)
 {
 	if (!msh->exec.exec_arg[1])
 		builtin_env_print_all(msh);
+	else
+	{
+		print_warning_with_arg("env", ERR_BUILTIN_HAS_ARGS);
+		return (1);
+	}
 	return (0);
 }
