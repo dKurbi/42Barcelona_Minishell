@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 21:41:25 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:12:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//equal es =
+//equal es = (puede calcular hasta declare -x var=... || declare -x var)
 int	len_before_equal(char *str)
 {
 	int	len;

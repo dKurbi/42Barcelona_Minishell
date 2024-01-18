@@ -6,11 +6,30 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 16:41:48 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:13:54 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	if_var_in_env(char **ev, char *var)
+{
+	int	i;
+	int	len;
+
+	len = len_before_equal(var);
+	i = -1;
+	while (ev[++i])
+	{
+		if (!ft_strncmp(ev[i], var, len))
+		{
+			free_str(&var);
+			return (1);
+		}
+	}
+	free_str(&var);
+	return (0);
+}
 
 char	**create_env(char **env)
 {

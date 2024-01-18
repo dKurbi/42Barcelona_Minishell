@@ -6,14 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 21:42:15 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:18:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //WARNING: hay fichero minishell_builtin_export.c y minishell_builtin_export_2.c para hacer export
-
 
 void	builtin_export_print_all(t_msh *msh)
 {
@@ -39,14 +38,6 @@ void	builtin_export_print_all(t_msh *msh)
 	}
 }
 
-int	if_var_in_env(char **ev, char *var)
-{
-	int	i;
-	int	len;
-
-	len = len_before_equal(var);
-}
-
 void	export_change_var(char **ev)
 {
 	
@@ -68,7 +59,10 @@ void	builtin_export_add_all(t_msh *msh)
 	i = 0;
 	while (msh->exec.exec_arg[++i])
 	{
-		//code
+		if (if_var_in_env())
+			//...xhange_var
+		else
+			//...add_new
 	}
 }
 

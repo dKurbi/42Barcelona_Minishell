@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 17:14:25 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 01:08:22 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,13 +162,36 @@ char		**ft_split_free(char **split);
 char		**ft_split_pipe(char *s);
 
 //	builtins exec
-//	minishell_builtin_???.c
+//	minishell_builtin_cd.c
 int			builtin_cd(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_echo.c
 int			builtin_echo(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_env.c
+int			if_var_in_env(char **ev, char *var);
 int			builtin_env(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_exit.c
 int			builtin_exit(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_export.c
 int			builtin_export(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_export_2.c
+int			len_before_equal(char *str);
+
+//	builtins exec
+//	minishell_builtin_pwd.c
 int			builtin_pwd(t_msh *msh);
+
+//	builtins exec
+//	minishell_builtin_unset.c
 int			builtin_unset(t_msh *msh);
 
 //	cases
