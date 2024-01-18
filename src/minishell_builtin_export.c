@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 21:56:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/19 00:31:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	builtin_export_add_all(t_msh *msh)
 	while (msh->exec.exec_arg[++i])
 	{
 		var = export_create_var(msh, i);
+		printf("loop: exec_arg - %s, var - %s\n", msh->exec.exec_arg[i], var);
 		if (check_var_equal(var))
 		{
 			exit_status = 1;
