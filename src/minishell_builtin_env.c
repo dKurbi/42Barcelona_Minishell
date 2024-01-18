@@ -6,22 +6,23 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 01:13:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 21:52:17 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	if_var_in_env(char **ev, char *var)
+//*var is malloced!!!
+int	if_var_in_env(t_msh *msh, char *var)
 {
 	int	i;
 	int	len;
 
 	len = len_before_equal(var);
 	i = -1;
-	while (ev[++i])
+	while (msh->ev[++i])
 	{
-		if (!ft_strncmp(ev[i], var, len))
+		if (!ft_strncmp(msh->ev[i], var, len))
 		{
 			free_str(&var);
 			return (1);
@@ -58,7 +59,8 @@ void	builtin_env_print_all(t_msh *msh)
 	i = -1;
 	while (msh->ev[++i])
 	{
-		printf("%s\n", msh->ev[i]);
+		if (!(msh->ev[i][0] >= 'a' && msh->ev[i][0] <= 'z'))
+			printf("%s\n", msh->ev[i]);
 	}
 }
 

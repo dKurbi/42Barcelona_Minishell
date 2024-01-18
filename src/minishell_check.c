@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/13 21:23:02 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:46:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,23 @@ int	check_ifbuiltin(char *str)
 		return (1);
 	else if (!strncmp(str, "exit", 4) && ft_strlen(str) == 4)
 		return (1);
+	return (0);
+}
+
+//check if = or if ""= or if =STRING
+int	check_var_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] == '=' || ft_isdigit(str[0]))
+		return (1);
+	else
+	{
+		while (str[i] && (str[i] == QUOTE || str[i] == DQUOTE))
+			i++;
+		if (str[i] == QUOTE || str[i] == DQUOTE)
+			return (1);		
+	}
 	return (0);
 }

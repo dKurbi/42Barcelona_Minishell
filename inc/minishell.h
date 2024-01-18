@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 01:08:22 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/18 20:13:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	g_exit_status;
 # define ERR_NO_PWD "failed finding pwd\n"
 # define ERR_TOO_MANY "too many arguments\n"
 # define ERR_NUMERIC "numeric argument required\n"
+# define ERR_INVALID_INDENT "not a valid identifier\n"
 /* ************************************************************************** */
 
 /* ************************************************************************** */
@@ -171,7 +172,7 @@ int			builtin_echo(t_msh *msh);
 
 //	builtins exec
 //	minishell_builtin_env.c
-int			if_var_in_env(char **ev, char *var);
+int			if_var_in_env(t_msh *msh, char *var);
 int			builtin_env(t_msh *msh);
 
 //	builtins exec
@@ -185,6 +186,9 @@ int			builtin_export(t_msh *msh);
 //	builtins exec
 //	minishell_builtin_export_2.c
 int			len_before_equal(char *str);
+char		*export_create_var(t_msh *msh, int i);
+int			export_create_var_len(t_msh *msh, int i);
+int			export_len_env(char **ev);
 
 //	builtins exec
 //	minishell_builtin_pwd.c
@@ -205,6 +209,7 @@ int			initial_check(t_msh *msh);
 int			check_file(char *file);
 int			check_command(char *str);
 int			check_ifbuiltin(char *str);
+int			check_var_equal(char *str);
 
 //	check syntax
 //	minishell_check_syntax.c
