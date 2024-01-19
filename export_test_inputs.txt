@@ -1,0 +1,52 @@
+export ZSH
+result: borrow the old result and just put the variable (this variable EXISTS)
+
+
+export Z=aaa
+result: new variable with this value (this variable doesn't exist)
+
+
+export Z="string"
+result: variable without quotes, it WON'T print like this: declare -x Z=""string""
+
+
+export V
+result: just a new variable
+
+
+export =
+result: bash: export: `=': not a valid identifier
+
+
+export Z = string
+result: adding [Z, string] AND minishell: export: `=': not a valid identifier
+
+
+export Z=
+result: declare -x Z=""
+
+
+export =Z
+result: bash: export: `=Z': not a valid identifier
+
+
+export Z= A=
+result: Z="" A=""
+
+
+export a b c d
+result: new 4 variables
+
+
+export Z"="==STRING
+result: declare -x Z="==STRING"
+
+
+export Z""=""=""="STRING=string"
+result: Z="==STRING=string" --> it just deletes quotes and searches for the first quote
+
+export Z='string'
+result:  declare -x Z="string"
+
+export Z="""a"""
+result: 
