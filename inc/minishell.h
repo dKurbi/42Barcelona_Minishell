@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 20:13:21 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:31:19 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	g_exit_status;
 # define TYPE_FLG 7// -l o si tenemos --no-print-directory
 /* ************************************************************************** */
 
+
 /* ************************************************************************** */
 // 	varios code
 # define QUOTE 39
@@ -103,6 +104,13 @@ int	g_exit_status;
 /* ************************************************************************** */
 # define MAIN_MODE 0
 # define EXEC_MODE 1
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+// metacharacters
+# define SPACE_OR_TAB 1
+# define OPERATOR 2
+# define OTHER_CHAR 0
 /* ************************************************************************** */
 
 typedef struct s_exec
@@ -343,4 +351,7 @@ void		PRINT_split_line(char **double_str);
 void		PRINT_comillas(char *read_line);
 void		PRINT_fd(int fd);
 
+//
+int			is_meta_or_quotes(char c);
+int			advance_pos_until(char *str, int i, int len, char c);
 #endif

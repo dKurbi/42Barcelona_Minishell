@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/19 01:40:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:28:53 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	preparing_commands(t_msh *msh)
 	strtrim_quotes_all(msh);
 	return (0);
 }
-
+/* 
 int	main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
@@ -81,4 +81,4 @@ int	main(int ac, char **av, char **ev)
 	rl_clear_history();
 	free_msh(&msh);
 	return (g_exit_status);
-}
+} */
