@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/19 18:28:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/20 00:24:19 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	preparing_commands(t_msh *msh)
 	strtrim_quotes_all(msh);
 	return (0);
 }
-/* 
+
 int	main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
@@ -66,8 +66,9 @@ int	main(int ac, char **av, char **ev)
 		msh->read_line = readline("Minishell-> ");
 		if (initial_check(msh))
 			break ;
-		if (preparing_commands(msh) != 1)
-			execution(msh);
+	/* 	if (preparing_commands(msh) != 1)
+			execution(msh); */
+		preparing_commands(msh);
 	
 		///DEBUG to main (drag with OPTION+arrow down)
 		PRINT_comillas(msh->read_line);
@@ -81,4 +82,4 @@ int	main(int ac, char **av, char **ev)
 	rl_clear_history();
 	free_msh(&msh);
 	return (g_exit_status);
-} */
+}
