@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 01:32:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 13:01:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,18 @@ static int	lst_char_bef(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	return (where_next_quote_is(crt.rline, crt.rline[i], i + 1) + 1);
 }
 
+static int	lst_quote_bef(t_msh *msh, t_line **lst_line, t_create crt, int i)
+{
+	t_line	*last;
+
+	last = ft_lst_line_last(*lst_line);
+	last->str = get_ft_strjoin_modif(last->str, crt.str);
+	if (!last->str)
+		print_error_exit(&msh, ERR_MALLOC);
+	i = crt.last;
+	return (i);
+}
+
 int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
 	char	*str;
@@ -69,8 +81,10 @@ int	lst_add_str(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	str = ft_substr(crt.rline, i, crt.last - i);
 	if (ft_strchr(str, '$') != NULL)
 		str = case_dollar(str, msh);
-/* 	if (i - 1 >= 0 && crt.rline[i - 1] == QUOTE || crt.rline[i - 1] == DQUOTE)
-		return (lst_quotes_bef(msh, lst_line, crt, i)); */
+	crt.str = str;
+	if ((i - 1) >= 0 && \
+	(crt.rline[i - 1] == QUOTE || crt.rline[i - 1] == DQUOTE))
+		return (lst_quote_bef(msh, lst_line, crt, i));
 	addstr_to_lst_line(str, lst_line, 0);
 	i = crt.last;
 	return (i);
