@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/19 18:31:19 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/20 23:53:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,13 @@ typedef struct s_exec
 	int		wait_status;
 }	t_exec;
 
-typedef struct s_parser
+typedef struct s_create
 {
-	char	*cmd;
-	char	*raw_cmd;
-	char	*path;
-	char	**split_path;
-	char	**split_read_line;
-}	t_parser;
+	char	*rline;
+	int		last;
+	char	*join;
+	char	*str;
+}	t_create;
 
 typedef struct s_line
 {
@@ -160,7 +159,6 @@ typedef struct s_msh
 	t_line		*lst_line;
 	t_pipe		*lst_pipe;
 	t_exec		exec;
-	t_parser	parser;
 }		t_msh;
 
 //	split pipe
@@ -250,7 +248,6 @@ void		restore_redirection(t_msh *msh);
 //	struct
 //	minishell_struct.c
 t_msh		*mshnew(char **env);
-t_parser	parsernew(void);
 t_exec		execnew(void);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 
@@ -282,6 +279,11 @@ void		strtrim_quotes_all(t_msh *msh);
 int			check_pipe_in_word(char *str);
 t_pipe		*new_lst_pipe(t_msh *msh);
 void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
+
+//	t_line* but with quotes creating
+//	minishell_lst_line_quotes.c
+int			lst_add_str(t_msh *msh, t_line **lst_line, t_create crt, int i);
+int			lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i);
 
 //	t_line*
 //	minishell_lst_line.c

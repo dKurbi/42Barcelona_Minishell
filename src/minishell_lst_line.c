@@ -3,67 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 18:40:24 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/21 01:08:25 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	new_lst_add_quotes(t_msh *msh, t_line **lst_line, char *rline, int i)
-{
-	char	*str;
-
-	str = ft_substr(rline, i, \
-				where_next_quote_is(rline, rline[i], i + 1) - i + 1);
-	if (!str)
-		return (-1);
-	if (ft_strchr(str, '$') != NULL && rline[i] == DQUOTE)
-		str = case_dollar_with_quotes(str, msh);
-	addstr_to_lst_line(str, lst_line, 0);
-	i = where_next_quote_is(rline, rline[i], i + 1) + 1;
-	return (i);
-}
-
 //-2: break; -1: malloc err; 0 y más: bien y seguimos
-int	new_lst_loop(t_msh *msh, t_line **lst_line, char *rline, int i)
+int	new_lst_loop(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
-	int		last;
-	char	*str;
-
-	while (rline[i] && (rline[i] == ' ' || rline[i] == '\t'))
+	while (crt.rline[i] && (crt.rline[i] == ' ' || crt.rline[i] == '\t'))
 		i++;
-	if (i >= (int)ft_strlen(rline))
+	if (i >= (int)ft_strlen(crt.rline))
 		return (-2);
-	last = i;
-	while (rline[last] && rline[last] != QUOTE \
-	&& rline[last] != DQUOTE && rline[last] != ' ' && rline[last] != '\t')
-		last++;
-	str = NULL;
-	if (rline[i] == QUOTE || rline[i] == DQUOTE)
-		i = new_lst_add_quotes(msh, lst_line, rline, i);
+	crt.last = i;
+	while (crt.rline[crt.last] && crt.rline[crt.last] != QUOTE \
+	&& crt.rline[crt.last] != DQUOTE && crt.rline[crt.last] != ' ' \
+	&& crt.rline[crt.last] != '\t')
+		crt.last++;
+	if (crt.rline[i] == QUOTE || crt.rline[i] == DQUOTE)
+		i = lst_add_quotes(msh, lst_line, crt, i);
 	else
-	{
-		str = ft_substr(rline, i, last - i);
-		if (ft_strchr(str, '$') != NULL)
-			str = case_dollar(str, msh);
-		addstr_to_lst_line(str, lst_line, 0);
-		i = last;
-	}
+		i = lst_add_str(msh, lst_line, crt, i);
 	return (i);
 }
 
 //crear t_line con comillas
 t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
-	int		i;
+	int			i;
+	t_create	create;
 
 	i = 0;
+	create.rline = rline;
 	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
-		i = new_lst_loop(msh, lst_line, rline, i);
+		i = new_lst_loop(msh, lst_line, create, i);
+		printf("i in loop - %d\n", i);
 		if (i < 0 && i == -2)
 			break ;
 		else if (i < 0 && i == -1)

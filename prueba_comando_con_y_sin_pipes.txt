@@ -27,3 +27,5 @@ ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls
          | wc
 
 comando solo y sin nada
+
+echo "abc" - comillas [5] y [9]

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 20:05:20 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/20 01:40:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,8 @@ t_msh	*mshnew(char **env)
 	msh->lst_pipe = NULL;
 	msh->read_line = NULL;
 	msh->pipe_active = 0;
-	msh->parser = parsernew();
 	msh->exec = execnew();
 	return (msh);
-}
-
-t_parser	parsernew(void)
-{
-	t_parser	parser;
-
-	parser.cmd = NULL;
-	parser.path = NULL;
-	parser.split_path = NULL;
-	parser.split_read_line = NULL;
-	parser.raw_cmd = NULL;
-	return (parser);
 }
 
 t_exec	execnew(void)

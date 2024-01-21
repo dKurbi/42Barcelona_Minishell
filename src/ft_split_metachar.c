@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_metacaracters.c                           :+:      :+:    :+:   */
+/*   ft_split_metachar.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 16:28:00 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/19 18:34:47 by dkurcbar         ###   ########.fr       */
+/*   Created: 2024/01/19 22:07:29 by iassambe          #+#    #+#             */
+/*   Updated: 2024/01/19 23:47:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int advance_pos_until(char *str, int i, int len, char c)
 	}
 	return (len - 1);
 }
-static int count_word(char *str)
+/* static int count_word(char *str)
 {
 	int	i;
 	int	wc;
@@ -72,7 +72,7 @@ static int count_word(char *str)
 		}		
 	}	
 	return(wc);
-}
+} */
 	
 /* 
 char **ft_split_metacaracters(char *str)
@@ -89,11 +89,13 @@ char **ft_split_metacaracters(char *str)
 	}
 	
 } */
-int main(int argc, char **argv)
+/* int main(int argc, char **argv)
 {
 	if (argc > 1)
 	{
 		printf ("el string '%s' tiene %d palabras\n", argv[1], count_word(argv[1]));
 	}
+	else
+		printf("a\n");
 
-}
+} */
