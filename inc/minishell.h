@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/20 01:39:56 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/20 23:53:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_create
 	char	*rline;
 	int		last;
 	char	*join;
+	char	*str;
 }	t_create;
 
 typedef struct s_line
@@ -283,7 +284,6 @@ void		addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str);
 //	minishell_lst_line_quotes.c
 int			lst_add_str(t_msh *msh, t_line **lst_line, t_create crt, int i);
 int			lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i);
-
 
 //	t_line*
 //	minishell_lst_line.c
