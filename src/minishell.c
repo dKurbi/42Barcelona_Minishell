@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/20 00:24:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:46:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,25 @@ int	preparing_commands(t_msh *msh)
 	return (0);
 }
 
+		///DEBUG to main (drag with OPTION+arrow down)
+		///PRINT_comillas(msh->read_line);
+		///printf("\n\nDEBUG PRINTS:\n\n");
+		///PRINT_lst_line(msh->lst_line);
+		///PRINT_lst_pipe(msh->lst_pipe);
+		///DEBUG end
 int	main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
 
 	if (ac != 1)
-		print_error_exit(NULL, ERR_AC);
+	{
+		print_warning(ERR_AC);
+		exit(1);
+	}
 	(void)(av);
 	msh = mshnew(ev);
 	if (!msh)
-		print_error_exit(NULL, ERR_MALLOC);
+		print_error_exit(&msh, ERR_MALLOC);
 	g_exit_status = 0;
 	while (1)
 	{
@@ -66,17 +75,8 @@ int	main(int ac, char **av, char **ev)
 		msh->read_line = readline("Minishell-> ");
 		if (initial_check(msh))
 			break ;
-	/* 	if (preparing_commands(msh) != 1)
-			execution(msh); */
-		preparing_commands(msh);
-	
-		///DEBUG to main (drag with OPTION+arrow down)
-		PRINT_comillas(msh->read_line);
-		printf("\n\nDEBUG PRINTS:\n\n");
-		PRINT_lst_line(msh->lst_line);
-		PRINT_lst_pipe(msh->lst_pipe);
-		///DEBUG end
-
+		if (preparing_commands(msh) != 1)
+			execution(msh);
 		free_main_loop(msh);
 	}
 	rl_clear_history();

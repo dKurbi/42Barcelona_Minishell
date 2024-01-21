@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 20:46:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:29:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	check_var_equal(char *str)
 		while (str[i] && (str[i] == QUOTE || str[i] == DQUOTE))
 			i++;
 		if (str[i] == QUOTE || str[i] == DQUOTE)
-			return (1);		
+			return (1);
 	}
 	return (0);
 }

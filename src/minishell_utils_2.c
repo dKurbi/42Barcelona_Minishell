@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/08 20:41:30 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:28:58 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,18 @@ int	calculate_last_pos_word(char *str, int i)
 			&& str[i] != QUOTE && str [i] != DQUOTE)
 		i++;
 	return (i);
+}
+
+char	*strtrim_str_quotes(char *str)
+{
+	char	*new_str;
+
+	if (str[0] == QUOTE && str[ft_strlen(str) - 1] == QUOTE)
+		new_str = ft_strtrim(str, "\'");
+	else if (str[0] == DQUOTE && str[ft_strlen(str) - 1] == DQUOTE)
+		new_str = ft_strtrim(str, "\"");
+	else
+		new_str = ft_strdup(str);
+	free_str(&str);
+	return (new_str);
 }
