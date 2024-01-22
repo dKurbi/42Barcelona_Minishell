@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/18 21:52:17 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:01:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	if_var_in_env(t_msh *msh, char *var)
 	i = -1;
 	while (msh->ev[++i])
 	{
-		if (!ft_strncmp(msh->ev[i], var, len))
+		if (ft_strncmp(msh->ev[i], var, len) == 0)
 		{
 			free_str(&var);
 			return (1);

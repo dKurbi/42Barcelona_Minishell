@@ -6,19 +6,18 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 13:01:09 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:27:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*join_str_and_quotes(t_msh *msh, t_create crt, int i)
+char	*join_str_and_quotes(t_msh *msh, t_create crt)
 {
 	int		iter;
 	char	*res;
 	int		j;
 
-	(void)(i);
 	iter = ft_strlen(crt.join);
 	j = 1;
 	res = (char *) malloc(sizeof(char) * \
@@ -29,6 +28,8 @@ char	*join_str_and_quotes(t_msh *msh, t_create crt, int i)
 	while (j < where_next_quote_is(crt.str, crt.str[0], 1))
 		res[iter++] = crt.str[j++];
 	res[iter] = '\0';
+	free_str(&crt.str);
+	free_str(&crt.join);
 	return (res);
 }
 
@@ -38,7 +39,7 @@ static int	lst_char_bef(t_msh *msh, t_line **lst_line, t_create crt, int i)
 
 	last = ft_lst_line_last(*lst_line);
 	crt.join = last->str;
-	last->str = join_str_and_quotes(msh, crt, i);
+	last->str = join_str_and_quotes(msh, crt);
 	if (!last->str)
 		return (-1);
 	return (where_next_quote_is(crt.rline, crt.rline[i], i + 1) + 1);
@@ -50,6 +51,7 @@ static int	lst_quote_bef(t_msh *msh, t_line **lst_line, t_create crt, int i)
 
 	last = ft_lst_line_last(*lst_line);
 	last->str = get_ft_strjoin_modif(last->str, crt.str);
+	free_str(&crt.str);
 	if (!last->str)
 		print_error_exit(&msh, ERR_MALLOC);
 	i = crt.last;
@@ -69,6 +71,7 @@ int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	crt.str = str;
 	if ((i - 1) >= 0 && crt.rline[i - 1] != ' ' && crt.rline[i - 1] != '\t')
 		return (lst_char_bef(msh, lst_line, crt, i));
+	str = strtrim_str_quotes(str);
 	addstr_to_lst_line(str, lst_line, 0);
 	i = where_next_quote_is(crt.rline, crt.rline[i], i + 1) + 1;
 	return (i);

@@ -6,14 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/19 00:31:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:14:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //WARNING: hay fichero minishell_builtin_export.c y minishell_builtin_export_2.c para hacer export
-
 void	builtin_export_print_all(t_msh *msh)
 {
 	int	i;
@@ -50,7 +49,7 @@ void	export_change_var_in_env(char ***ev, char *var)
 			(*ev)[i] = var;
 			break ;
 		}
-	}	
+	}
 }
 
 char	**export_append_to_env(t_msh *msh, char **old_ev, char *var)
@@ -68,6 +67,7 @@ char	**export_append_to_env(t_msh *msh, char **old_ev, char *var)
 		new_env[i] = old_ev[i];
 	new_env[i++] = var;
 	new_env[i] = NULL;
+	free_double_str(&old_ev);
 	return (new_env);
 }
 
@@ -82,7 +82,6 @@ int	builtin_export_add_all(t_msh *msh)
 	while (msh->exec.exec_arg[++i])
 	{
 		var = export_create_var(msh, i);
-		printf("loop: exec_arg - %s, var - %s\n", msh->exec.exec_arg[i], var);
 		if (check_var_equal(var))
 		{
 			exit_status = 1;

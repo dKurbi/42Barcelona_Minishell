@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/20 23:53:42 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:34:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,6 +231,11 @@ void		print_perror(char *s_err);
 void		print_perror_with_arg(char *cmd, char *file);
 
 //luego reorganizarlo
+//|
+//|
+//V
+
+
 int			execute_child_argv(t_msh **msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
@@ -315,12 +320,13 @@ int			if_srcipt(char *str);
 void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
 
 //	utils
-//	minishell_utils.c
+//	minishell_utils_2.c
 int			check_ifempty_str(char *str);
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 t_line		*ft_lst_line_last(t_line *lst);
 char		if_quote_start_final(char *str);
+char		*strtrim_str_quotes(char *str);
 
 //	Expand
 //	minishell_expand.c

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 20:15:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/21 21:44:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	free_lst_pipe(t_pipe **lst_pipe)
 
 void	free_exec(t_exec *exec)
 {
-	close(exec->fd_stdin);
-	close(exec->fd_stdout);
+	if (exec->fd_stdin > -1)
+		close(exec->fd_stdin);
+	if (exec->fd_stdout > -1)
+		close(exec->fd_stdout);
 	free_double_str(&exec->exec_arg);
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }
