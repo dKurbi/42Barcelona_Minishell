@@ -154,7 +154,7 @@
 #define HAVE_WCWIDTH 1
 
 /* and whether it works */
-/* #undef WCWIDTH_BROKEN */
+#define WCWIDTH_BROKEN 1
 
 /* Define if you have the <dirent.h> header file.  */
 #define HAVE_DIRENT_H 1
