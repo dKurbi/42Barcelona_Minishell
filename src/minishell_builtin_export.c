@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 23:38:30 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:14:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	**export_append_to_env(t_msh *msh, char **old_ev, char *var)
 		new_env[i] = old_ev[i];
 	new_env[i++] = var;
 	new_env[i] = NULL;
+	free_double_str(&old_ev);
 	return (new_env);
 }
 
