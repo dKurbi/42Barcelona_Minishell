@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/22 18:36:30 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:16:51 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,12 @@ char	**export_append_to_env(t_msh *msh, char **old_ev, char *var)
 	new_env = (char **) malloc(sizeof(char *) * (export_len_env(old_ev) + 2));
 	if (!new_env)
 		print_error_exit(&msh, ERR_MALLOC);
-	i = -1;
-	while (old_ev[++i])
+	i = 0;
+	while (old_ev[i])
+	{
 		new_env[i] = old_ev[i];
+		i++;
+	}
 	new_env[i++] = var;
 	new_env[i] = NULL;
 	free(old_ev);
