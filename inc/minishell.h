@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/22 14:22:13 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:14:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,8 @@ int			builtin_echo(t_msh *msh);
 //	builtins exec
 //	minishell_builtin_env.c
 int			if_var_in_env(t_msh *msh, char *var);
-int			lineof_var_in_env(t_msh *msh, char *var);
+int				if (str[len] == '=')
+		return (len + 1);(t_msh *msh, char *var);
 int			builtin_env(t_msh *msh);
 int			env_len(t_msh *msh);
 

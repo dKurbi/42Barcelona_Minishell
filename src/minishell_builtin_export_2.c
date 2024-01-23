@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/22 01:04:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/23 19:14:07 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	len_before_equal(char *str)
 		return (len);
 	while (str[len] && str[len] != '=')
 		len++;
-	if (str[len] == '=')
-		return (len + 1);
 	return (len);
 }
 
