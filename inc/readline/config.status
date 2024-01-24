@@ -430,7 +430,7 @@ Copyright (C) 2021 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/mnt/c/Users/Diego/Documents/42 Barcelona proyectos/minishell/inc/readline'
+ac_pwd='/home/iassambe/42Barcelona_Minishell/inc/readline'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 test -n "$AWK" || AWK=awk
@@ -613,7 +613,7 @@ S["ARFLAGS"]="cr"
 S["LOCAL_DEFS"]=""
 S["LOCAL_LDFLAGS"]=""
 S["LOCAL_CFLAGS"]=""
-S["BUILD_DIR"]="/mnt/c/Users/Diego/Documents/42\\ Barcelona\\ proyectos/minishell/inc/readline"
+S["BUILD_DIR"]="/home/iassambe/42Barcelona_Minishell/inc/readline"
 S["EXAMPLES_INSTALL_TARGET"]="install-examples"
 S["SHARED_INSTALL_TARGET"]="install-shared"
 S["STATIC_INSTALL_TARGET"]="install-static"
@@ -860,7 +860,6 @@ D["HAVE_ISWCTYPE"]=" 1"
 D["HAVE_WCHAR_T"]=" 1"
 D["HAVE_WCTYPE_T"]=" 1"
 D["HAVE_WINT_T"]=" 1"
-D["WCWIDTH_BROKEN"]=" 1"
 D["SIZEOF_WCHAR_T"]=" 4"
   for (key in D) D_is_set[key] = 1
   FS = ""

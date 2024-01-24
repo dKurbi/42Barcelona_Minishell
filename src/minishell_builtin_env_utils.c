@@ -1,22 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin_unset.c                          :+:      :+:    :+:   */
+/*   minishell_builtin_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 04:05:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 17:23:09 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
+/*   Updated: 2024/01/23 17:05:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	builtin_unset(t_msh *msh)
+int	env_len(t_msh *msh)
 {
-	(void)(msh);
-	/*
-	code for unset (we use msh->exec.exec_arg)
-	*/
-	return (0);
+	int	i;
+
+	i = 0;
+	while(msh->ev[i])
+		i++;
+	return (i);
+}
+
+int	lineof_var_in_env(t_msh *msh, char *var)
+{
+	int	i;
+	int	len;
+
+	len = len_before_equal(var);
+	i = -1;
+	while (msh->ev[++i])
+	{
+		if (ft_strncmp(msh->ev[i], var, len) == 0)
+		{
+			free_str(&var);
+			return (i);
+		}
+	}
+	free_str(&var);
+	return (-1);
 }

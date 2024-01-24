@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_unset.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/22 15:02:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:05:06 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void unset_env_line(t_msh *msh, int line_num)
 	free_double_str(&msh->ev);
 	msh->ev = new_env;	
 }
+
 int	builtin_unset(t_msh *msh)
 {
 	char	*var;
