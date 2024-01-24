@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 19:12:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:11:30 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,14 @@ int	builtin_unset(t_msh *msh)
 	int		line_num;
 
 	if (unset_check_var(msh->exec.exec_arg))
-	{
 		return (1);
-	}
 	i = 0;
 	while (msh->exec.exec_arg[++i])
 	{
 		var = ft_strdup(msh->exec.exec_arg[i]);
 		if (!var)
 			print_error_exit(&msh, ERR_MALLOC);
-		line_num = lineof_var_in_env(msh, var);
+		line_num = if_var_in_env(msh, var);
 		if (line_num != -1)
 			unset_env_line(msh, line_num);
 	}
