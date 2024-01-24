@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 23:29:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:09:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ int	check_var_equal(char *str)
 	int	i;
 
 	i = 0;
-	if (str[0] == '=' || ft_isdigit(str[0]))
+	if (check_ifempty_str(str))
+		return (1);
+	else if (str[0] == '=' || ft_isdigit(str[0]))
 		return (1);
 	else
 	{

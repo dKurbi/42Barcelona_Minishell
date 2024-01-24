@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 11:33:38 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:42:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@ int	export_len_env(char **ev)
 
 	len = 0;
 	while (ev[len] != NULL)
-	{
 		len++;
-	}
 	return (len);
 }
 
-//equal es = (puede calcular hasta declare -x var=... || declare -x var)
+//equal es '=' (puede calcular hasta declare -x var=... || declare -x var)
+//'=' len + 1 es para que inclue = tambien
 int	len_before_equal(char *str)
 {
 	int	len;

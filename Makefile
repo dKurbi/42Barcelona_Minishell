@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/23 16:04:30 by iassambe         ###   ########.fr        #
+#    Updated: 2024/01/24 16:08:30 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ configure_readline: config_readline
 
 config: config_readline
 
-$(COMPILED_READLINE): #config_readline WARNING: descomentarlo cuando sera evaluacion
+$(COMPILED_READLINE): #configure_readline WARNING: descomentarlo cuando sera evaluacion
 	$(MAKE) -C $(DIR_READLINE)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/23 17:05:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:40:53 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	env_len(t_msh *msh)
 	int	i;
 
 	i = 0;
-	while(msh->ev[i])
+	while (msh->ev[i])
 		i++;
 	return (i);
 }
