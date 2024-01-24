@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/23 18:27:57 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:27:27 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	if_var_in_env(t_msh *msh, char *var)
 	int	len;
 
 	len = len_before_equal(var);
-	if (var[len] == '\0')
-		printf("ey nul\n");
+	printf("var if_var_in_env - %s\n", var);
+	if (!ft_strrchr(var, '='))
+		printf("no =\n");
 	i = -1;
 	while (msh->ev[++i])
 	{

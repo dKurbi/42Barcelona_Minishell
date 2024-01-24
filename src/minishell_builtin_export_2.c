@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/23 19:14:07 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:33:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ int	len_before_equal(char *str)
 	len = 0;
 	if (!str)
 		return (len);
-	while (str[len] && str[len] != '=')
+	while (str[len])
+	{
+		if (str[len] == '=')
+			return (len + 1);
 		len++;
+	}
 	return (len);
 }
 
@@ -75,5 +79,6 @@ char	*export_create_var(t_msh *msh, int i)
 			var[iter_var++] = msh->exec.exec_arg[i][j];
 		j++;
 	}
+	var[iter_var] = '\0';
 	return (var);
 }

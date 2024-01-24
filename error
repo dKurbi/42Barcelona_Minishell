@@ -24,3 +24,6 @@ GLIBCXX_FORCE_NEW=1
 LD_PRELOAD=/usr/libexec/valgrind/vgpreload_core-amd64-linux.so:/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
 DIEGO=HOLA!
 GOPSD=AVERRR
+
+
+export A=str A bb cc= dd
