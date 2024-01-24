@@ -6,32 +6,31 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/24 19:38:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:01:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include <errno.h>
 
-int	input_redir(t_msh *msh, t_line *copy)
+void	input_redir(t_msh *msh, t_line *copy)
 {
 	int	fd;
 
 	(void)(msh);
 	if ((copy->next) && check_file(copy->next->str))
-		return (1);
+		return ;
 	fd = open(copy->next->str, O_RDONLY, 0644);
 	if (fd < 0)
 	{
 		print_perror(copy->next->str);
-		return (1);
+		return ;
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (0);
 }
 
-int	output_redir(t_msh *msh, t_line *copy)
+void	output_redir(t_msh *msh, t_line *copy)
 {
 	int	fd;
 
@@ -40,14 +39,13 @@ int	output_redir(t_msh *msh, t_line *copy)
 	if (fd < 0)
 	{
 		print_perror(copy->next->str);
-		return (1);
+		return ;
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (0);
 }
 
-int	append_redir(t_msh *msh, t_line *copy)
+void	append_redir(t_msh *msh, t_line *copy)
 {
 	int	fd;
 
@@ -56,19 +54,16 @@ int	append_redir(t_msh *msh, t_line *copy)
 	if (fd < 0)
 	{
 		print_perror(copy->next->str);
-		return (1);
+		return ;
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (0);
 }
 
-int	control_redirection(t_msh *msh)
+void	control_redirection(t_msh *msh)
 {
 	t_line	*copy_line;
-	int		status;
 
-	status = 0;
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
 	copy_line = msh->lst_line;
@@ -76,18 +71,15 @@ int	control_redirection(t_msh *msh)
 	while (copy_line)
 	{
 		if (copy_line->type == TYPE_OPUT_RED)
-			status = output_redir(msh, copy_line);
+			output_redir(msh, copy_line);
 		else if (copy_line->type == TYPE_IPUT_RED)
-			status = input_redir(msh, copy_line);
+			input_redir(msh, copy_line);
 		else if (copy_line->type == TYPE_APND)
-			status = append_redir(msh, copy_line);
-		if (status)
-			break ;
+			append_redir(msh, copy_line);
 		if (copy_line->type == TYPE_HDC)
 			heredoc_redir(msh);
 		copy_line = copy_line->next;
 	}
-	return (status);
 }
 
 void	restore_redirection(t_msh *msh)

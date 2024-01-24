@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 19:30:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/24 20:00:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ void		execution(t_msh *msh);
 
 //	execute redir
 //	minishell_exec_redirection.c
-int			control_redirection(t_msh *msh);
+void		control_redirection(t_msh *msh);
 void		restore_redirection(t_msh *msh);
 
 //	struct
