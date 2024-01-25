@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 03:08:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:01:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,13 @@ int	g_exit_status;
 # define EXEC_MODE 1
 /* ************************************************************************** */
 
-/* ************************************************************************** */
-// metacharacters
-# define SPACE_OR_TAB 1
-# define OPERATOR 2
-# define OTHER_CHAR 0
-/* ************************************************************************** */
-
 typedef struct s_exec
 {
 	int		pip[2];
 	int		old_pip[2];
 	int		fd_here_doc[2];
-	int		fd_stdin;//nuevos variables para hacer pipes(para recibir)
-	int		fd_stdout;//nuevos variables para hacer pipes(para redirigir)
+	int		fd_stdin;
+	int		fd_stdout;
 	char	**exec_arg;
 	char	*cmd_with_path;
 	char	*cmd_no_path;
@@ -139,7 +132,6 @@ typedef struct s_create
 typedef struct s_line
 {
 	char			*str;
-//	int				fd;
 	int				type;
 	struct s_line	*next;
 }		t_line;
@@ -313,10 +305,6 @@ void		decide_operators(char *str, int i, t_line **lst_line);
 int			skip_operators(char *str, int i);
 void		addstr_to_lst_line(char *str, t_line **lst_line, int i);
 
-//  parser
-//	minishell_parser.c
-int			decide_type(char *str);
-
 //	pipe
 //	minishell_pipe.c
 int			check_pipe_in_word(char *str);
@@ -356,6 +344,7 @@ t_line		*ft_lst_line_last(t_line *lst);
 int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
+int			decide_type(char *str);
 
 //	utils
 //	minishell_utils.c
@@ -364,6 +353,10 @@ void		change_exec_arg_script(t_msh *msh);
 char		if_quote_start_final(char *str);
 int			if_srcipt(char *str);
 void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
+
+
+
+
 
 //	ATENCIO!!!
 //	eliminar despues!!!

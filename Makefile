@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/24 16:08:30 by iassambe         ###   ########.fr        #
+#    Updated: 2024/01/25 15:45:55 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,9 @@ COMPILED_LIBFT = libft.a
 COMPILED_READLINE = inc/readline/libreadline.a
 
 SRCS = PRINT.c \
-		minishell.c minishell_error.c minishell_struct.c minishell_parser.c \
+		minishell.c minishell_error.c minishell_struct.c minishell_getter.c \
 		minishell_operators.c minishell_quotes.c minishell_lst_line.c \
-		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c minishell_getter.c \
+		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c \
 		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
 		minishell_execute.c minishell_check_syntax.c minishell_signal.c \
 		minishell_builtin_env.c minishell_exec_redirection.c minishell_heredoc.c \
