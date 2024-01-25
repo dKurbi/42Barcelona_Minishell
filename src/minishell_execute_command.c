@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 16:37:41 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:20:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	execute_child(t_msh *msh)
 	exit_free_child(msh, g_exit_status);
 }
 
-void	execute_cmd(t_msh *msh)
+void	 execute_cmd(t_msh *msh)
 {
 	signal_control_exec(msh);
 	if (check_ifbuiltin(msh->lst_line->str))
@@ -90,6 +90,18 @@ void	execute_cmd(t_msh *msh)
 	msh->exec.proc = fork();
 	if (msh->exec.proc < 0)
 		print_error_exit(&msh, ERR_FORK);
+	if (msh->exec.proc == 0)
+	{
+		if (control_redirection(msh))
+		{
+			close(msh->exec.fd_stdin);
+			close(msh->exec.fd_stdout);
+			close(msh->exec.pip[0]);
+			close(msh->exec.pip[1]);
+			g_exit_status = 1;
+			exit(g_exit_status);
+		}
+	}
 	if (msh->exec.proc == 0)
 		execute_child(msh);
 	close(msh->exec.pip[0]);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 16:01:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:51:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void		execute_cmd(t_msh *msh);
 
 //	execute redir
 //	minishell_exec_redirection.c
-void		control_redirection(t_msh *msh);
+int	control_redirection(t_msh *msh);
 void		restore_redirection(t_msh *msh);
 
 //	execute command
@@ -327,8 +327,10 @@ char		*search_oldpwd(t_msh *msh);
 
 //	Signal
 //	minishell_signal.c
+void	handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
 void		handle_signal_main(int sign, siginfo_t *sa, void *data);
 void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
+void	signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
 

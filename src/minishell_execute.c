@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 17:33:22 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:06:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	execution_line(t_msh *msh, int mode)
 {
 	if (mode == EXECUTE_COMMAND)
 	{
-		control_redirection(msh);
 		execute_cmd(msh);
 		restore_redirection(msh);
 		free_double_str(&msh->exec.exec_arg);

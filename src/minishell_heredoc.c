@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:02:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:20:53 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	check_heredoc(t_msh *msh)
 {
 	t_line	*line_copy;
 
+	signal_control_heredoc(msh);
 	line_copy = msh->lst_line;
 	while (line_copy)
 	{
