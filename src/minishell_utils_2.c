@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 15:44:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:59:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,11 @@ int	decide_type(char *str)
 		return (TYPE_OPUT_RED);
 	else
 		return (TYPE_CMD);
+}
+
+void	ft_close(int fd)
+{
+	if (fd < 0)
+		return ;
+	close(fd);
 }

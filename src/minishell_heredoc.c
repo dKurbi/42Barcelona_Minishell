@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 20:20:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:43:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	write_herdoc(t_msh *msh, t_line *copy)
 
 	line = NULL;
 	if (msh->exec.fd_here_doc[0] != -1)
-		close(msh->exec.fd_here_doc[0]);
+		ft_close(msh->exec.fd_here_doc[0]);
 	if (pipe(msh->exec.fd_here_doc) == -1)
 		print_error_exit(&msh, ERR_PIPE);
 	line = readline("> ");
@@ -32,16 +32,15 @@ void	write_herdoc(t_msh *msh, t_line *copy)
 	}
 	ft_putchar_fd('\0', msh->exec.fd_here_doc[1]);
 	free_str(&line);
-	close(msh->exec.fd_here_doc[1]);
+	ft_close(msh->exec.fd_here_doc[1]);
 	//copy->fd = dup(msh->exec.fd_here_doc[0]);
-	//close(msh->exec.fd_here_doc[0]);
+	//ft_close(msh->exec.fd_here_doc[0]);
 }
 
 void	check_heredoc(t_msh *msh)
 {
 	t_line	*line_copy;
 
-	signal_control_heredoc(msh);
 	line_copy = msh->lst_line;
 	while (line_copy)
 	{
@@ -54,5 +53,5 @@ void	check_heredoc(t_msh *msh)
 void	heredoc_redir(t_msh *msh)
 {
 	dup2(msh->exec.fd_here_doc[0], STDIN_FILENO);
-	close(msh->exec.fd_here_doc[0]);
+	ft_close(msh->exec.fd_here_doc[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/25 19:58:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 17:05:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ void	handle_signal_heredoc(int sign, siginfo_t *sa, void *data)
 		g_exit_status = 1;
 	}
 }
+/* void	handle_signal_heredoc(int sign)
+{
+	if (sign == SIGINT)
+	{
+		g_exit_status = 1;
+		exit(g_exit_status);
+	}
+	else if (sign == SIGQUIT)
+	{
+		g_exit_status = 1;
+	}
+} */
 
 void	handle_signal_main(int sign, siginfo_t *sa, void *data)
 {

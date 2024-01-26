@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/25 20:20:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:59:03 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	input_redir(t_msh *msh, t_line *copy)
 		return (1);
 	}
 	dup2(fd, STDIN_FILENO);
-	close(fd);
+	ft_close(fd);
 	return (0);
 }
 
@@ -43,7 +43,7 @@ int	output_redir(t_msh *msh, t_line *copy)
 		return (1);
 	}
 	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	ft_close(fd);
 	return (0);
 }
 
@@ -59,7 +59,7 @@ int	append_redir(t_msh *msh, t_line *copy)
 		return (1);
 	}
 	dup2(fd, STDOUT_FILENO);
-	close(fd);
+	ft_close(fd);
 	return (0);
 }
 
@@ -69,6 +69,7 @@ int	control_redirection(t_msh *msh)
 	int		status;
 
 	status = 0;
+	signal_control_heredoc(msh);
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
 	copy_line = msh->lst_line;
@@ -94,6 +95,6 @@ void	restore_redirection(t_msh *msh)
 {
 	dup2(msh->exec.fd_stdout, STDOUT_FILENO);
 	dup2(msh->exec.fd_stdin, STDIN_FILENO);
-	close(msh->exec.fd_stdout);
-	close(msh->exec.fd_stdin);
+	ft_close(msh->exec.fd_stdout);
+	ft_close(msh->exec.fd_stdin);
 }

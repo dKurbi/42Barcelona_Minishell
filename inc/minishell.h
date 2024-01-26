@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 19:51:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:47:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,27 +228,23 @@ void		print_warning_with_arg(char *file, char *s_warn);
 void		print_perror(char *s_err);
 void		print_perror_with_arg(char *cmd, char *file);
 
-int			execute_child_argv(t_msh **msh);
-void		execute_child(t_msh *msh);
-void		execute_cmd(t_msh *msh);
-
-//	execute redir
+//	execute controling redirections
 //	minishell_exec_redirection.c
-int	control_redirection(t_msh *msh);
+int			control_redirection(t_msh *msh);
 void		restore_redirection(t_msh *msh);
 
 //	execute command
 //	minishell_execute_command.c
 int			execute_child_argv(t_msh **msh);
-void		execute_check_command(t_msh *msh);
-void		execute_execve(t_msh *msh);
+void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
 
 //	execute pipes
 //	minishell_execute_pipe.c
+void		execute_cmd_pipe(t_msh *msh);
 
-//	execute (general file)
+//	execute (general file for executions)
 //	minishell_execute.c
 void		execute_builtin(t_msh *msh);
 void		execution_line(t_msh *msh, int mode);
@@ -327,10 +323,11 @@ char		*search_oldpwd(t_msh *msh);
 
 //	Signal
 //	minishell_signal.c
-void	handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
+void		handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
+//void	handle_signal_heredoc(int sign);
 void		handle_signal_main(int sign, siginfo_t *sa, void *data);
 void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
-void	signal_control_heredoc(t_msh *msh);
+void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
 
@@ -347,6 +344,7 @@ int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
+void		ft_close(int fd);
 
 //	utils
 //	minishell_utils.c

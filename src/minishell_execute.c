@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/25 19:06:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:00:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	execution_line(t_msh *msh, int mode)
 	}
 	else if (mode == EXECUTE_PIPE)
 	{
+		execute_cmd_pipe(msh);
 		
 	}
 }
