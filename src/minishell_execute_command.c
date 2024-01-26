@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/26 16:58:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:30:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void	execute_check_command_and_execve(t_msh *msh)
 
 void	execute_child(t_msh *msh)
 {
+	//signal_control_block(msh);
 	if (control_redirection(msh))
 	{
+		printf("error control redirection\n");
 		ft_close(msh->exec.fd_stdin);
 		ft_close(msh->exec.fd_stdout);
 		ft_close(msh->exec.pip[0]);
@@ -96,6 +98,8 @@ void	execute_cmd(t_msh *msh)
 		print_error_exit(&msh, ERR_FORK);
 	if (msh->exec.proc == 0)
 		execute_child(msh);
+	else
+		signal_control_block(msh);
 	ft_close(msh->exec.pip[0]);
 	ft_close(msh->exec.pip[1]);
 	waitpid(msh->exec.proc, &g_exit_status, 0);

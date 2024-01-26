@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/26 16:59:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:45:53 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,5 @@ void	restore_redirection(t_msh *msh)
 	dup2(msh->exec.fd_stdin, STDIN_FILENO);
 	ft_close(msh->exec.fd_stdout);
 	ft_close(msh->exec.fd_stdin);
+	printf("entro\n");
 }

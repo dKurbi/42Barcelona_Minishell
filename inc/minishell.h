@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/26 16:47:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:17:17 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,9 +327,11 @@ void		handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
 //void	handle_signal_heredoc(int sign);
 void		handle_signal_main(int sign, siginfo_t *sa, void *data);
 void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
+void		handle_nothing(int sign, siginfo_t *sa, void *data);
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
+void		signal_control_block(t_msh *msh);
 
 //	struct
 //	minishell_struct.c
@@ -345,6 +347,7 @@ int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
 void		ft_close(int fd);
+void		ft_close_pointer(int *fd);
 
 //	utils
 //	minishell_utils.c
