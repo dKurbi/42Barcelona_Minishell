@@ -1,0 +1,182 @@
+	free_str(&msh->read_line);
+	free_lst_line(&msh->lst_line);
+	free_lst_pipe(&msh->lst_pipe);
+	free_exec(&msh->exec);
+	if (is_quotes_pair(msh->read_line, 0, -1) != -1)
+		if (check_pipe_in_word(msh->read_line))
+			msh->lst_pipe = new_lst_pipe(msh);
+			msh->lst_line = new_lst_line(msh, msh->read_line);
+		///PRINT_comillas(msh->read_line);
+		///PRINT_lst_line(msh->lst_line);
+		///PRINT_lst_pipe(msh->lst_pipe);
+		msh->read_line = readline("Minishell-> ");
+	while (msh->ev[++i])
+		if (ft_strnstr(msh->ev[i], "HOME=", 5) != NULL)
+			home = msh->ev[i];
+	if (!msh->exec.exec_arg[1])
+	join = ft_strjoin(search_home(msh), msh->exec.exec_arg[1] + 1);
+	builtin_cd_change_pwds(msh, &msh->ev);
+	if (!msh->exec.exec_arg[1] || (msh->exec.exec_arg[1][0] == '~' && \
+		(msh->exec.exec_arg[1][1] == '\0' || msh->exec.exec_arg[1][1] == '/')))
+	else if (!ft_strncmp(msh->exec.exec_arg[1], "-", 1) && \
+			ft_strlen(msh->exec.exec_arg[1]) == 1)
+		ft_strdup(msh->exec.exec_arg[1]));
+	while (msh->exec.exec_arg[i])
+		if (msh->exec.exec_arg[i + 1] == NULL)
+			printf("%s", msh->exec.exec_arg[i]);
+			printf("%s ", msh->exec.exec_arg[i]);
+	if (msh->exec.exec_arg[1] && !ft_strncmp(msh->exec.exec_arg[1], "-n", 2) \
+	&& ft_strlen(msh->exec.exec_arg[1]) == 2)
+	while (msh->ev[++i])
+		if (!(msh->ev[i][0] >= 'a' && msh->ev[i][0] <= 'z'))
+			printf("%s\n", msh->ev[i]);
+	if (!msh->exec.exec_arg[1])
+	while (msh->ev[i])
+	while (msh->ev[i])
+		if (ft_strncmp(msh->ev[i], join_var_eq, len + 1) == 0 || \
+			(ft_strncmp(msh->ev[i], var, len) == 0 && msh->ev[i][len] == '\0'))
+	while (msh->ev[i])
+		if (ft_strncmp(msh->ev[i], var, len) == 0 || \
+	(ft_strncmp(msh->ev[i], var, len - 1) == 0 && msh->ev[i][len] == '\0'))
+	if (msh->exec.exec_arg[1] && msh->exec.exec_arg[2])
+	else if (!builtin_exit_if_num(msh->exec.exec_arg[1]))
+		print_warning_with_3_arg("exit", msh->exec.exec_arg[1], ERR_NUMERIC);
+	status = ft_atoi(msh->exec.exec_arg[1]);
+	while (msh->ev[++i])
+		while (msh->ev[i][++j] && msh->ev[i][j] != '=')
+			printf("%c", msh->ev[i][j]);
+		if (msh->ev[i][j])
+			printf("%c%c", msh->ev[i][j++], DQUOTE);
+			while (msh->ev[i][j])
+				printf("%c", msh->ev[i][j++]);
+	while (msh->exec.exec_arg[++i])
+			print_warning_with_3_arg("export", msh->exec.exec_arg[i], \
+			export_change_var_in_env(&msh->ev, var, if_in_ev);
+			msh->ev = export_append_to_env(msh, msh->ev, var);
+	if (!msh->exec.exec_arg[1])
+	while (msh->exec.exec_arg[i][len])
+		if (msh->exec.exec_arg[i][len] == QUOTE)
+		else if (msh->exec.exec_arg[i][len] == DQUOTE)
+//i from msh->exec.exec_arg
+	while (msh->exec.exec_arg[i][j])
+		if (msh->exec.exec_arg[i][j] != QUOTE && \
+			msh->exec.exec_arg[i][j] != DQUOTE)
+			var[iter_var++] = msh->exec.exec_arg[i][j];
+	else if (msh->exec.exec_arg[1] && msh->exec.exec_arg[1][0] == '-')
+		print_warning_with_3_arg("pwd", msh->exec.exec_arg[1], \
+	while (msh->ev[++i])
+			new_env[++j] = ft_strdup(msh->ev[i]);
+	free_double_str(&msh->ev);
+	msh->ev = new_env;
+	if (unset_check_var(msh->exec.exec_arg))
+	while (msh->exec.exec_arg[++i])
+		var = ft_strdup(msh->exec.exec_arg[i]);
+	if (!msh->read_line || (!ft_strncmp(msh->read_line, "exit", 4) && \
+		ft_strlen(msh->read_line) == 4))
+	if (msh->read_line[0] != '\0')
+		add_history(msh->read_line);
+	if (msh->read_line[ft_strlen(msh->read_line) - 1] == PIPE)
+	if (msh->lst_pipe)
+		copy_pipe = msh->lst_pipe;
+		if (check_syntax_line(msh->lst_line))
+	msh->exec.fd_stdin = dup(STDIN_FILENO);
+	msh->exec.fd_stdout = dup(STDOUT_FILENO);
+	copy_line = msh->lst_line;
+	dup2(msh->exec.fd_stdout, STDOUT_FILENO);
+	dup2(msh->exec.fd_stdin, STDIN_FILENO);
+	ft_close(msh->exec.fd_stdout);
+	ft_close(msh->exec.fd_stdin);
+	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
+	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
+	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
+	else if (!strncmp(msh->exec.exec_arg[0], "pwd", 3))
+	else if (!strncmp(msh->exec.exec_arg[0], "export", 6))
+	else if (!strncmp(msh->exec.exec_arg[0], "unset", 5))
+	else if (!strncmp(msh->exec.exec_arg[0], "env", 3))
+	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
+		free_double_str(&msh->exec.exec_arg);
+	copy_pipe = msh->lst_pipe;
+	if (check_ifempty_str(msh->read_line) && msh->read_line[0] != '\0')
+	if (msh->lst_pipe != NULL)
+	if (check_command(msh->exec.exec_arg[0]) == 1)
+		if (check_command(msh->exec.cmd_with_path) == 1)
+			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
+	if (msh->exec.cmd_with_path == NULL)
+		if (if_srcipt(msh->exec.exec_arg[0]))
+		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
+		execve(msh->exec.cmd_with_path, msh->exec.exec_arg, msh->ev);
+		ft_close(msh->exec.fd_stdin);
+		ft_close(msh->exec.fd_stdout);
+		ft_close(msh->exec.pip[0]);
+		ft_close(msh->exec.pip[1]);
+	msh->exec.path = search_path(msh);
+	if (!msh->exec.path)
+	if (check_ifbuiltin(msh->lst_line->str))
+	if (pipe(msh->exec.pip) < 0)
+	msh->exec.proc = fork();
+	if (msh->exec.proc < 0)
+	if (msh->exec.proc == 0)
+	ft_close(msh->exec.pip[0]);
+	ft_close(msh->exec.pip[1]);
+	waitpid(msh->exec.proc, &g_exit_status, 0);
+	if (msh->exit_status)
+	while (msh->ev[++i])
+		if (ft_strncmp(msh->ev[i], var, len) == 0)
+			rtn = ft_substr(msh->ev[i], len, ft_strlen(msh->ev[i]) - len + 1);
+	ft_close(msh->exec.pip[0]);
+	ft_close(msh->exec.pip[1]);
+	if (msh->exec.fd_here_doc[0] != -1)
+		ft_close(msh->exec.fd_here_doc[0]);
+	if (pipe(msh->exec.fd_here_doc) == -1)
+		ft_putstr_fd(line, msh->exec.fd_here_doc[1]);
+		ft_putchar_fd('\n', msh->exec.fd_here_doc[1]);
+	ft_putchar_fd('\0', msh->exec.fd_here_doc[1]);
+	ft_close(msh->exec.fd_here_doc[1]);
+	//copy->fd = dup(msh->exec.fd_here_doc[0]);
+	//ft_close(msh->exec.fd_here_doc[0]);
+	line_copy = msh->lst_line;
+	dup2(msh->exec.fd_here_doc[0], STDIN_FILENO);
+	ft_close(msh->exec.fd_here_doc[0]);
+	if (!msh || !msh->read_line || !read_line)
+	msh->pipe_active = 1;
+	split_pipe = ft_split_pipe(msh->read_line);
+	copy_pipe = msh->lst_pipe;
+	if (msh->lst_pipe != NULL)
+	copy_line = msh->lst_line;
+	while (msh->ev[++i])
+		if (ft_strnstr(msh->ev[i], "PATH=", 5) != NULL)
+			path = msh->ev[i];
+	while (msh->ev[++i])
+		if (ft_strnstr(msh->ev[i], "SHELL=", 6) != NULL)
+			shell_str = msh->ev[i];
+	while (msh->ev[++i])
+		if (ft_strnstr(msh->ev[i], "PWD=", 4) != NULL)
+			pwd = msh->ev[i];
+	while (msh->ev[++i])
+		if (ft_strnstr(msh->ev[i], "OLDPWD=", 7) != NULL)
+			oldpwd = msh->ev[i];
+	printf("stdin %d\n stdout %d\n", msh->exec.fd_stdin, msh->exec.fd_stdout);
+		close(msh->exec.fd_here_doc[0]);
+		close(msh->exec.fd_here_doc[1]);
+		printf("msh readline - %s\n\n\n", msh->read_line);
+		printf("msh str - %s\n\n\n", msh->lst_line->str);
+		close(msh->exec.fd_stdin);
+		close(msh->exec.fd_stdout);
+		ft_close_pointer(&msh->exec.fd_here_doc[1]);
+		ft_close_pointer(&msh->exec.fd_here_doc[0]);
+		ft_close_pointer(&msh->exec.fd_stdin);
+		ft_close_pointer(&msh->exec.fd_stdout);
+		msh->exit_status = 130;
+		msh->exit_status = 131;
+	msh->ev = create_env(env);
+	if (!msh->ev)
+	msh->lst_line = NULL;
+	msh->lst_pipe = NULL;
+	msh->read_line = NULL;
+	msh->pipe_active = 0;
+	msh->exec = execnew();
+	while (msh->exec.exec_arg[i])
+	while (msh->exec.exec_arg[++i])
+		str[i + 1] = ft_strdup(msh->exec.exec_arg[i]);
+	free_double_str(&msh->exec.exec_arg);
+	msh->exec.exec_arg = str;

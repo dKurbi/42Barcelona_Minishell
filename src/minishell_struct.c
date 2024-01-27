@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/20 01:40:42 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/27 21:01:41 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_exec	execnew(void)
 	exec.cmd_with_path = NULL;
 	exec.cmd_no_path = NULL;
 	exec.path = NULL;
-	exec.proc = 0;
+	exec.proc = -1;
 	exec.wait_status = 0;
 	exec.fd_here_doc[0] = -1;
 	exec.fd_here_doc[1] = -1;

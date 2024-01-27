@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/26 20:30:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/27 21:03:23 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	execute_child_argv(t_msh **msh)
 
 void	execute_check_command_and_execve(t_msh *msh)
 {
+	//signal_control_exec(msh);
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
 		get_cmd_with_path(&msh);
@@ -64,9 +65,9 @@ void	execute_check_command_and_execve(t_msh *msh)
 void	execute_child(t_msh *msh)
 {
 	//signal_control_block(msh);
+	//signal_control_exec(msh);
 	if (control_redirection(msh))
 	{
-		printf("error control redirection\n");
 		ft_close(msh->exec.fd_stdin);
 		ft_close(msh->exec.fd_stdout);
 		ft_close(msh->exec.pip[0]);
@@ -74,6 +75,7 @@ void	execute_child(t_msh *msh)
 		g_exit_status = 1;
 		exit(g_exit_status);
 	}
+	signal_control_exec(msh);
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 1);
 	msh->exec.path = search_path(msh);
@@ -85,7 +87,7 @@ void	execute_child(t_msh *msh)
 
 void	execute_cmd(t_msh *msh)
 {
-	signal_control_exec(msh);
+	//signal_control_exec(msh);
 	if (check_ifbuiltin(msh->lst_line->str))
 	{
 		execute_builtin(msh);
@@ -93,20 +95,39 @@ void	execute_cmd(t_msh *msh)
 	}
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
+
+	printf("PID before fork= %d\n msh before fork= %d\n", getpid(), msh->exec.proc);
 	msh->exec.proc = fork();
 	if (msh->exec.proc < 0)
 		print_error_exit(&msh, ERR_FORK);
+	printf("PID after fork= %d\n msh after fork= %d\n", getpid(), msh->exec.proc);
 	if (msh->exec.proc == 0)
-		execute_child(msh);
+	{
+		//signal_control_exec(msh);
+		execute_child(msh); 
+	}
 	else
-		signal_control_block(msh);
+		signal_control_block(msh, 2);
 	ft_close(msh->exec.pip[0]);
 	ft_close(msh->exec.pip[1]);
+	printf("g_exit before waitpid - %d\n", g_exit_status);
 	waitpid(msh->exec.proc, &g_exit_status, 0);
+	printf("g_exit after waitpid - %d\n", g_exit_status);
+	//g_exit_status = WEXITSTATUS(g_exit_status);
 	if (WIFEXITED(g_exit_status))
 	{
 		g_exit_status = WEXITSTATUS(g_exit_status);
 		if (g_exit_status == 3)
 			g_exit_status = 131;
+		if (g_exit_status == 2)
+			g_exit_status = 130;
 	}
+/* 	else
+	{
+		if (g_exit_status == 3)
+			g_exit_status = 131;
+		if (g_exit_status == 2)
+			g_exit_status = 130;
+	} */
+	printf("g_exit after WEXISTATS - %d\n", g_exit_status);
 }

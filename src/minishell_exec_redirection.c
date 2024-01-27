@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec_redirection.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/26 19:45:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:01:52 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,4 @@ void	restore_redirection(t_msh *msh)
 	dup2(msh->exec.fd_stdin, STDIN_FILENO);
 	ft_close(msh->exec.fd_stdout);
 	ft_close(msh->exec.fd_stdin);
-	printf("entro\n");
 }

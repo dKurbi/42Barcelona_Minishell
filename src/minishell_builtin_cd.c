@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_cd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:52:29 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 20:33:36 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:26:40 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	builtin_cd_change_pwds(t_msh *msh, char ***ev)
 
 int	builtin_cd_change_dir(t_msh *msh, char *str)
 {
-	(void)(msh);
 	if (!str || chdir(str) < 0)
 	{
 		print_perror_with_arg("cd", str);

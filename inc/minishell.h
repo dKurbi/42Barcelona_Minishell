@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/26 20:17:17 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/27 20:50:31 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,9 @@ void		handle_nothing(int sign, siginfo_t *sa, void *data);
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
-void		signal_control_block(t_msh *msh);
+//void		signal_control_block(void);
+void	signal_control_block(t_msh *msh, int mode);
+void	handle_signal_exec_mode_TEST(int sign, siginfo_t *sa, void *data);
 
 //	struct
 //	minishell_struct.c
