@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 16:37:41 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:30:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	execute_child_argv(t_msh **msh)
 	return (0);
 }
 
-void	execute_check_command(t_msh *msh)
+void	execute_check_command_and_execve(t_msh *msh)
 {
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
@@ -51,10 +51,6 @@ void	execute_check_command(t_msh *msh)
 			exit_free_child(msh, 127);
 		}
 	}
-}
-
-void	execute_execve(t_msh *msh)
-{
 	if (msh->exec.cmd_with_path == NULL)
 	{
 		if (if_srcipt(msh->exec.exec_arg[0]))
@@ -67,13 +63,23 @@ void	execute_execve(t_msh *msh)
 
 void	execute_child(t_msh *msh)
 {
+	//signal_control_block(msh);
+	if (control_redirection(msh))
+	{
+		printf("error control redirection\n");
+		ft_close(msh->exec.fd_stdin);
+		ft_close(msh->exec.fd_stdout);
+		ft_close(msh->exec.pip[0]);
+		ft_close(msh->exec.pip[1]);
+		g_exit_status = 1;
+		exit(g_exit_status);
+	}
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 1);
 	msh->exec.path = search_path(msh);
 	if (!msh->exec.path)
 		exit_free_child(msh, 127);
-	execute_check_command(msh);
-	execute_execve(msh);
+	execute_check_command_and_execve(msh);
 	exit_free_child(msh, g_exit_status);
 }
 
@@ -92,8 +98,10 @@ void	execute_cmd(t_msh *msh)
 		print_error_exit(&msh, ERR_FORK);
 	if (msh->exec.proc == 0)
 		execute_child(msh);
-	close(msh->exec.pip[0]);
-	close(msh->exec.pip[1]);
+	else
+		signal_control_block(msh);
+	ft_close(msh->exec.pip[0]);
+	ft_close(msh->exec.pip[1]);
 	waitpid(msh->exec.proc, &g_exit_status, 0);
 	if (WIFEXITED(g_exit_status))
 	{

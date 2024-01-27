@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 03:06:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 15:00:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,24 @@ void	execution_line(t_msh *msh, int mode)
 {
 	if (mode == EXECUTE_COMMAND)
 	{
-		control_redirection(msh);
 		execute_cmd(msh);
 		restore_redirection(msh);
 		free_double_str(&msh->exec.exec_arg);
 	}
 	else if (mode == EXECUTE_PIPE)
 	{
-		//msh->exec.exec_arg = get_exec_argv(msh, msh->lst_pipe->lst_line);
-		//hacer despues
+		execute_cmd_pipe(msh);
+		
 	}
 }
 
 //ejecutar los comandos ejemplo: "ls -la | wc -l"
 void	execution_pipes(t_msh *msh)
 {
-	while (msh->lst_line)
+	t_pipe	*copy_pipe;
+
+	copy_pipe = msh->lst_pipe;
+	while (copy_pipe)
 	{
 		execution_line(msh, EXECUTE_PIPE);
 	}

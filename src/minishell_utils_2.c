@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 23:28:58 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/26 20:15:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,40 @@ char	*strtrim_str_quotes(char *str)
 		new_str = ft_strdup(str);
 	free_str(&str);
 	return (new_str);
+}
+
+int	decide_type(char *str)
+{
+	if (!str)
+		return (-1);
+	if (str[0] == '-' || (str[0] == '-' && str[1] == '-'))
+		return (TYPE_FLG);
+	else if ((str[0] == QUOTE && str[ft_strlen(str) - 1] == QUOTE) || \
+				(str[0] == DQUOTE && str[ft_strlen(str) - 1] == DQUOTE))
+		return (TYPE_STR);
+	else if (str[0] == '<' && str[1] == '<')
+		return (TYPE_HDC);
+	else if (str[0] == '>' && str[1] == '>')
+		return (TYPE_APND);
+	else if (str[0] == IPUT_RED)
+		return (TYPE_IPUT_RED);
+	else if (str[0] == OPUT_RED)
+		return (TYPE_OPUT_RED);
+	else
+		return (TYPE_CMD);
+}
+
+void	ft_close(int fd)
+{
+	if (fd < 0)
+		return ;
+	close(fd);
+}
+
+void	ft_close_pointer(int *fd)
+{
+	if (*fd < 0)
+		return ;
+	close(*fd);
+	*fd = -1;
 }
