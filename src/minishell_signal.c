@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/28 20:16:33 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/28 20:49:34 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ void	signal_control_heredoc(t_msh *msh)
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_sigaction = handle_signal_heredoc;
-	if (sigaction(SIGINT, &sa, (void *) msh) == -1)
+	if (sigaction(SIGINT, &sa, NULL) == -1)
 		print_error_exit(&msh, ERR_SIG);
-	if (sigaction(SIGQUIT, &sa, (void *) msh) == -1)
-		print_error_exit(&msh, ERR_SIG);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signal_control_exec(t_msh *msh)
