@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/27 20:50:31 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/28 19:49:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	g_exit_status;
 # define ERR_TOO_MANY "too many arguments\n"
 # define ERR_NUMERIC "numeric argument required\n"
 # define ERR_INVALID_INDENT "not a valid identifier\n"
+# define ERR_READ "reading from file error\n"
+# define ERR_WRITE "writing from file error\n"
 /* ************************************************************************** */
 
 /* ************************************************************************** */
@@ -239,6 +241,8 @@ int			execute_child_argv(t_msh **msh);
 void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
+void		wait_process(t_msh *msh, pid_t pid, int j);
+
 
 //	execute pipes
 //	minishell_execute_pipe.c
@@ -278,9 +282,12 @@ char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
 //	heredoc control
 //	minishell_heredoc.c
-void		write_herdoc(t_msh *msh, t_line *copy);
-void		check_heredoc(t_msh *msh);
+int		write_herdoc(t_msh *msh, t_line *copy, int hdc_pip);
+//void		check_heredoc(t_msh *msh);
+int			check_heredoc(t_msh *msh);
 void		heredoc_redir(t_msh *msh);
+int			fork_write_herdoc(t_msh *msh, t_line *line_copy);
+
 
 //	lst_line but with quotes control
 //	minishell_lst_line_quotes.c
@@ -331,9 +338,7 @@ void		handle_nothing(int sign, siginfo_t *sa, void *data);
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
-//void		signal_control_block(void);
-void	signal_control_block(t_msh *msh, int mode);
-void	handle_signal_exec_mode_TEST(int sign, siginfo_t *sa, void *data);
+void		signal_control_block(t_msh *msh);
 
 //	struct
 //	minishell_struct.c

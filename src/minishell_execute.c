@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/26 15:00:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:29:53 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,12 @@ void	execute_builtin(t_msh *msh)
 //ejecutar los comandos ejemplo: "ls -la"
 void	execution_line(t_msh *msh, int mode)
 {
+	signal_control_block(msh);
 	if (mode == EXECUTE_COMMAND)
 	{
+		g_exit_status = check_heredoc(msh);
+		if (g_exit_status > 0)
+			return ;
 		execute_cmd(msh);
 		restore_redirection(msh);
 		free_double_str(&msh->exec.exec_arg);
@@ -61,7 +65,7 @@ void	execution_pipes(t_msh *msh)
 	copy_pipe = msh->lst_pipe;
 	while (copy_pipe)
 	{
-		execution_line(msh, EXECUTE_PIPE);
+		execution_line(msh, EXECUTE_PIPE);//no esta HECHO
 	}
 }
 

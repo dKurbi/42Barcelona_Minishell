@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/27 18:01:52 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:26:48 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@ int	control_redirection(t_msh *msh)
 	int		status;
 
 	status = 0;
-	signal_control_heredoc(msh);
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
 	copy_line = msh->lst_line;
-	check_heredoc(msh);
+	//check_heredoc(msh);
 	while (copy_line)
 	{
 		if (copy_line->type == TYPE_OPUT_RED)
