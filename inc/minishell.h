@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 19:49:15 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/29 04:31:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,13 +328,14 @@ char		*search_shell(t_msh *msh);
 char		*search_pwd(t_msh *msh);
 char		*search_oldpwd(t_msh *msh);
 
-//	Signal
-//	minishell_signal.c
+//	Signal handles
+//	minishell_signal_handle.c
 void		handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
-//void	handle_signal_heredoc(int sign);
 void		handle_signal_main(int sign, siginfo_t *sa, void *data);
 void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
-void		handle_nothing(int sign, siginfo_t *sa, void *data);
+
+//	Signal
+//	minishell_signal.c
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
@@ -354,7 +355,6 @@ int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
 void		ft_close(int fd);
-void		ft_close_pointer(int *fd);
 
 //	utils
 //	minishell_utils.c

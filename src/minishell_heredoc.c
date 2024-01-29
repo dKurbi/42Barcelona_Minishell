@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 20:50:03 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/29 04:30:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	write_herdoc(t_msh *msh, t_line *copy, int hcd_pip)
 		free_str(&line);
 		line = readline("> ");
 	}
-	//ft_putchar_fd('\0',hcd_pip);
 	free_str(&line);
 	ft_close(hcd_pip); 
 	exit (0);
 }
 
-static void init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)
+static void	init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)
 {
 	if (msh->exec.fd_here_doc[0] != -1)
 		ft_close(msh->exec.fd_here_doc[0]);
@@ -44,19 +43,21 @@ static void init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)
 	if (pipe(hdc_pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 }
-static void close_fd(int *fd)
+
+static void	close_fd(int *fd)
 {
-	close(fd[1]);
-	close(fd[0]);
+	ft_close(fd[1]);
+	ft_close(fd[0]);
 }
-int fork_write_herdoc(t_msh *msh, t_line *line_copy)
+
+int	fork_write_herdoc(t_msh *msh, t_line *line_copy)
 {
 	pid_t	hdc_proc;
 	int		hdc_pip[2];
 	int		hdc_status;
 	int		nb;
 
-	init_fwh(&nb, hdc_pip,&hdc_status, msh);
+	init_fwh(&nb, hdc_pip, &hdc_status, msh);
 	hdc_proc = fork();
 	if (hdc_proc < 0)
 		print_error_exit(&msh, ERR_FORK);
@@ -66,16 +67,15 @@ int fork_write_herdoc(t_msh *msh, t_line *line_copy)
 		close(hdc_pip[0]);
 		exit(write_herdoc(msh, line_copy, hdc_pip[1]));
 	}
-	close(hdc_pip[1]);
+	ft_close(hdc_pip[1]);
 	waitpid(hdc_proc, &hdc_status, 0);
 	if (WIFEXITED(hdc_status))
 		hdc_status = WEXITSTATUS(hdc_status);
 	close_fd(msh->exec.fd_here_doc);
 	dup2(hdc_pip[0], msh->exec.fd_here_doc[0]);
-	close(hdc_pip[0]);
+	ft_close(hdc_pip[0]);
 	return (hdc_status);
 }
-
 
 int	check_heredoc(t_msh *msh)
 {
@@ -89,9 +89,8 @@ int	check_heredoc(t_msh *msh)
 		if (line_copy->type == TYPE_HDC)
 		{
 			heredoc_status = fork_write_herdoc(msh, line_copy);
-			if (heredoc_redir > 0)
+			if (heredoc_status > 0)
 				return (heredoc_status);
-				
 		}
 		line_copy = line_copy->next;
 	}

@@ -6,7 +6,7 @@
 #    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/01/25 15:45:55 by iassambe         ###   ########.fr        #
+#    Updated: 2024/01/29 04:26:10 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRCS = PRINT.c \
 		minishell_execute_pipe.c minishell_search.c minishell_builtin_export.c \
 		minishell_builtin_exit.c minishell_builtin_pwd.c minishell_builtin_unset.c \
 		minishell_builtin_echo.c minishell_builtin_export_2.c \
-		minishell_lst_line_quotes.c minishell_builtin_env_utils.c
+		minishell_lst_line_quotes.c minishell_builtin_env_utils.c \
+		minishell_signal_handle.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
