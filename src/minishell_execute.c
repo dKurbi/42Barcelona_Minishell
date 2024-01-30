@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 16:29:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:32:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	execution_line(t_msh *msh, int mode)
 	else if (mode == EXECUTE_PIPE)
 	{
 		execute_cmd_pipe(msh);
-		
 	}
 }
 

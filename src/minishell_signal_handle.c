@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 04:25:20 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/29 04:25:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:23:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	handle_signal_main(int sign, siginfo_t *sa, void *data)
 {
 	(void)(sa);
 	(void)(data);
-
 	if (sign == SIGINT)
 	{
 		g_exit_status = 1;

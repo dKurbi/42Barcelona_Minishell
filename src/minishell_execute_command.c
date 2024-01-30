@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 19:55:11 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:32:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ void	execute_cmd(t_msh *msh)
 	g_exit_status = msh->exit_status;
 }
 
-
-
 void	wait_process(t_msh *msh, pid_t pid, int j)
 {
 	int	status;
@@ -140,4 +138,3 @@ void	wait_process(t_msh *msh, pid_t pid, int j)
 		}
 	}
 }
-

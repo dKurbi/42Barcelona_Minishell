@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/29 04:30:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:45:16 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	write_herdoc(t_msh *msh, t_line *copy, int hcd_pip)
+int	write_heredoc(t_msh *msh, t_line *copy, int hdc_pip)
 {
 	char	*line;
 
@@ -22,14 +22,14 @@ int	write_herdoc(t_msh *msh, t_line *copy, int hcd_pip)
 	while (ft_strncmp(line, copy->next->str, ft_strlen(copy->next->str)) \
 			|| ft_strlen(line) != ft_strlen(copy->next->str))
 	{
-		ft_putstr_fd(line, hcd_pip);
-		ft_putchar_fd('\n', hcd_pip);
+		ft_putstr_fd(line, hdc_pip);
+		ft_putchar_fd('\n', hdc_pip);
 		free_str(&line);
 		line = readline("> ");
 	}
 	free_str(&line);
-	ft_close(hcd_pip); 
-	exit (0);
+	ft_close(hdc_pip); 
+	exit(0);
 }
 
 static void	init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)
@@ -44,13 +44,7 @@ static void	init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)
 		print_error_exit(&msh, ERR_PIPE);
 }
 
-static void	close_fd(int *fd)
-{
-	ft_close(fd[1]);
-	ft_close(fd[0]);
-}
-
-int	fork_write_herdoc(t_msh *msh, t_line *line_copy)
+int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 {
 	pid_t	hdc_proc;
 	int		hdc_pip[2];
@@ -63,15 +57,15 @@ int	fork_write_herdoc(t_msh *msh, t_line *line_copy)
 		print_error_exit(&msh, ERR_FORK);
 	if (hdc_proc == 0)
 	{
-		close_fd(msh->exec.fd_here_doc);
-		close(hdc_pip[0]);
-		exit(write_herdoc(msh, line_copy, hdc_pip[1]));
+		close_fd_heredoc(msh->exec.fd_here_doc);
+		ft_close(hdc_pip[0]);
+		exit(write_heredoc(msh, line_copy, hdc_pip[1]));
 	}
 	ft_close(hdc_pip[1]);
 	waitpid(hdc_proc, &hdc_status, 0);
 	if (WIFEXITED(hdc_status))
 		hdc_status = WEXITSTATUS(hdc_status);
-	close_fd(msh->exec.fd_here_doc);
+	close_fd_heredoc(msh->exec.fd_here_doc);
 	dup2(hdc_pip[0], msh->exec.fd_here_doc[0]);
 	ft_close(hdc_pip[0]);
 	return (hdc_status);
@@ -88,17 +82,11 @@ int	check_heredoc(t_msh *msh)
 	{
 		if (line_copy->type == TYPE_HDC)
 		{
-			heredoc_status = fork_write_herdoc(msh, line_copy);
+			heredoc_status = fork_write_heredoc(msh, line_copy);
 			if (heredoc_status > 0)
 				return (heredoc_status);
 		}
 		line_copy = line_copy->next;
 	}
 	return (heredoc_status);
-}
-
-void	heredoc_redir(t_msh *msh)
-{
-	dup2(msh->exec.fd_here_doc[0], STDIN_FILENO);
-	ft_close(msh->exec.fd_here_doc[0]);
 }

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/29 04:31:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:44:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,13 +280,16 @@ void		exit_free_child(t_msh *msh, int exit_status);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
+//	heredoc control utils
+//	minishell_heredoc_utils.c
+void		close_fd_heredoc(int *fd);
+void		heredoc_redir(t_msh *msh);
+
 //	heredoc control
 //	minishell_heredoc.c
-int		write_herdoc(t_msh *msh, t_line *copy, int hdc_pip);
-//void		check_heredoc(t_msh *msh);
+int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
 int			check_heredoc(t_msh *msh);
-void		heredoc_redir(t_msh *msh);
-int			fork_write_herdoc(t_msh *msh, t_line *line_copy);
+int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
 
 
 //	lst_line but with quotes control
