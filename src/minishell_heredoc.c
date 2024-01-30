@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 02:45:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:42:52 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	write_heredoc(t_msh *msh, t_line *copy, int hdc_pip)
 		line = readline("> ");
 	}
 	free_str(&line);
-	ft_close(hdc_pip); 
+	ft_close(hdc_pip);
 	exit(0);
 }
 

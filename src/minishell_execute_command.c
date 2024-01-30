@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 02:32:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:43:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,14 @@ void	execute_child(t_msh *msh)
 		g_exit_status = 1;
 		exit(g_exit_status);
 	}
+	//if (execution_mode = PIPEX)
+	//	msh->lst_line = msh->pipe->lst_line
 	signal_control_exec(msh);
+	if (check_ifbuiltin(msh->lst_line->str)) // msh->lst_pipe->lst_line->str
+	{
+		execute_builtin(msh);
+		exit_free_child(msh, g_exit_status);
+	}
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 1);
 	msh->exec.path = search_path(msh);
@@ -85,11 +92,6 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_block(msh);
-	if (check_ifbuiltin(msh->lst_line->str))
-	{
-		execute_builtin(msh);
-		return ;
-	}
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 	msh->exec.proc = fork();
@@ -98,7 +100,7 @@ void	execute_cmd(t_msh *msh)
 	if (msh->exec.proc == 0)
 	{
 		signal_control_exec(msh);
-		execute_child(msh); 
+		execute_child(msh);
 	}
 	else
 	{
@@ -107,7 +109,7 @@ void	execute_cmd(t_msh *msh)
 	}
 	ft_close(msh->exec.pip[0]);
 	ft_close(msh->exec.pip[1]);
-	wait_process(msh, msh->exec.proc, 1);
+	wait_process(msh, msh->exec.proc, ONE_COMMAND);
 	g_exit_status = msh->exit_status;
 }
 
