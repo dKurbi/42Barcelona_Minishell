@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 16:59:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:08:17 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,15 @@ int	g_exit_status;
 /* ************************************************************************** */
 
 /* ************************************************************************** */
-# define MAIN_MODE 0
-# define EXEC_MODE 1
+# define MODE_LST_LINE 0
+# define MODE_PIPE 1
 # define ONE_COMMAND 1
 /* ************************************************************************** */
 
 typedef struct s_exec
 {
 	int		pip[2];
-	int		old_pip[2];
+	int		old_pip_file;
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
@@ -121,7 +121,6 @@ typedef struct s_exec
 	char	*cmd_no_path;
 	char	*path;
 	pid_t	proc;
-	int		wait_status;
 }	t_exec;
 
 typedef struct s_create
@@ -137,13 +136,13 @@ typedef struct s_line
 	char			*str;
 	int				type;
 	struct s_line	*next;
-}		t_line;
+}	t_line;
 
 typedef struct s_pipe
 {
 	t_line			*lst_line;
 	struct s_pipe	*next;
-}				t_pipe;
+}	t_pipe;
 
 typedef struct s_msh
 {
@@ -154,7 +153,7 @@ typedef struct s_msh
 	t_line		*lst_line;
 	t_pipe		*lst_pipe;
 	t_exec		exec;
-}		t_msh;
+}	t_msh;
 
 //	split pipe
 //	ft_split_pipe.c
@@ -252,7 +251,7 @@ void		execute_cmd_pipe(t_msh *msh);
 //	execute (general file for executions)
 //	minishell_execute.c
 void		execute_builtin(t_msh *msh);
-void		execution_line(t_msh *msh, int mode);
+void		execution_line(t_msh *msh);
 void		execution_pipes(t_msh *msh);
 void		execution(t_msh *msh);
 
@@ -352,7 +351,11 @@ t_exec		execnew(void);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
 
-//	utils
+//	utils 3 part
+//	minishell_utils_2.c
+int			calculate_len_lst_pipe(t_pipe *lst_pipe);
+
+//	utils 2 part
 //	minishell_utils_2.c
 int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
@@ -360,7 +363,7 @@ char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
 void		ft_close(int fd);
 
-//	utils
+//	utils 1 part
 //	minishell_utils.c
 int			check_ifempty_str(char *str);
 void		change_exec_arg_script(t_msh *msh);

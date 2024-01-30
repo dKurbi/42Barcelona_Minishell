@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 18:43:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:57:08 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ void	execute_child(t_msh *msh)
 		g_exit_status = 1;
 		exit(g_exit_status);
 	}
-	//if (execution_mode = PIPEX)
-	//	msh->lst_line = msh->pipe->lst_line
 	signal_control_exec(msh);
-	if (check_ifbuiltin(msh->lst_line->str)) // msh->lst_pipe->lst_line->str
+	if (check_ifbuiltin(msh->lst_line->str))
 	{
 		execute_builtin(msh);
 		exit_free_child(msh, g_exit_status);

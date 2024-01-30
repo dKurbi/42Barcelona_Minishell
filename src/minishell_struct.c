@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/27 21:01:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:56:16 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_exec	execnew(void)
 {
 	t_exec	exec;
 
+	exec.old_pip_file = -1;
 	exec.fd_stdin = -1;
 	exec.fd_stdout = -1;
 	exec.exec_arg = NULL;
@@ -41,7 +42,6 @@ t_exec	execnew(void)
 	exec.cmd_no_path = NULL;
 	exec.path = NULL;
 	exec.proc = -1;
-	exec.wait_status = 0;
 	exec.fd_here_doc[0] = -1;
 	exec.fd_here_doc[1] = -1;
 	return (exec);

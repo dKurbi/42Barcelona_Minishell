@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/05 17:29:23 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:31:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split_create_loop(char *s, char **split, int i, int j)
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
-		if (s[i] == PIPE)
+		if (s[i] && s[i] == PIPE)
 		{
 			split[j] = ft_strdup("");
 			i++;
@@ -99,7 +99,7 @@ char	**ft_split_create_loop(char *s, char **split, int i, int j)
 			i = i + ft_split_len_word(s, i) + 1;
 			while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 				i++;
-			if (s[i] == PIPE)
+			if (s[i] && s[i] == PIPE)
 				i++;
 		}
 		j++;
