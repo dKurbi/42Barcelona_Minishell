@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/30 18:56:16 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:17:08 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_exec	execnew(void)
 	exec.old_pip_file = -1;
 	exec.fd_stdin = -1;
 	exec.fd_stdout = -1;
+	exec.num_commands = 0;
 	exec.exec_arg = NULL;
 	exec.cmd_with_path = NULL;
 	exec.cmd_no_path = NULL;

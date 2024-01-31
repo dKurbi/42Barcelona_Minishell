@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 20:25:01 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:19:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,14 @@ void	execution_line(t_msh *msh)
 void	execution_pipes(t_msh *msh)
 {
 	t_pipe	*copy_pipe;
-	int 	pip[2];
+	int		i;
 
 	signal_control_block(msh);
+	i = -1;
 	copy_pipe = msh->lst_pipe;
 	while (copy_pipe)
 	{
-		if (pipe(pip) < 0)
+		if (pipe(msh->exec.pip) < 0)
 			print_error_exit(&msh, ERR_PIPE);
 		msh->exec.proc = fork();
 		if (msh->exec.proc < 0)
@@ -84,7 +85,10 @@ void	execution(t_msh *msh)
 	if (check_ifempty_str(msh->read_line) && msh->read_line[0] != '\0')
 		return ;
 	if (msh->lst_pipe != NULL)
+	{
+		msh->exec.num_commands = calculate_len_lst_pipe(msh->lst_pipe);
 		execution_pipes(msh);
+	}
 	else
 		execution_line(msh);
 }

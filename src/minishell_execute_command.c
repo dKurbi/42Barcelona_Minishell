@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 18:57:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:21:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,14 @@ void	execute_cmd(t_msh *msh)
 	g_exit_status = msh->exit_status;
 }
 
-void	wait_process(t_msh *msh, pid_t pid, int j)
+//waiting to all commands and return it's status
+void	wait_process(t_msh *msh, pid_t pid, int num_commands)
 {
 	int	status;
 
-	while (j >= 0)
+	while (num_commands >= 0)
 	{
-		j--;
+		num_commands--;
 		if (pid == wait(&status))
 		{
 			if (WIFEXITED(status))
