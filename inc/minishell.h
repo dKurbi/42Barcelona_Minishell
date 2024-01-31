@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:21:33 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:44:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	g_exit_status;
 
 # endif
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
@@ -52,62 +52,59 @@ int	g_exit_status;
 # define ERR_NO_CMD "command not found\n"
 # define ERR_FORK "forking error\n"
 # define ERR_BUILTIN_HAS_ARGS "illegal option\n"
+# define ERR_BUILTIN_HAS_ARGS_INV "invalid option\n"
 # define ERR_NO_PWD "failed finding pwd\n"
 # define ERR_TOO_MANY "too many arguments\n"
 # define ERR_NUMERIC "numeric argument required\n"
 # define ERR_INVALID_INDENT "not a valid identifier\n"
 # define ERR_READ "reading from file error\n"
 # define ERR_WRITE "writing from file error\n"
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 // type code
-# define TYPE_STR 0// "hola que tal"
-# define TYPE_CMD 1// ls
-# define TYPE_HDC 2// <<
-# define TYPE_APND 3// >>
-//output redirection: >
+# define TYPE_STR 0
+# define TYPE_CMD 1
+# define TYPE_HDC 2
+# define TYPE_APND 3
 # define TYPE_OPUT_RED 4
-//input redirection: <
 # define TYPE_IPUT_RED 5
-# define TYPE_PIPE 6// |
-# define TYPE_FLG 7// -l o si tenemos --no-print-directory
-/* ************************************************************************** */
+# define TYPE_PIPE 6
+# define TYPE_FLG 7
+/* -------------------------------------------------------------------------- */
 
-
-/* ************************************************************************** */
-// 	varios code
+/* -------------------------------------------------------------------------- */
+// 	char
 # define QUOTE 39
 # define DQUOTE 34
 # define PIPE 124
 # define CHAR_SPACE 32
-//output redirection - >
 # define OPUT_RED 62
-//input redirection - <
 # define IPUT_RED 60
 # define POINT 46
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 //	strings
-# define STR_PIPE "|"
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
 # define STR_OUTPUT ">"
 # define STR_INPUT "<"
 # define STR_MINISHELL "minishell: "
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
+//	execute defines
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
+//	otros defines
 # define MODE_LST_LINE 0
 # define MODE_PIPE 1
 # define ONE_COMMAND 1
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
 typedef struct s_exec
 {
@@ -290,7 +287,6 @@ void		heredoc_redir(t_msh *msh);
 int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
 int			check_heredoc(t_msh *msh);
 int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
-
 
 //	lst_line but with quotes control
 //	minishell_lst_line_quotes.c

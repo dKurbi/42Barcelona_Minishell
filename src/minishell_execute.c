@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:19:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 21:18:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,22 @@ extern int	g_exit_status;
 
 #endif
 
+/* void	execute_builtin_choose(t_msh *msh)
+{
+	
+} */
+
 void	execute_builtin(t_msh *msh)
 {
-	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
+	if (control_redirection(msh))
+	{
+		g_exit_status = 1;
+		dup2(msh->exec.fd_stdin, STDIN_FILENO);
+		dup2(msh->exec.fd_stdout, STDOUT_FILENO);
+		ft_close(msh->exec.fd_stdin);
+		ft_close(msh->exec.fd_stdout);
+		return ;
+	}
 	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
 		g_exit_status = builtin_echo(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
@@ -44,6 +57,7 @@ void	execution_line(t_msh *msh)
 	g_exit_status = check_heredoc(msh);
 	if (g_exit_status > 0)
 		return ;
+	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);//AA caramba
 	execute_cmd(msh);
 	restore_redirection(msh);
 	free_double_str(&msh->exec.exec_arg);

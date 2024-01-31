@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:12 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 17:24:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:44:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	builtin_pwd(t_msh *msh)
 	{
 		free_str(&current_dir);
 		print_warning_with_3_arg("pwd", msh->exec.exec_arg[1], \
-								ERR_BUILTIN_HAS_ARGS);
+								ERR_BUILTIN_HAS_ARGS_INV);
 		return (1);
 	}
 	printf("%s\n", current_dir);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:21:14 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 21:19:33 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	execute_child_argv(t_msh **msh)
 {
 	char	*tmp;
 
-	(*msh)->exec.exec_arg = get_exec_argv((*msh), (*msh)->lst_line);
 	if (!(*msh)->exec.exec_arg)
 		print_error_exit(msh, ERR_MALLOC);
 	if (!(*msh)->exec.exec_arg[0])
@@ -73,11 +72,6 @@ void	execute_child(t_msh *msh)
 		exit(g_exit_status);
 	}
 	signal_control_exec(msh);
-	if (check_ifbuiltin(msh->lst_line->str))
-	{
-		execute_builtin(msh);
-		exit_free_child(msh, g_exit_status);
-	}
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 1);
 	msh->exec.path = search_path(msh);
@@ -90,6 +84,11 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_block(msh);
+	if (check_ifbuiltin(msh->exec.exec_arg[0]))
+	{
+		execute_builtin(msh);
+		return ;
+	}
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 	msh->exec.proc = fork();
