@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/30 16:42:52 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:17:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 	return (hdc_status);
 }
 
-int	check_heredoc(t_msh *msh)
+int	check_heredoc(t_msh *msh, t_line *lst_line)
 {
 	t_line	*line_copy;
 	int		heredoc_status;
 
 	heredoc_status = 0;
-	line_copy = msh->lst_line;
+	line_copy = lst_line;
 	while (line_copy)
 	{
 		if (line_copy->type == TYPE_HDC)

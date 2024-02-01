@@ -6,26 +6,26 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/31 17:17:08 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:51:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_msh	*mshnew(char **env)
+t_msh	*mshnew(char **av, char **env)
 {
 	t_msh		*msh;
 
 	msh = (t_msh *)malloc(sizeof(t_msh));
 	if (!msh)
 		return (NULL);
+	msh->av = av;
 	msh->ev = create_env(env);
 	if (!msh->ev)
 		print_error_exit(&msh, ERR_MALLOC);
 	msh->lst_line = NULL;
 	msh->lst_pipe = NULL;
 	msh->read_line = NULL;
-	msh->pipe_active = 0;
 	msh->exec = execnew();
 	return (msh);
 }
@@ -34,7 +34,8 @@ t_exec	execnew(void)
 {
 	t_exec	exec;
 
-	exec.old_pip_file = -1;
+	exec.old_pip[0] = -1;
+	exec.old_pip[1] = -1;
 	exec.fd_stdin = -1;
 	exec.fd_stdout = -1;
 	exec.num_commands = 0;

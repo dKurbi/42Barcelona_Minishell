@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 21:19:33 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:00:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	execute_cmd(t_msh *msh)
 	signal_control_block(msh);
 	if (check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
-		execute_builtin(msh);
+		execute_builtin(msh, EXECUTE_COMMAND);
 		return ;
 	}
 	if (pipe(msh->exec.pip) < 0)

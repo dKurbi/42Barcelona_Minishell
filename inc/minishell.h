@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:44:05 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:51:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	g_exit_status;
 typedef struct s_exec
 {
 	int		pip[2];
-	int		old_pip_file;
+	int		old_pip[2];
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
@@ -146,7 +146,7 @@ typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
-	int			pipe_active;
+	char		**av;
 	int			exit_status;
 	t_line		*lst_line;
 	t_pipe		*lst_pipe;
@@ -244,10 +244,11 @@ void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 //	execute pipes
 //	minishell_execute_pipe.c
 void		execute_cmd_pipe(t_msh *msh);
+void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
 
 //	execute (general file for executions)
 //	minishell_execute.c
-void		execute_builtin(t_msh *msh);
+void		execute_builtin(t_msh *msh, int if_pipe_mode);
 void		execution_line(t_msh *msh);
 void		execution_pipes(t_msh *msh);
 void		execution(t_msh *msh);
@@ -285,7 +286,7 @@ void		heredoc_redir(t_msh *msh);
 //	heredoc control
 //	minishell_heredoc.c
 int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
-int			check_heredoc(t_msh *msh);
+int	check_heredoc(t_msh *msh, t_line *lst_line);
 int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
 
 //	lst_line but with quotes control
@@ -342,7 +343,7 @@ void		signal_control_block(t_msh *msh);
 
 //	struct
 //	minishell_struct.c
-t_msh		*mshnew(char **env);
+t_msh		*mshnew(char **av, char **env);
 t_exec		execnew(void);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
@@ -350,6 +351,7 @@ t_line		*ft_lst_line_last(t_line *lst);
 //	utils 3 part
 //	minishell_utils_2.c
 int			calculate_len_lst_pipe(t_pipe *lst_pipe);
+void		change_int_arr(int *old_pip, int fd0, int fd1);
 
 //	utils 2 part
 //	minishell_utils_2.c

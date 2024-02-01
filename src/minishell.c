@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/27 20:34:03 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:51:22 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	main(int ac, char **av, char **ev)
 		print_warning(ERR_AC);
 		exit(1);
 	}
-	(void)(av);
-	msh = mshnew(ev);
+	msh = mshnew(av, ev);
 	if (!msh)
 		print_error_exit(&msh, ERR_MALLOC);
 	g_exit_status = 0;

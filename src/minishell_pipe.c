@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/03 16:56:38 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 18:50:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_pipe	*new_lst_pipe(t_msh *msh)
 	int		i;
 	t_pipe	*lst_pipe;
 
-	msh->pipe_active = 1;
 	split_pipe = ft_split_pipe(msh->read_line);
 	if (!split_pipe)
 		return (NULL);
