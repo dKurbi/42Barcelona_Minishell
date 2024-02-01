@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 21:18:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 01:46:58 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	execution_pipes(t_msh *msh)
 
 	signal_control_block(msh);
 	i = -1;
+	(void)(i);
 	copy_pipe = msh->lst_pipe;
 	while (copy_pipe)
 	{
