@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/01 18:51:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:46:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	g_exit_status;
 # define ERR_INVALID_INDENT "not a valid identifier\n"
 # define ERR_READ "reading from file error\n"
 # define ERR_WRITE "writing from file error\n"
+# define ERR_IS_DIR "is a directory\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -118,6 +119,7 @@ typedef struct s_exec
 	char	*cmd_with_path;
 	char	*cmd_no_path;
 	char	*path;
+	DIR		*dir;
 	pid_t	proc;
 }	t_exec;
 
@@ -244,7 +246,7 @@ void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 //	execute pipes
 //	minishell_execute_pipe.c
 void		execute_cmd_pipe(t_msh *msh);
-void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
+void		execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
 
 //	execute (general file for executions)
 //	minishell_execute.c
@@ -286,7 +288,7 @@ void		heredoc_redir(t_msh *msh);
 //	heredoc control
 //	minishell_heredoc.c
 int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
-int	check_heredoc(t_msh *msh, t_line *lst_line);
+int			check_heredoc(t_msh *msh, t_line *lst_line);
 int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
 
 //	lst_line but with quotes control

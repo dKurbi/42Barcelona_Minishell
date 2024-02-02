@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:05:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/01 17:23:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/02 14:02:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	calculate_len_lst_pipe(t_pipe *lst_pipe)
 	while (copy_pipe != NULL)
 	{
 		len++;
+		copy_pipe = copy_pipe->next;
 	}
 	return (len);
 }

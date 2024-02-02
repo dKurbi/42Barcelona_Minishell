@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 13:54:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:35:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int	execute_child_argv(t_msh **msh)
 
 void	execute_check_command_and_execve(t_msh *msh)
 {
+	msh->exec.dir = opendir(msh->exec.exec_arg[0]);
+	if (msh->exec.dir)
+	{
+		print_warning_with_arg(msh->exec.exec_arg[0], ERR_IS_DIR);
+		exit_free_child(msh, 126);
+	}
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
 		get_cmd_with_path(&msh);

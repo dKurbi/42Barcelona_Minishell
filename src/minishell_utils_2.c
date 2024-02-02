@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/29 04:31:30 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:36:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	decide_type(char *str)
 		return (TYPE_CMD);
 }
 
+//close IF only its >=0
 void	ft_close(int fd)
 {
 	if (fd < 0)

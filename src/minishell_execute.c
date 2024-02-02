@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/01 18:18:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/02 20:15:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	execution_pipes(t_msh *msh)
 
 	signal_control_block(msh);
 	copy_pipe = msh->lst_pipe;
-	while (copy_pipe->next)
+	while (copy_pipe)
 	{
 		if (pipe(msh->exec.pip) < 0)
 			print_error_exit(&msh, ERR_PIPE);
@@ -79,11 +79,6 @@ void	execution_pipes(t_msh *msh)
 			signal_control_exec(msh);
 			execute_child_pipe(msh, copy_pipe);
 		}
-/* 		else
-		{
-			if (msh->exec.fd_here_doc[0] != -1)
-				ft_close(msh->exec.fd_here_doc[0]);
-		} */
 		dup2(msh->exec.pip[0], STDIN_FILENO);
 		ft_close(msh->exec.pip[0]);
 		ft_close(msh->exec.pip[1]);
@@ -91,6 +86,7 @@ void	execution_pipes(t_msh *msh)
 	}
 	wait_process(msh, msh->exec.proc, msh->exec.num_commands);
 	g_exit_status = msh->exit_status;
+	restore_redirection(msh);
 }
 
 //luego para executing
