@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 16:36:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:49:33 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,10 @@ int	decide_type(char *str)
 }
 
 //close IF only its >=0
-void	ft_close(int fd)
+void	ft_close(int *fd)
 {
-	if (fd < 0)
+	if (*fd < 0)
 		return ;
-	close(fd);
+	close(*fd);
+	*fd = -1;
 }

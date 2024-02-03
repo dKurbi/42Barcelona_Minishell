@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 15:46:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:52:13 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_line
 typedef struct s_pipe
 {
 	t_line			*lst_line;
+	int				fd_heredoc[2];
 	struct s_pipe	*next;
 }	t_pipe;
 
@@ -245,6 +246,7 @@ void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 
 //	execute pipes
 //	minishell_execute_pipe.c
+void	execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe);
 void		execute_cmd_pipe(t_msh *msh);
 void		execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
 
@@ -284,6 +286,10 @@ char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 //	minishell_heredoc_utils.c
 void		close_fd_heredoc(int *fd);
 void		heredoc_redir(t_msh *msh);
+
+//	heredoc control pipes
+//	minishell_heredoc_pipe.c
+int	check_heredoc_pipe(t_msh *msh);
 
 //	heredoc control
 //	minishell_heredoc.c
@@ -361,7 +367,8 @@ int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
-void		ft_close(int fd);
+//void		ft_close(int fd);
+void	ft_close(int *fd);
 
 //	utils 1 part
 //	minishell_utils.c

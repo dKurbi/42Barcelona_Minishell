@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 20:15:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:36:26 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void increment_shlvl(char ***r)
+{
+	char	**rtn;
+	int		i;
+	char 	*new_level;
+
+	i = 0;
+	rtn = *r;
+	while (ft_strncmp(rtn[i], "SHLVL=", 6))
+		i++;
+	new_level = ft_itoa(ft_atoi(rtn[i] + 6) + 1);
+	if (!new_level)
+	{	
+		free_double_str(r);
+		return;
+	}
+	free_str(&rtn[i]);
+	rtn[i] = ft_strjoin("SHLVL=", new_level);
+	if (!rtn[i])
+	{
+		free_double_str(r);
+		free_str(&new_level);
+		return;
+	}
+	free_str(&new_level);
+}
 
 char	**create_env(char **env)
 {
@@ -21,14 +48,18 @@ char	**create_env(char **env)
 	while (env[n_lines])
 		n_lines++;
 	rtn = (char **) malloc(sizeof(char *) * (n_lines + 1));
-	n_lines = -1;
-	while (env[++n_lines])
+	if (rtn)
 	{
-		rtn[n_lines] = ft_strdup(env[n_lines]);
-		if (!rtn[n_lines])
-			return (ft_split_free(rtn));
+		n_lines = -1;
+		while (env[++n_lines])
+		{
+			rtn[n_lines] = ft_strdup(env[n_lines]);
+			if (!rtn[n_lines])
+				return (ft_split_free(rtn));
+		}
+		rtn[n_lines] = NULL;
+		increment_shlvl(&rtn);
 	}
-	rtn[n_lines] = NULL;
 	return (rtn);
 }
 

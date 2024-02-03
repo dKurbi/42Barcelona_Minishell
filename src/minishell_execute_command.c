@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 15:35:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 16:52:29 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	execute_child(t_msh *msh)
 {
 	if (control_redirection(msh))
 	{
-		ft_close(msh->exec.fd_stdin);
-		ft_close(msh->exec.fd_stdout);
-		ft_close(msh->exec.pip[0]);
-		ft_close(msh->exec.pip[1]);
+		ft_close(&msh->exec.fd_stdin);
+		ft_close(&msh->exec.fd_stdout);
+		ft_close(&msh->exec.pip[0]);
+		ft_close(&msh->exec.pip[1]);
 		g_exit_status = 1;
 		exit(g_exit_status);
 	}
@@ -108,10 +108,10 @@ void	execute_cmd(t_msh *msh)
 	else
 	{
 		if (msh->exec.fd_here_doc[0] != -1)
-			ft_close(msh->exec.fd_here_doc[0]);
+			ft_close(&msh->exec.fd_here_doc[0]);
 	}
-	ft_close(msh->exec.pip[0]);
-	ft_close(msh->exec.pip[1]);
+	ft_close(&msh->exec.pip[0]);
+	ft_close(&msh->exec.pip[1]);
 	wait_process(msh, msh->exec.proc, ONE_COMMAND);
 	g_exit_status = msh->exit_status;
 }

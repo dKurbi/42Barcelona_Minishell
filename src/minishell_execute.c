@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 03:27:36 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 18:22:13 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	execute_builtin(t_msh *msh, int if_pipe_mode)
 		g_exit_status = 1;
 		dup2(msh->exec.fd_stdin, STDIN_FILENO);
 		dup2(msh->exec.fd_stdout, STDOUT_FILENO);
-		ft_close(msh->exec.fd_stdin);
-		ft_close(msh->exec.fd_stdout);
+		ft_close(&msh->exec.fd_stdin);
+		ft_close(&msh->exec.fd_stdout);
 		return ;
 	}
 	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
@@ -67,7 +67,10 @@ void	execution_pipes(t_msh *msh)
 
 	signal_control_block(msh);
 	copy_pipe = msh->lst_pipe;
-	while (copy_pipe)
+	g_exit_status = check_heredoc_pipe(msh);
+	if (g_exit_status >= 1)
+		return ;
+	while (copy_pipe->next)
 	{
 		if (pipe(msh->exec.pip) < 0)
 			print_error_exit(&msh, ERR_PIPE);
@@ -78,8 +81,13 @@ void	execution_pipes(t_msh *msh)
 		{
 			signal_control_exec(msh);
 			execute_child_pipe(msh, copy_pipe);
+			if (copy_pipe->next == NULL)
+				execute_child_pipe_last(msh, copy_pipe);//siguente
 		}
 		change_int_arr(msh->exec.old_pip, msh->exec.pip[0], msh->exec.pip[1]);
+		ft_close(&msh->exec.pip[0]);
+		ft_close(&msh->exec.pip[1]);
+		dup2(msh->exec.old_pip[0], STDOUT_FILENO);
 		copy_pipe = copy_pipe->next;
 	}
 	wait_process(msh, msh->exec.proc, msh->exec.num_commands);

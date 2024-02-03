@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/01 18:50:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 17:38:13 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 		if (!*lst_pipe)
 			print_error_exit(&msh, ERR_MALLOC);
 		(*lst_pipe)->lst_line = new_lst_line(msh, str);
+		(*lst_pipe)->fd_heredoc[0] = -1;
+		(*lst_pipe)->fd_heredoc[1] = -1;
 		(*lst_pipe)->next = NULL;
 		return ;
 	}
@@ -61,6 +63,8 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 	if (!copy_lst->next)
 		print_error_exit(&msh, ERR_MALLOC);
 	copy_lst->next->lst_line = new_lst_line(msh, str);
+	copy_lst->next->fd_heredoc[0] = -1;
+	copy_lst->next->fd_heredoc[1] = -1;
 	copy_lst->next->next = NULL;
 }
 
