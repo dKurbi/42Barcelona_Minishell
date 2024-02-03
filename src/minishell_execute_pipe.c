@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 19:50:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:21:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	restore_redirection_pipe(t_msh *msh)
 void	execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe)
 {
 	signal_control_block(msh);
-	dup2(msh->exec.old_pip[0], STDIN_FILENO);
+	dup2(msh->exec.old_pip[1], STDIN_FILENO);
 	//dup2(msh->exec.pip[1], STDOUT_FILENO);
 	ft_close(&msh->exec.pip[1]);
 	ft_close(&msh->exec.old_pip[0]);
