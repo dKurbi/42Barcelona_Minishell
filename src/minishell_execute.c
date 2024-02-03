@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 18:22:13 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/03 20:08:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	execution_line(t_msh *msh)
 	if (g_exit_status > 0)
 		return ;
 	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
+	if (!msh->exec.exec_arg)
+		print_error_exit(&msh, ERR_MALLOC);
 	execute_cmd(msh);
 	restore_redirection(msh);
 	free_double_str(&msh->exec.exec_arg);
@@ -72,6 +74,12 @@ void	execution_pipes(t_msh *msh)
 		return ;
 	while (copy_pipe->next)
 	{
+		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
+		msh->exec.fd_here_doc[0] = dup(copy_pipe->fd_heredoc[0]);
+		printf("************despues de copiar***********\n");
+		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
+		ft_close(&copy_pipe->fd_heredoc[0]);
+		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
 		if (pipe(msh->exec.pip) < 0)
 			print_error_exit(&msh, ERR_PIPE);
 		msh->exec.proc = fork();
@@ -80,9 +88,10 @@ void	execution_pipes(t_msh *msh)
 		if (msh->exec.proc == 0)
 		{
 			signal_control_exec(msh);
-			execute_child_pipe(msh, copy_pipe);
-			if (copy_pipe->next == NULL)
-				execute_child_pipe_last(msh, copy_pipe);//siguente
+			if (copy_pipe->next)
+				execute_child_pipe(msh, copy_pipe);
+			else
+				execute_child_pipe_last(msh, copy_pipe);
 		}
 		change_int_arr(msh->exec.old_pip, msh->exec.pip[0], msh->exec.pip[1]);
 		ft_close(&msh->exec.pip[0]);

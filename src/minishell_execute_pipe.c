@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_pipe.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 18:34:48 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:50:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ extern int	g_exit_status;
 void	execute_cmd_pipe(t_msh *msh)
 {
 	signal_control_block(msh);
-	if (check_ifbuiltin(msh->exec.exec_arg[0]))
+	if (msh->exec.exec_arg[0] && check_ifbuiltin(msh->exec.exec_arg[0]))
 		execute_builtin(msh, EXECUTE_PIPE);
 	/* else
 	{
@@ -65,7 +65,6 @@ void	execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe)
 	msh->exec.exec_arg = get_exec_argv(msh, lst_pipe->lst_line);
 	execute_cmd_pipe(msh);
 	free_double_str(&msh->exec.exec_arg);
-	restore_redirection_pipe(msh);
 }
 
 void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe)
@@ -78,8 +77,6 @@ void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe)
 	else
 		dup2(msh->exec.old_pip[1], STDIN_FILENO);
 	ft_close(&msh->exec.pip[1]);
-	msh->exec.fd_here_doc[0] = dup(lst_pipe->fd_heredoc[0]);
-	ft_close(&lst_pipe->fd_heredoc[0]);
 	msh->exec.exec_arg = get_exec_argv(msh, lst_pipe->lst_line);
 	execute_cmd_pipe(msh);
 	free_double_str(&msh->exec.exec_arg);

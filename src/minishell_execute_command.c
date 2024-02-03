@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 16:52:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:50:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	execute_check_command_and_execve(t_msh *msh)
 	msh->exec.dir = opendir(msh->exec.exec_arg[0]);
 	if (msh->exec.dir)
 	{
+		closedir(msh->exec.dir);
 		print_warning_with_arg(msh->exec.exec_arg[0], ERR_IS_DIR);
 		exit_free_child(msh, 126);
 	}
@@ -90,7 +91,7 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_block(msh);
-	if (check_ifbuiltin(msh->exec.exec_arg[0]))
+	if (msh->exec.exec_arg[0] && check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
 		execute_builtin(msh, EXECUTE_COMMAND);
 		return ;
