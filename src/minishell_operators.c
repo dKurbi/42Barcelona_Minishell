@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/10 19:51:01 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/01/31 17:34:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	decide_operators(char *str, int i, t_line **lst_line)
 {
 	if (str[i] && (str[i] == IPUT_RED) && \
 		str[i + 1] && str[i] == str[i + 1])
-		add_new_line_node(ft_strdup("<<"), TYPE_HDC, lst_line);
+		add_new_line_node(ft_strdup(STR_HEREDOC), TYPE_HDC, lst_line);
 	else if (str[i] && (str[i] == OPUT_RED) && \
 		str[i + 1] && str[i] == str[i + 1])
-		add_new_line_node(ft_strdup(">>"), TYPE_APND, lst_line);
+		add_new_line_node(ft_strdup(STR_APPEND), TYPE_APND, lst_line);
 	else if (str[i] && (str[i] == OPUT_RED))
-		add_new_line_node(ft_strdup(">"), TYPE_OPUT_RED, lst_line);
+		add_new_line_node(ft_strdup(STR_OUTPUT), TYPE_OPUT_RED, lst_line);
 	else if (str[i] && (str[i] == IPUT_RED))
-		add_new_line_node(ft_strdup("<"), TYPE_IPUT_RED, lst_line);
+		add_new_line_node(ft_strdup(STR_INPUT), TYPE_IPUT_RED, lst_line);
 }
 
 //para pasar de <<EOF a EOF (por ejemplo)

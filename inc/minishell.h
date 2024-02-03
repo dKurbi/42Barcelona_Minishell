@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 19:49:15 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:46:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	g_exit_status;
 
 # endif
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 // error code
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
@@ -52,61 +52,60 @@ int	g_exit_status;
 # define ERR_NO_CMD "command not found\n"
 # define ERR_FORK "forking error\n"
 # define ERR_BUILTIN_HAS_ARGS "illegal option\n"
+# define ERR_BUILTIN_HAS_ARGS_INV "invalid option\n"
 # define ERR_NO_PWD "failed finding pwd\n"
 # define ERR_TOO_MANY "too many arguments\n"
 # define ERR_NUMERIC "numeric argument required\n"
 # define ERR_INVALID_INDENT "not a valid identifier\n"
 # define ERR_READ "reading from file error\n"
 # define ERR_WRITE "writing from file error\n"
-/* ************************************************************************** */
+# define ERR_IS_DIR "is a directory\n"
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 // type code
-# define TYPE_STR 0// "hola que tal"
-# define TYPE_CMD 1// ls
-# define TYPE_HDC 2// <<
-# define TYPE_APND 3// >>
-//output redirection: >
+# define TYPE_STR 0
+# define TYPE_CMD 1
+# define TYPE_HDC 2
+# define TYPE_APND 3
 # define TYPE_OPUT_RED 4
-//input redirection: <
 # define TYPE_IPUT_RED 5
-# define TYPE_PIPE 6// |
-# define TYPE_FLG 7// -l o si tenemos --no-print-directory
-/* ************************************************************************** */
+# define TYPE_PIPE 6
+# define TYPE_FLG 7
+/* -------------------------------------------------------------------------- */
 
-
-/* ************************************************************************** */
-// 	varios code
+/* -------------------------------------------------------------------------- */
+// 	char
 # define QUOTE 39
 # define DQUOTE 34
 # define PIPE 124
 # define CHAR_SPACE 32
-//output redirection - >
 # define OPUT_RED 62
-//input redirection - <
 # define IPUT_RED 60
 # define POINT 46
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 //	strings
-# define STR_PIPE "|"
 # define STR_HEREDOC "<<"
 # define STR_APPEND ">>"
 # define STR_OUTPUT ">"
 # define STR_INPUT "<"
 # define STR_MINISHELL "minishell: "
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
+//	execute defines
 # define EXECUTE_PIPE 1
 # define EXECUTE_COMMAND 0
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
 
-/* ************************************************************************** */
-# define MAIN_MODE 0
-# define EXEC_MODE 1
-/* ************************************************************************** */
+/* -------------------------------------------------------------------------- */
+//	otros defines
+# define MODE_LST_LINE 0
+# define MODE_PIPE 1
+# define ONE_COMMAND 1
+/* -------------------------------------------------------------------------- */
 
 typedef struct s_exec
 {
@@ -115,12 +114,13 @@ typedef struct s_exec
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
+	int		num_commands;
 	char	**exec_arg;
 	char	*cmd_with_path;
 	char	*cmd_no_path;
 	char	*path;
+	DIR		*dir;
 	pid_t	proc;
-	int		wait_status;
 }	t_exec;
 
 typedef struct s_create
@@ -136,24 +136,24 @@ typedef struct s_line
 	char			*str;
 	int				type;
 	struct s_line	*next;
-}		t_line;
+}	t_line;
 
 typedef struct s_pipe
 {
 	t_line			*lst_line;
 	struct s_pipe	*next;
-}				t_pipe;
+}	t_pipe;
 
 typedef struct s_msh
 {
 	char		*read_line;
 	char		**ev;
-	int			pipe_active;
+	char		**av;
 	int			exit_status;
 	t_line		*lst_line;
 	t_pipe		*lst_pipe;
 	t_exec		exec;
-}		t_msh;
+}	t_msh;
 
 //	split pipe
 //	ft_split_pipe.c
@@ -241,17 +241,17 @@ int			execute_child_argv(t_msh **msh);
 void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
-void		wait_process(t_msh *msh, pid_t pid, int j);
-
+void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 
 //	execute pipes
 //	minishell_execute_pipe.c
 void		execute_cmd_pipe(t_msh *msh);
+void		execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
 
 //	execute (general file for executions)
 //	minishell_execute.c
-void		execute_builtin(t_msh *msh);
-void		execution_line(t_msh *msh, int mode);
+void		execute_builtin(t_msh *msh, int if_pipe_mode);
+void		execution_line(t_msh *msh);
 void		execution_pipes(t_msh *msh);
 void		execution(t_msh *msh);
 
@@ -280,14 +280,16 @@ void		exit_free_child(t_msh *msh, int exit_status);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
+//	heredoc control utils
+//	minishell_heredoc_utils.c
+void		close_fd_heredoc(int *fd);
+void		heredoc_redir(t_msh *msh);
+
 //	heredoc control
 //	minishell_heredoc.c
-int		write_herdoc(t_msh *msh, t_line *copy, int hdc_pip);
-//void		check_heredoc(t_msh *msh);
-int			check_heredoc(t_msh *msh);
-void		heredoc_redir(t_msh *msh);
-int			fork_write_herdoc(t_msh *msh, t_line *line_copy);
-
+int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
+int			check_heredoc(t_msh *msh, t_line *lst_line);
+int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
 
 //	lst_line but with quotes control
 //	minishell_lst_line_quotes.c
@@ -328,13 +330,14 @@ char		*search_shell(t_msh *msh);
 char		*search_pwd(t_msh *msh);
 char		*search_oldpwd(t_msh *msh);
 
-//	Signal
-//	minishell_signal.c
+//	Signal handles
+//	minishell_signal_handle.c
 void		handle_signal_heredoc(int sign, siginfo_t *sa, void *data);
-//void	handle_signal_heredoc(int sign);
 void		handle_signal_main(int sign, siginfo_t *sa, void *data);
 void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
-void		handle_nothing(int sign, siginfo_t *sa, void *data);
+
+//	Signal
+//	minishell_signal.c
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
@@ -342,21 +345,25 @@ void		signal_control_block(t_msh *msh);
 
 //	struct
 //	minishell_struct.c
-t_msh		*mshnew(char **env);
+t_msh		*mshnew(char **av, char **env);
 t_exec		execnew(void);
 void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
 
-//	utils
+//	utils 3 part
+//	minishell_utils_2.c
+int			calculate_len_lst_pipe(t_pipe *lst_pipe);
+void		change_int_arr(int *old_pip, int fd0, int fd1);
+
+//	utils 2 part
 //	minishell_utils_2.c
 int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
 void		ft_close(int fd);
-void		ft_close_pointer(int *fd);
 
-//	utils
+//	utils 1 part
 //	minishell_utils.c
 int			check_ifempty_str(char *str);
 void		change_exec_arg_script(t_msh *msh);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/16 17:21:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/01 01:55:33 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,27 @@ int	builtin_exit_if_num(char *str)
 	return (1);
 }
 
+int	builtin_exit_make_status(t_msh *msh, int i)
+{
+	int	status;
+
+	status = ft_atoi(msh->exec.exec_arg[i]);
+	if (status < 0)
+		status = 256 - status;
+	free_msh(&msh);
+	return (status);
+}
+
 int	builtin_exit(t_msh *msh)
 {
 	int	status;
 
 	printf("exit\n");
+	if (!msh->exec.exec_arg[1])
+	{
+		free_msh(&msh);
+		exit(EXIT_SUCCESS);
+	}
 	if (msh->exec.exec_arg[1] && msh->exec.exec_arg[2])
 	{
 		print_warning_with_arg("exit", ERR_TOO_MANY);
@@ -46,10 +62,7 @@ int	builtin_exit(t_msh *msh)
 		free_msh(&msh);
 		exit(255);
 	}
-	status = ft_atoi(msh->exec.exec_arg[1]);
-	if (status < 0)
-		status = 256 - status;
-	free_msh(&msh);
+	status = builtin_exit_make_status(msh, 1);
 	exit(status);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   see_which_pipe_is_for_read_write.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 23:53:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 18:32:14 by iassambe         ###   ########.fr       */
+/*   Created: 2024/02/01 16:39:48 by iassambe          #+#    #+#             */
+/*   Updated: 2024/02/01 16:40:17 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,34 @@
 # include <signal.h>
 
 int	main(void)
-{
-	char	*str;
+{	
+	int	pip[2];
+	char	reado[20];
 
-	str = getcwd(NULL, 0);
-	printf("%s\n", str);
-	//execve(str, argv, NULL);
+	if (pipe(pip) < 0)
+		exit(1);
+
+	//incorrecte totalmente
+/* 	if (write(pip[0], "pip\n", 4) < 0)
+		printf("u NO at writing pip[0]\n");
+	if (read(pip[1], reado, 4) < 0)
+		printf("u NO at READING pip[1]\n"); */
+
+	//correcto totalmente
+	if (write(pip[1], "lox\n", 4) < 0)
+		printf("u NO at writing pip[1]\n");
+	if (read(pip[0], reado, 4) < 0)
+		printf("u NO at READING pip[0]\n");
+
+	//incorrecte
+/* 	if (write(pip[1], "lox\n", 4) < 0)
+		printf("u NO at writing pip[1]\n");
+	if (read(pip[1], reado, 4) < 0)
+		printf("u NO at READING pip[1]\n"); */
+	
+	reado[5] = '\0';
+	printf("$READO - %s\n", reado);
+	close(pip[0]);
+	close(pip[1]);
+	return (0);
 }

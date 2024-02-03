@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/28 19:55:11 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/02 15:35:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	execute_child_argv(t_msh **msh)
 {
 	char	*tmp;
 
-	(*msh)->exec.exec_arg = get_exec_argv((*msh), (*msh)->lst_line);
 	if (!(*msh)->exec.exec_arg)
 		print_error_exit(msh, ERR_MALLOC);
 	if (!(*msh)->exec.exec_arg[0])
@@ -42,6 +41,12 @@ int	execute_child_argv(t_msh **msh)
 
 void	execute_check_command_and_execve(t_msh *msh)
 {
+	msh->exec.dir = opendir(msh->exec.exec_arg[0]);
+	if (msh->exec.dir)
+	{
+		print_warning_with_arg(msh->exec.exec_arg[0], ERR_IS_DIR);
+		exit_free_child(msh, 126);
+	}
 	if (check_command(msh->exec.exec_arg[0]) == 1)
 	{
 		get_cmd_with_path(&msh);
@@ -85,9 +90,9 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_block(msh);
-	if (check_ifbuiltin(msh->lst_line->str))
+	if (check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
-		execute_builtin(msh);
+		execute_builtin(msh, EXECUTE_COMMAND);
 		return ;
 	}
 	if (pipe(msh->exec.pip) < 0)
@@ -98,7 +103,7 @@ void	execute_cmd(t_msh *msh)
 	if (msh->exec.proc == 0)
 	{
 		signal_control_exec(msh);
-		execute_child(msh); 
+		execute_child(msh);
 	}
 	else
 	{
@@ -107,19 +112,18 @@ void	execute_cmd(t_msh *msh)
 	}
 	ft_close(msh->exec.pip[0]);
 	ft_close(msh->exec.pip[1]);
-	wait_process(msh, msh->exec.proc, 1);
+	wait_process(msh, msh->exec.proc, ONE_COMMAND);
 	g_exit_status = msh->exit_status;
 }
 
-
-
-void	wait_process(t_msh *msh, pid_t pid, int j)
+//waiting to all commands and return it's status
+void	wait_process(t_msh *msh, pid_t pid, int num_commands)
 {
 	int	status;
 
-	while (j >= 0)
+	while (num_commands >= 0)
 	{
-		j--;
+		num_commands--;
 		if (pid == wait(&status))
 		{
 			if (WIFEXITED(status))
@@ -140,4 +144,3 @@ void	wait_process(t_msh *msh, pid_t pid, int j)
 		}
 	}
 }
-

@@ -1,0 +1,47 @@
+cat Makefile | wc -l
+
+cat Makefile | ls
+
+cat |ls
+
+ls|cat 
+
+ls | ls
+
+< Makefile cat | wc -l
+
+< Makefile ls | wc -l
+
+cat Makefile | cat > pipes.log
+
+< Makefile cat > pipes.log | wc
+
+cat Makefile | cmdnoexist
+
+cmdnoexist | wc -l
+
+cat noperm | wc -l
+
+cat noperm | cat noperm
+
+yes | wc -l
+
+yes | yes
+
+ls -z | wc -l
+
+cat Makefile | wc -l ((Use ctrl+C))
+
+cat Makefile | wc -l | grep 0 | wc -w
+
+ls | ls | ls |ls | ls | ls |ls | ls | ls |ls | ls | ls
+
+wc -l | wc -l | cat >> pipesappend.log
+
+< a | < b | < c | < d
+
+<< end cat | wc -l
+
+<<end <<end2 | grep a
+
+> pipes.log | >pipes2.log

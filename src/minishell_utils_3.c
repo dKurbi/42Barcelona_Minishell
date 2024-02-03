@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin_pwd.c                            :+:      :+:    :+:   */
+/*   minishell_utils_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 04:04:12 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:44:14 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/30 20:05:50 by iassambe          #+#    #+#             */
+/*   Updated: 2024/02/02 14:02:44 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	builtin_pwd(t_msh *msh)
+int	calculate_len_lst_pipe(t_pipe *lst_pipe)
 {
-	char	*current_dir;
+	int		len;
+	t_pipe	*copy_pipe;
 
-	current_dir = getcwd(NULL, 0);
-	if (!current_dir)
+	len = 0;
+	copy_pipe = lst_pipe;
+	while (copy_pipe != NULL)
 	{
-		print_warning_with_arg("pwd", ERR_NO_PWD);
-		return (1);
+		len++;
+		copy_pipe = copy_pipe->next;
 	}
-	else if (msh->exec.exec_arg[1] && msh->exec.exec_arg[1][0] == '-')
-	{
-		free_str(&current_dir);
-		print_warning_with_3_arg("pwd", msh->exec.exec_arg[1], \
-								ERR_BUILTIN_HAS_ARGS_INV);
-		return (1);
-	}
-	printf("%s\n", current_dir);
-	free_str(&current_dir);
-	return (0);
+	return (len);
+}
+
+void	change_int_arr(int *old_pip, int fd0, int fd1)
+{
+	ft_close(old_pip[0]);
+	ft_close(old_pip[1]);
+	old_pip[0] = fd0;
+	old_pip[1] = fd1;
 }

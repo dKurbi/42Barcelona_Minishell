@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec_redirection.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/28 16:26:48 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/01/30 02:34:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	control_redirection(t_msh *msh)
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
 	copy_line = msh->lst_line;
-	//check_heredoc(msh);
 	while (copy_line)
 	{
 		if (copy_line->type == TYPE_OPUT_RED)
@@ -81,7 +80,7 @@ int	control_redirection(t_msh *msh)
 			status = input_redir(msh, copy_line);
 		else if (copy_line->type == TYPE_APND)
 			status = append_redir(msh, copy_line);
-		if (status)
+		if (status >= 1)
 			return (1);
 		if (copy_line->type == TYPE_HDC)
 			heredoc_redir(msh);

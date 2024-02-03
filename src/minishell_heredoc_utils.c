@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_builtin_pwd.c                            :+:      :+:    :+:   */
+/*   minishell_heredoc_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 04:04:12 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/31 17:44:14 by iassambe         ###   ########.fr       */
+/*   Created: 2024/01/30 02:23:53 by iassambe          #+#    #+#             */
+/*   Updated: 2024/02/01 18:38:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	builtin_pwd(t_msh *msh)
+//int *fd is fd[2]
+void	close_fd_heredoc(int *fd)
 {
-	char	*current_dir;
+	ft_close(fd[1]);
+	ft_close(fd[0]);
+}
 
-	current_dir = getcwd(NULL, 0);
-	if (!current_dir)
-	{
-		print_warning_with_arg("pwd", ERR_NO_PWD);
-		return (1);
-	}
-	else if (msh->exec.exec_arg[1] && msh->exec.exec_arg[1][0] == '-')
-	{
-		free_str(&current_dir);
-		print_warning_with_3_arg("pwd", msh->exec.exec_arg[1], \
-								ERR_BUILTIN_HAS_ARGS_INV);
-		return (1);
-	}
-	printf("%s\n", current_dir);
-	free_str(&current_dir);
-	return (0);
+void	heredoc_redir(t_msh *msh)
+{
+	dup2(msh->exec.fd_here_doc[0], STDIN_FILENO);
+	ft_close(msh->exec.fd_here_doc[0]);
 }
