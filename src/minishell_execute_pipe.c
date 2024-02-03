@@ -6,11 +6,17 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 13:48:27 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 03:36:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+#ifdef __linux__
+
+extern int	g_exit_status;
+
+#endif
 
 void	execute_cmd_pipe(t_msh *msh)
 {
@@ -52,6 +58,8 @@ void	restore_redirection_pipe(t_msh *msh)
 void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe)
 {
 	signal_control_block(msh);
+	dup2(msh->exec.pip[0], STDIN_FILENO);
+	ft_close(msh->exec.pip[0]);
 	g_exit_status = check_heredoc(msh, lst_pipe->lst_line);
 	if (g_exit_status > 0)
 		//return ; //if exit doesn't work well

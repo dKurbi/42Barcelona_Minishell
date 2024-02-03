@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/02 18:22:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 03:19:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	free_exec(t_exec *exec)
 {
 	ft_close(exec->fd_stdin);
 	ft_close(exec->fd_stdout);
-	if (exec->dir)
-		closedir(exec->dir);
+	//if (exec->dir)
+	//	closedir(exec->dir);//not working on linux
 	free_double_str(&exec->exec_arg);
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }

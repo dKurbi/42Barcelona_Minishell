@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/02 20:15:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/03 03:27:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ void	execution_pipes(t_msh *msh)
 			signal_control_exec(msh);
 			execute_child_pipe(msh, copy_pipe);
 		}
-		dup2(msh->exec.pip[0], STDIN_FILENO);
-		ft_close(msh->exec.pip[0]);
-		ft_close(msh->exec.pip[1]);
+		change_int_arr(msh->exec.old_pip, msh->exec.pip[0], msh->exec.pip[1]);
 		copy_pipe = copy_pipe->next;
 	}
 	wait_process(msh, msh->exec.proc, msh->exec.num_commands);
