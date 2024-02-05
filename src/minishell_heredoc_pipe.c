@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 17:39:06 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/03 18:10:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:50:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	check_heredoc_pipe(t_msh *msh)
 {
 	t_pipe *copy_pipe;
 	int		heredoc_status;
-	int i = 1;
+	//int i = 1;
 
 	heredoc_status = 0;
 	copy_pipe = msh->lst_pipe;
 	while (copy_pipe)
 	{
-		printf("check herredoc %d\n", i++);
+		//printf("check herredoc %d\n", i++);
 		heredoc_status = check_heredoc(msh, copy_pipe->lst_line);
 		if (heredoc_status)
 			return (heredoc_status);

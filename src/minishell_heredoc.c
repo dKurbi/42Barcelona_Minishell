@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 16:51:56 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:02:30 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 	if (WIFEXITED(hdc_status))
 		hdc_status = WEXITSTATUS(hdc_status);
 	close_fd_heredoc(msh->exec.fd_here_doc);
-	dup2(hdc_pip[0], msh->exec.fd_here_doc[0]);
+	msh->exec.fd_here_doc[0] = dup(hdc_pip[0]);
 	ft_close(&hdc_pip[0]);
 	return (hdc_status);
 }

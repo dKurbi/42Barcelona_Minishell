@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 16:52:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:11:49 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	execute_child(t_msh *msh)
 void	execute_cmd(t_msh *msh)
 {
 	signal_control_block(msh);
-	if (check_ifbuiltin(msh->exec.exec_arg[0]))
+	if (msh->exec.exec_arg[0] && check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
 		execute_builtin(msh, EXECUTE_COMMAND);
 		return ;

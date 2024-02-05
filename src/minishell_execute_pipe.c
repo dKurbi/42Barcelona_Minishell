@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 18:34:48 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:07:10 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,37 @@ void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe)
 	msh->exec.exec_arg = get_exec_argv(msh, lst_pipe->lst_line);
 	execute_cmd_pipe(msh);
 	free_double_str(&msh->exec.exec_arg);
+}
+void	execution_pipes(t_msh *msh)
+{
+	t_pipe	*copy_pipe;
+
+	signal_control_block(msh);
+	copy_pipe = msh->lst_pipe;
+	g_exit_status = check_heredoc_pipe(msh);
+	if (g_exit_status >= 1)
+		return ;
+	while (copy_pipe->next)
+	{
+		if (pipe(msh->exec.pip) < 0)
+			print_error_exit(&msh, ERR_PIPE);
+		msh->exec.proc = fork();
+		if (msh->exec.proc < 0)
+			print_error_exit(&msh, ERR_FORK);
+		if (msh->exec.proc == 0)
+		{
+			signal_control_exec(msh);
+			execute_child_pipe(msh, copy_pipe);
+			if (copy_pipe->next == NULL)
+				execute_child_pipe_last(msh, copy_pipe);//siguente
+		}
+		change_int_arr(msh->exec.old_pip, msh->exec.pip[0], msh->exec.pip[1]);
+		ft_close(&msh->exec.pip[0]);
+		ft_close(&msh->exec.pip[1]);
+		dup2(msh->exec.old_pip[0], STDOUT_FILENO);
+		copy_pipe = copy_pipe->next;
+	}
+	wait_process(msh, msh->exec.proc, msh->exec.num_commands);
+	g_exit_status = msh->exit_status;
+	restore_redirection(msh);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/01 18:51:36 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:35:58 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ t_exec	execnew(void)
 	exec.proc = -1;
 	exec.fd_here_doc[0] = -1;
 	exec.fd_here_doc[1] = -1;
+	exec.dir = NULL;
 	return (exec);
 }
 

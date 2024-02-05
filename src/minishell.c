@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/01 18:51:22 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:30:53 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,13 @@ int	preparing_commands(t_msh *msh)
 	return (0);
 }
 
-		///DEBUG to main (drag with OPTION+arrow down)
-		///PRINT_comillas(msh->read_line);
-		///printf("\n\nDEBUG PRINTS:\n\n");
-		///PRINT_lst_line(msh->lst_line);
-		///PRINT_lst_pipe(msh->lst_pipe);
-		///DEBUG end
 int	main(int ac, char **av, char **ev)
 {
 	t_msh	*msh;
 
+	msh = NULL;
 	if (ac != 1)
-	{
-		print_warning(ERR_AC);
-		exit(1);
-	}
+		print_error_exit(&msh, ERR_AC);
 	msh = mshnew(av, ev);
 	if (!msh)
 		print_error_exit(&msh, ERR_MALLOC);

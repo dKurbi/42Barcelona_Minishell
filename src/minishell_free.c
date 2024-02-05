@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/03 17:51:28 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:02:25 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	free_msh(t_msh **msh)
 		free_str(&(*msh)->read_line);
 		free_double_str(&(*msh)->ev);
 		free_exec(&(*msh)->exec);
-		free_lst_line(&(*msh)->lst_line);
 		free_lst_pipe(&(*msh)->lst_pipe);
+		free_lst_line(&(*msh)->lst_line);
 		free(*msh);
 	}
 	*msh = NULL;
@@ -70,8 +70,8 @@ void	free_exec(t_exec *exec)
 {
 	ft_close(&exec->fd_stdin);
 	ft_close(&exec->fd_stdout);
-	//if (exec->dir)
-	//	closedir(exec->dir);//not working on linux
+	if (exec->dir)
+		closedir(exec->dir);//not working on linux
 	free_double_str(&exec->exec_arg);
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }
