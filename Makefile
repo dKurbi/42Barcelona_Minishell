@@ -6,7 +6,7 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/02/03 17:52:28 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/02/05 14:53:07 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ SRCS = PRINT.c \
 		minishell_builtin_echo.c minishell_builtin_export_2.c \
 		minishell_lst_line_quotes.c minishell_builtin_env_utils.c \
 		minishell_signal_handle.c minishell_heredoc_utils.c minishell_utils_3.c \
-		minishell_heredoc_pipe.c
+		minishell_heredoc_pipe.c minishell_diego_execute_pipe.c
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 

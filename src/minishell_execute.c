@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 20:08:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:16:30 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,48 +62,6 @@ void	execution_line(t_msh *msh)
 	free_double_str(&msh->exec.exec_arg);
 }
 
-//ejecutar los comandos ejemplo: "ls -la | wc -l"
-void	execution_pipes(t_msh *msh)
-{
-	t_pipe	*copy_pipe;
-
-	signal_control_block(msh);
-	copy_pipe = msh->lst_pipe;
-	g_exit_status = check_heredoc_pipe(msh);
-	if (g_exit_status >= 1)
-		return ;
-	while (copy_pipe->next)
-	{
-		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
-		msh->exec.fd_here_doc[0] = dup(copy_pipe->fd_heredoc[0]);
-		printf("************despues de copiar***********\n");
-		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
-		ft_close(&copy_pipe->fd_heredoc[0]);
-		printf("execution_pipes: el fd msh->exec.fd_here_doc[0] = %d\nel fd copy_pipe->fd_heredoc[0] = %d\n",msh->exec.fd_here_doc[0], copy_pipe->fd_heredoc[0]);
-		if (pipe(msh->exec.pip) < 0)
-			print_error_exit(&msh, ERR_PIPE);
-		msh->exec.proc = fork();
-		if (msh->exec.proc < 0)
-			print_error_exit(&msh, ERR_FORK);
-		if (msh->exec.proc == 0)
-		{
-			signal_control_exec(msh);
-			if (copy_pipe->next)
-				execute_child_pipe(msh, copy_pipe);
-			else
-				execute_child_pipe_last(msh, copy_pipe);
-		}
-		change_int_arr(msh->exec.old_pip, msh->exec.pip[0], msh->exec.pip[1]);
-		ft_close(&msh->exec.pip[0]);
-		ft_close(&msh->exec.pip[1]);
-		dup2(msh->exec.old_pip[0], STDOUT_FILENO);
-		copy_pipe = copy_pipe->next;
-	}
-	wait_process(msh, msh->exec.proc, msh->exec.num_commands);
-	g_exit_status = msh->exit_status;
-	restore_redirection(msh);
-}
-
 //luego para executing
 void	execution(t_msh *msh)
 {
@@ -112,7 +70,7 @@ void	execution(t_msh *msh)
 	if (msh->lst_pipe != NULL)
 	{
 		msh->exec.num_commands = calculate_len_lst_pipe(msh->lst_pipe);
-		execution_pipes(msh);
+		execution_pipes_diego(msh);
 	}
 	else
 		execution_line(msh);

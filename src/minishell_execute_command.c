@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 19:50:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 19:16:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,32 @@ void	wait_process(t_msh *msh, pid_t pid, int num_commands)
 				}
 			}
 		}
+	}
+}
+void	waitpid_process(t_msh *msh, pid_t pid, int num_commands)
+{
+	int	status;
+
+	(void) pid;
+	while (num_commands >= 0)
+	{
+		num_commands--;
+		waitpid(-1, &status, 0);
+			if (WIFEXITED(status))
+				msh->exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGINT)
+				{
+					msh->exit_status = 130;
+					printf("\n");
+				}
+				else if (WTERMSIG(status) == SIGQUIT)
+				{
+					msh->exit_status = 131;
+					printf("\nQuit: 3\n");
+				}
+			}
+		//}
 	}
 }

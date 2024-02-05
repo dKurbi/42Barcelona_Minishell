@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 17:52:13 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:52:20 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ typedef struct s_exec
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
+	int		even_pip[2];
+	int		odd_pip[2];
 	int		num_commands;
 	char	**exec_arg;
 	char	*cmd_with_path;
@@ -235,6 +237,9 @@ void		print_perror_with_arg(char *cmd, char *file);
 //	minishell_exec_redirection.c
 int			control_redirection(t_msh *msh);
 void		restore_redirection(t_msh *msh);
+int			output_redir(t_msh *msh, t_line *copy);
+int			input_redir(t_msh *msh, t_line *copy);
+int			append_redir(t_msh *msh, t_line *copy);
 
 //	execute command
 //	minishell_execute_command.c
@@ -243,12 +248,23 @@ void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
+void		waitpid_process(t_msh *msh, pid_t pid, int num_commands);
 
 //	execute pipes
 //	minishell_execute_pipe.c
-void	execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe);
+void		execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe);
 void		execute_cmd_pipe(t_msh *msh);
 void		execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
+
+//	minishell_diego_execute_pipe.cc
+void		execution_pipes_diego(t_msh *msh);
+void		execute_cmd_diego(t_msh *msh);
+void		execute_child_pipe_diego(t_msh *msh);
+void		execute_builtin_pipes_diego(t_msh *msh, int if_pipe_mode);
+
+
+t_line	*ft_lstdup(t_line *original);
+
 
 //	execute (general file for executions)
 //	minishell_execute.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/30 20:31:57 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:29:06 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**ft_split_free(char **split)
 
 char	**ft_split_create_loop(char *s, char **split, int i, int j)
 {
-	while (s[i] && i < (int)ft_strlen(s))
+	while (i < (int)ft_strlen(s))
 	{
 		while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 			i++;
@@ -97,9 +97,9 @@ char	**ft_split_create_loop(char *s, char **split, int i, int j)
 			if (split[j] == NULL)
 				return (ft_split_free(split));
 			i = i + ft_split_len_word(s, i) + 1;
-			while (s[i] && (s[i] == ' ' || s[i] == '\t'))
+			while (i < (int)ft_strlen(s) && (s[i] == ' ' || s[i] == '\t'))
 				i++;
-			if (s[i] && s[i] == PIPE)
+			if (i < (int)ft_strlen(s) && s[i] == PIPE)
 				i++;
 		}
 		j++;

@@ -2,6 +2,14 @@
 
 #include "../inc/minishell.h"
 
+		///DEBUG to main (drag with OPTION+arrow down)
+		///PRINT_comillas(msh->read_line);
+		///printf("\n\nDEBUG PRINTS:\n\n");
+		///PRINT_lst_line(msh->lst_line);
+		///PRINT_lst_pipe(msh->lst_pipe);
+		///DEBUG end
+
+
 //esto tendremos que eliminar despues, esto es solo para comprobar si esta bien estructura
 void	PRINT_lst_line(t_line *lst_line)
 {
