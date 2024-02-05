@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 19:17:17 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:10:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	execute_child_pipe(t_msh *msh, t_pipe *lst_pipe)
 	execute_cmd_pipe(msh);
 	free_double_str(&msh->exec.exec_arg);
 }
+
 void	execution_pipes(t_msh *msh)
 {
 	t_pipe	*copy_pipe;

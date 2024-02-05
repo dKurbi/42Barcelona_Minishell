@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 19:16:48 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:07:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int	execute_child_argv(t_msh **msh)
 
 void	execute_check_command_and_execve(t_msh *msh)
 {
+	if (!msh->exec.exec_arg[0])
+		exit_free_child(msh, 0);
 	msh->exec.dir = opendir(msh->exec.exec_arg[0]);
 	if (msh->exec.dir)
 	{
-		closedir(msh->exec.dir);
 		print_warning_with_arg(msh->exec.exec_arg[0], ERR_IS_DIR);
 		exit_free_child(msh, 126);
 	}
@@ -80,7 +81,7 @@ void	execute_child(t_msh *msh)
 	}
 	signal_control_exec(msh);
 	if (execute_child_argv(&msh))
-		exit_free_child(msh, 1);
+		exit_free_child(msh, 0);
 	msh->exec.path = search_path(msh);
 	if (!msh->exec.path)
 		exit_free_child(msh, 127);
@@ -154,21 +155,20 @@ void	waitpid_process(t_msh *msh, pid_t pid, int num_commands)
 	{
 		num_commands--;
 		waitpid(-1, &status, 0);
-			if (WIFEXITED(status))
-				msh->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
+		if (WIFEXITED(status))
+			msh->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT)
 			{
-				if (WTERMSIG(status) == SIGINT)
-				{
-					msh->exit_status = 130;
-					printf("\n");
-				}
-				else if (WTERMSIG(status) == SIGQUIT)
-				{
-					msh->exit_status = 131;
-					printf("\nQuit: 3\n");
-				}
+				msh->exit_status = 130;
+				printf("\n");
 			}
-		//}
+			else if (WTERMSIG(status) == SIGQUIT)
+			{
+				msh->exit_status = 131;
+				printf("\nQuit: 3\n");
+			}
+		}
 	}
 }

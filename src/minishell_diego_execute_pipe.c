@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_diego_execute_pipe.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:43:41 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 18:24:07 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 20:08:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void	execute_child_pipe_diego(t_msh *msh)
 	}
 	signal_control_exec(msh);
 	if (execute_child_argv(&msh))
-		exit_free_child(msh, 1);
+		exit_free_child(msh, 0);
 	msh->exec.path = search_path(msh);
 	if (!msh->exec.path)
 		exit_free_child(msh, 127);
