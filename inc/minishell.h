@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 16:18:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:52:20 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ typedef struct s_exec
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
+	int		even_pip[2];
+	int		odd_pip[2];
 	int		num_commands;
 	char	**exec_arg;
 	char	*cmd_with_path;
@@ -246,6 +248,7 @@ void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
+void		waitpid_process(t_msh *msh, pid_t pid, int num_commands);
 
 //	execute pipes
 //	minishell_execute_pipe.c

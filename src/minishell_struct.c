@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 16:35:58 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:30:05 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_msh	*mshnew(char **av, char **env)
 	if (!msh)
 		return (NULL);
 	msh->av = av;
+	msh->exit_status = 0;
 	msh->ev = create_env(env);
 	if (!msh->ev)
 		print_error_exit(&msh, ERR_MALLOC);
@@ -36,6 +37,10 @@ t_exec	execnew(void)
 
 	exec.old_pip[0] = -1;
 	exec.old_pip[1] = -1;
+	exec.odd_pip[0] = -1;
+	exec.odd_pip[1] = -1;
+	exec.even_pip[0] = -1;
+	exec.even_pip[1] = -1;
 	exec.fd_stdin = -1;
 	exec.fd_stdout = -1;
 	exec.num_commands = 0;

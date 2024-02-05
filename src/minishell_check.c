@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 18:09:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:32:07 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	check_command(char *str)
 
 int	check_ifbuiltin(char *str)
 {
+	if (!str)
+		return (0);
 	if (!strncmp(str, "echo", 4) && ft_strlen(str) == 4)
 		return (1);
 	else if (!strncmp(str, "cd", 2) && ft_strlen(str) == 2)

@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 16:02:25 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 17:32:47 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	free_exec(t_exec *exec)
 	if (exec->dir)
 		closedir(exec->dir);//not working on linux
 	free_double_str(&exec->exec_arg);
+	close_fd_heredoc(exec->even_pip);
+	close_fd_heredoc(exec->odd_pip);
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }
 

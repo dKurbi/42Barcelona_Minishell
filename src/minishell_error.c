@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:59:06 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 16:30:17 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:35:43 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	print_warning_with_arg(char *file, char *s_warn)
 
 void	print_perror(char *s_err)
 {
-	write(STDOUT_FILENO, STR_MINISHELL, ft_strlen(STR_MINISHELL));
+	write(STDERR_FILENO, STR_MINISHELL, ft_strlen(STR_MINISHELL));
 	perror(s_err);
 }
 
 void	print_perror_with_arg(char *cmd, char *file)
 {
 	write(STDERR_FILENO, "minishell: ", ft_strlen("minishell: "));
-	write(STDOUT_FILENO, cmd, ft_strlen(cmd));
-	write(STDOUT_FILENO, ": ", ft_strlen(": "));
+	write(STDERR_FILENO, cmd, ft_strlen(cmd));
+	write(STDERR_FILENO, ": ", ft_strlen(": "));
 	perror(file);
 }

@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:43:41 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 16:53:03 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/05 18:24:07 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	execution_pipes_diego(t_msh *msh)
 {
 	t_pipe *copy_pipe;
 	int		i;
-	int		even_pip[2];
-	int 	odd_pip[2];
 
 	signal_control_block(msh);
 	g_exit_status = check_heredoc_pipe(msh);
@@ -27,46 +25,56 @@ void	execution_pipes_diego(t_msh *msh)
 	copy_pipe = msh->lst_pipe;
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
-	while (copy_pipe && (!msh->exit_status || i == 0))
+	while (copy_pipe) //&& (!msh->exit_status || i == 0))
 	{	
 		//printf("entro %d\n", i);
 		if (i == 0)
 		{
-			if (pipe(even_pip) < 0)
+			if (pipe(msh->exec.even_pip) < 0)
 				print_error_exit(&msh, ERR_PIPE);
-			dup2(even_pip[1], STDOUT_FILENO);
+			dup2(msh->exec.even_pip[1], STDOUT_FILENO);
+			ft_close(&msh->exec.even_pip[1]);
 		}
 		else if (i % 2 == 1 && copy_pipe->next)
 		{
-			ft_close(&even_pip[1]);
-			if (pipe(odd_pip) < 0)
+			ft_close(&msh->exec.even_pip[1]);
+			if (pipe(msh->exec.odd_pip) < 0)
 				print_error_exit(&msh, ERR_PIPE);
-			dup2(even_pip[0],STDIN_FILENO);
-			dup2(odd_pip[1], STDOUT_FILENO);
+			dup2(msh->exec.even_pip[0],STDIN_FILENO);
+			dup2(msh->exec.odd_pip[1], STDOUT_FILENO);
+			ft_close(&msh->exec.even_pip[0]);
+			ft_close(&msh->exec.odd_pip[1]);
 		}
 		else if (i > 0 && i % 2 == 0 && copy_pipe->next)
 		{
-			ft_close(&odd_pip[1]);
-			if (pipe(even_pip) < 0)
+			ft_close(&msh->exec.odd_pip[1]);
+			if (pipe(msh->exec.even_pip) < 0)
 				print_error_exit(&msh, ERR_PIPE);
-			dup2(odd_pip[0], STDIN_FILENO);
-			dup2(even_pip[1], STDOUT_FILENO);
+			dup2(msh->exec.odd_pip[0], STDIN_FILENO);
+			dup2(msh->exec.even_pip[1], STDOUT_FILENO);
+			ft_close(&msh->exec.odd_pip[0]);
+			ft_close(&msh->exec.even_pip[1]);
+			
 		} 
 		else if (i % 2 == 1 && !copy_pipe->next)
 		{
-			ft_close(&even_pip[1]);
-			if (pipe(odd_pip) < 0)
+			ft_close(&msh->exec.even_pip[1]);
+			if (pipe(msh->exec.odd_pip) < 0)
 				print_error_exit(&msh, ERR_PIPE);
-			dup2(even_pip[0],STDIN_FILENO);
+			dup2(msh->exec.even_pip[0],STDIN_FILENO);
 			dup2(msh->exec.fd_stdout, STDOUT_FILENO);
+			ft_close(&msh->exec.even_pip[0]);
+			ft_close(&msh->exec.fd_stdout);
 		}
 		else if (i % 2 == 0 && !copy_pipe->next)
 		{
-			ft_close(&odd_pip[1]);
-			if (pipe(even_pip) < 0)
+			ft_close(&msh->exec.odd_pip[1]);
+			if (pipe(msh->exec.even_pip) < 0)
 				print_error_exit(&msh, ERR_PIPE);
-			dup2(odd_pip[0], STDIN_FILENO);
+			dup2(msh->exec.odd_pip[0], STDIN_FILENO);
 			dup2(msh->exec.fd_stdout, STDOUT_FILENO);
+			ft_close(&msh->exec.odd_pip[0]);
+			ft_close(&msh->exec.fd_stdout);
 		}
 		msh->lst_line = ft_lstdup(copy_pipe->lst_line);
 		msh->exec.fd_here_doc[0] = dup(copy_pipe->fd_heredoc[0]);
@@ -75,15 +83,17 @@ void	execution_pipes_diego(t_msh *msh)
 		free_lst_line(&msh->lst_line);
 		free_double_str(&msh->exec.exec_arg);
 		if (i % 2 == 1)
-			ft_close(&even_pip[0]);
+			ft_close(&msh->exec.even_pip[0]);
 		else if (i > 0 && i % 2 == 0)
-			ft_close(&odd_pip[0]);
-	
+			ft_close(&msh->exec.odd_pip[0]);
 		copy_pipe = copy_pipe->next;
 		i++;
 	}
-	//wait_process(msh, )
+	close_fd_heredoc(msh->exec.odd_pip);
+	close_fd_heredoc(msh->exec.even_pip);
 	restore_redirection(msh);
+	waitpid_process(msh, msh->exec.proc, i);
+	g_exit_status = msh->exit_status;
 }
 
 int	control_redirection_pipes_diego(t_msh *msh)
@@ -125,6 +135,10 @@ void	execute_cmd_diego(t_msh *msh)
 		print_error_exit(&msh, ERR_FORK);
 	if (msh->exec.proc == 0)
 	{
+		ft_close(&msh->exec.even_pip[0]);
+		ft_close(&msh->exec.odd_pip[0]);
+		ft_close(&msh->exec.even_pip[1]);
+		ft_close(&msh->exec.odd_pip[1]);
 		signal_control_exec(msh);
 		execute_child_pipe_diego(msh);
 	}
@@ -135,8 +149,8 @@ void	execute_cmd_diego(t_msh *msh)
 	}
 	ft_close(&msh->exec.pip[0]);
 	ft_close(&msh->exec.pip[1]);
-	wait_process(msh, msh->exec.proc, ONE_COMMAND);
-	g_exit_status = msh->exit_status;
+	//wait_process(msh, msh->exec.proc, ONE_COMMAND);
+	//g_exit_status = msh->exit_status;
 }
 
 void	execute_child_pipe_diego(t_msh *msh)
