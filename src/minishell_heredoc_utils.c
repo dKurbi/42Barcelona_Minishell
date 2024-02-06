@@ -6,14 +6,14 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 02:23:53 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 19:32:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 09:53:41 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //int *fd is fd[2]
-void	close_fd_heredoc(int *fd)
+void	close_int_arr(int *fd)
 {
 	ft_close(&fd[1]);
 	ft_close(&fd[0]);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 05:06:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:25:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,11 +250,14 @@ void		execute_cmd(t_msh *msh);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 void		waitpid_process(t_msh *msh, pid_t pid, int num_commands);
 
+//	minishell pipe othe process
+//	minishell_execute_pipe_process.c
+void		execution_pipes_decide_dup(t_msh *msh, int i, t_pipe *copy_pipe);
+void		execution_pipes_prepare(t_msh *msh, int i, t_pipe *copy_pipe);
+void		execution_pipes_prepare_next(t_msh *msh, int *i);
+
 //	execute pipes
 //	minishell_execute_pipe.c
-void		execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe);
-
-//	minishell_diego_execute_pipe.c
 void		execution_pipes(t_msh *msh);
 void		execute_cmd_pipe(t_msh *msh);
 void		execute_child_pipe(t_msh *msh);
@@ -298,7 +301,7 @@ char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
 //	heredoc control utils
 //	minishell_heredoc_utils.c
-void		close_fd_heredoc(int *fd);
+void		close_int_arr(int *fd);
 void		heredoc_redir(t_msh *msh);
 
 //	heredoc control pipes

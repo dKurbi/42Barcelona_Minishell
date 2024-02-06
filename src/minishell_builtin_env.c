@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 16:36:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 10:21:47 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void increment_shlvl(char ***r)
+void	increment_shlvl(char ***r)
 {
 	char	**rtn;
 	int		i;
-	char 	*new_level;
+	char	*new_level;
 
 	i = 0;
 	rtn = *r;
@@ -24,9 +24,9 @@ void increment_shlvl(char ***r)
 		i++;
 	new_level = ft_itoa(ft_atoi(rtn[i] + 6) + 1);
 	if (!new_level)
-	{	
+	{
 		free_double_str(r);
-		return;
+		return ;
 	}
 	free_str(&rtn[i]);
 	rtn[i] = ft_strjoin("SHLVL=", new_level);
@@ -34,7 +34,7 @@ void increment_shlvl(char ***r)
 	{
 		free_double_str(r);
 		free_str(&new_level);
-		return;
+		return ;
 	}
 	free_str(&new_level);
 }
