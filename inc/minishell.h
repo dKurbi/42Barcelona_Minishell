@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 12:25:09 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:57:37 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
-void		waitpid_process(t_msh *msh, pid_t pid, int num_commands);
+void		waitpid_process(t_msh *msh, int num_commands);
 
 //	minishell pipe othe process
 //	minishell_execute_pipe_process.c
@@ -263,9 +263,6 @@ void		execute_cmd_pipe(t_msh *msh);
 void		execute_child_pipe(t_msh *msh);
 void		execute_builtin_pipes(t_msh *msh, int if_pipe_mode);
 int			control_redirection_pipes(t_msh *msh);
-
-t_line	*ft_lstdup(t_line *original);
-
 
 //	execute (general file for executions)
 //	minishell_execute.c
@@ -306,7 +303,7 @@ void		heredoc_redir(t_msh *msh);
 
 //	heredoc control pipes
 //	minishell_heredoc_pipe.c
-int	check_heredoc_pipe(t_msh *msh);
+int			check_heredoc_pipe(t_msh *msh);
 
 //	heredoc control
 //	minishell_heredoc.c
@@ -374,9 +371,10 @@ void		add_new_line_node(char *line, int type_str, t_line **lst_line);
 t_line		*ft_lst_line_last(t_line *lst);
 
 //	utils 3 part
-//	minishell_utils_2.c
+//	minishell_utils_3.c
 int			calculate_len_lst_pipe(t_pipe *lst_pipe);
 void		change_int_arr(int *old_pip, int fd0, int fd1);
+t_line		*ft_lstdup(t_line *original);
 
 //	utils 2 part
 //	minishell_utils_2.c
@@ -385,7 +383,7 @@ int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
 //void		ft_close(int fd);
-void	ft_close(int *fd);
+void		ft_close(int *fd);
 
 //	utils 1 part
 //	minishell_utils.c
@@ -394,10 +392,6 @@ void		change_exec_arg_script(t_msh *msh);
 char		if_quote_start_final(char *str);
 int			if_srcipt(char *str);
 void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
-
-
-
-
 
 //	ATENCIO!!!
 //	eliminar despues!!!

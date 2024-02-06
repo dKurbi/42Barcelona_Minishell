@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_pipe.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 12:25:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:58:12 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,6 @@ void	execution_pipes(t_msh *msh)
 	close_int_arr(msh->exec.odd_pip);
 	close_int_arr(msh->exec.even_pip);
 	restore_redirection(msh);
-	waitpid_process(msh, msh->exec.proc, i);
+	waitpid_process(msh, i);
 	g_exit_status = msh->exit_status;
 }

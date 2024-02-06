@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_wait.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:10:18 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 12:24:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 15:57:10 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	waitpid_process(t_msh *msh, pid_t pid, int num_commands)
+void	waitpid_process(t_msh *msh, int num_commands)
 {
 	int	status;
 
-	(void) pid;
 	while (num_commands >= 0)
 	{
 		num_commands--;
