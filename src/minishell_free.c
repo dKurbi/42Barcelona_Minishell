@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 17:32:47 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 09:54:21 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	free_exec(t_exec *exec)
 	ft_close(&exec->fd_stdin);
 	ft_close(&exec->fd_stdout);
 	if (exec->dir)
-		closedir(exec->dir);//not working on linux
+		closedir(exec->dir);
 	free_double_str(&exec->exec_arg);
-	close_fd_heredoc(exec->even_pip);
-	close_fd_heredoc(exec->odd_pip);
+	close_int_arr(exec->even_pip);
+	close_int_arr(exec->odd_pip);
 	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
 }
 

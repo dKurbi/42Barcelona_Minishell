@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 17:02:30 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 09:54:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 		print_error_exit(&msh, ERR_FORK);
 	if (hdc_proc == 0)
 	{
-		close_fd_heredoc(msh->exec.fd_here_doc);
+		close_int_arr(msh->exec.fd_here_doc);
 		ft_close(&hdc_pip[0]);
 		exit(write_heredoc(msh, line_copy, hdc_pip[1]));
 	}
@@ -65,7 +65,7 @@ int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 	waitpid(hdc_proc, &hdc_status, 0);
 	if (WIFEXITED(hdc_status))
 		hdc_status = WEXITSTATUS(hdc_status);
-	close_fd_heredoc(msh->exec.fd_here_doc);
+	close_int_arr(msh->exec.fd_here_doc);
 	msh->exec.fd_here_doc[0] = dup(hdc_pip[0]);
 	ft_close(&hdc_pip[0]);
 	return (hdc_status);

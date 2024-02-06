@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 16:07:00 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:55:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	execution_line(t_msh *msh)
 	if (g_exit_status > 0)
 		return ;
 	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
+	if (!msh->exec.exec_arg)
+		print_error_exit(&msh, ERR_MALLOC);
 	execute_cmd(msh);
 	restore_redirection(msh);
 	free_double_str(&msh->exec.exec_arg);
@@ -68,7 +70,7 @@ void	execution(t_msh *msh)
 	if (msh->lst_pipe != NULL)
 	{
 		msh->exec.num_commands = calculate_len_lst_pipe(msh->lst_pipe);
-		execution_pipes_diego(msh);
+		execution_pipes(msh);
 	}
 	else
 		execution_line(msh);

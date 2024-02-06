@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 17:52:20 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:25:09 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,18 +250,19 @@ void		execute_cmd(t_msh *msh);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 void		waitpid_process(t_msh *msh, pid_t pid, int num_commands);
 
+//	minishell pipe othe process
+//	minishell_execute_pipe_process.c
+void		execution_pipes_decide_dup(t_msh *msh, int i, t_pipe *copy_pipe);
+void		execution_pipes_prepare(t_msh *msh, int i, t_pipe *copy_pipe);
+void		execution_pipes_prepare_next(t_msh *msh, int *i);
+
 //	execute pipes
 //	minishell_execute_pipe.c
-void		execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe);
+void		execution_pipes(t_msh *msh);
 void		execute_cmd_pipe(t_msh *msh);
-void		execute_child_pipe(t_msh *msh, t_pipe *lst_pipe);
-
-//	minishell_diego_execute_pipe.cc
-void		execution_pipes_diego(t_msh *msh);
-void		execute_cmd_diego(t_msh *msh);
-void		execute_child_pipe_diego(t_msh *msh);
-void		execute_builtin_pipes_diego(t_msh *msh, int if_pipe_mode);
-
+void		execute_child_pipe(t_msh *msh);
+void		execute_builtin_pipes(t_msh *msh, int if_pipe_mode);
+int			control_redirection_pipes(t_msh *msh);
 
 t_line	*ft_lstdup(t_line *original);
 
@@ -300,7 +301,7 @@ char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
 //	heredoc control utils
 //	minishell_heredoc_utils.c
-void		close_fd_heredoc(int *fd);
+void		close_int_arr(int *fd);
 void		heredoc_redir(t_msh *msh);
 
 //	heredoc control pipes

@@ -12,6 +12,10 @@ ls|cat
 
 ls | ls
 
+echo "a" | grep a
+
+pwd | wc - w | wc -m
+
 < Makefile cat | wc -l
 
 < Makefile ls | wc -l

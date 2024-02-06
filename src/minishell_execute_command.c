@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 18:17:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 12:11:02 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	execute_child_argv(t_msh **msh)
 
 void	execute_check_command_and_execve(t_msh *msh)
 {
+	if (!msh->exec.exec_arg[0])
+		exit_free_child(msh, 0);
 	msh->exec.dir = opendir(msh->exec.exec_arg[0]);
 	if (msh->exec.dir)
 	{
@@ -79,7 +81,7 @@ void	execute_child(t_msh *msh)
 	}
 	signal_control_exec(msh);
 	if (execute_child_argv(&msh))
-		exit_free_child(msh, 1);
+		exit_free_child(msh, 0);
 	msh->exec.path = search_path(msh);
 	if (!msh->exec.path)
 		exit_free_child(msh, 127);
@@ -114,60 +116,4 @@ void	execute_cmd(t_msh *msh)
 	ft_close(&msh->exec.pip[1]);
 	wait_process(msh, msh->exec.proc, ONE_COMMAND);
 	g_exit_status = msh->exit_status;
-}
-
-//waiting to all commands and return it's status
-void	wait_process(t_msh *msh, pid_t pid, int num_commands)
-{
-	int	status;
-
-	while (num_commands >= 0)
-	{
-		num_commands--;
-		if (pid == wait(&status))
-		{
-			if (WIFEXITED(status))
-				msh->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-			{
-				if (WTERMSIG(status) == SIGINT)
-				{
-					msh->exit_status = 130;
-					printf("\n");
-				}
-				else if (WTERMSIG(status) == SIGQUIT)
-				{
-					msh->exit_status = 131;
-					printf("\nQuit: 3\n");
-				}
-			}
-		}
-	}
-}
-void	waitpid_process(t_msh *msh, pid_t pid, int num_commands)
-{
-	int	status;
-
-	(void) pid;
-	while (num_commands >= 0)
-	{
-		num_commands--;
-		waitpid(-1, &status, 0);
-			if (WIFEXITED(status))
-				msh->exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-			{
-				if (WTERMSIG(status) == SIGINT)
-				{
-					msh->exit_status = 130;
-					printf("\n");
-				}
-				else if (WTERMSIG(status) == SIGQUIT)
-				{
-					msh->exit_status = 131;
-					printf("\nQuit: 3\n");
-				}
-			}
-		//}
-	}
 }
