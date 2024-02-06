@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/22 00:58:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:49:24 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//-2: break; -1: malloc err; 0 y más: bien y seguimos
+//-2: break; -1: malloc err; 0 and more: good
 int	new_lst_loop(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
 	while (crt.rline[i] && (crt.rline[i] == ' ' || crt.rline[i] == '\t'))
@@ -31,7 +31,7 @@ int	new_lst_loop(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	return (i);
 }
 
-//crear t_line con comillas
+//create t_line when we have quotes
 t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	int			i;
@@ -50,7 +50,7 @@ t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	return (*lst_line);
 }
 
-//crear t_line sin comillas (cat -> << -> EOF) (echo->$PATH)
+//create t_line when we don't have quotes
 t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 {
 	char	**split_line;
@@ -70,7 +70,7 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	return (*lst_line);
 }
 
-//crear t_line con todo el contenido despues de separar de read_line
+//create a lst_line and decide if it is with/without quotes
 t_line	*new_lst_line(t_msh *msh, char *read_line)
 {
 	char	is_quotes;

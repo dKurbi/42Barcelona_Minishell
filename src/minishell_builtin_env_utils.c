@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 20:15:39 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:13:51 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	if_var_in_env_no_eq(t_msh *msh, char *var, int len)
 	return (-1);
 }
 
-//*var is malloced!!!
 // return -1 (NEGATIVE) if NOT IN **ev, 0 or POSITIVE (> 0) if IN **ev
 int	if_var_in_env(t_msh *msh, char *var)
 {

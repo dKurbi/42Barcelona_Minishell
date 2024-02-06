@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/13 22:47:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:42:21 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//save in msh->exec.cmd_with_path command with $PATH (example: /bin/ls)
 void	get_cmd_with_path(t_msh **msh)
 {
 	char	**split;
@@ -26,14 +27,11 @@ void	get_cmd_with_path(t_msh **msh)
 	{
 		s = ft_strdup(split[i]);
 		if (!s)
-		{
-			ft_split_free(split);
-			return ;
-		}
+			break ;
 		free_str(&split[i]);
 		split[i] = get_ft_strjoin_modif(s, "/");
 		(*msh)->exec.cmd_with_path = ft_strjoin(split[i], \
-									(*msh)->exec.exec_arg[0]);
+											(*msh)->exec.exec_arg[0]);
 		if (access((*msh)->exec.cmd_with_path, X_OK) == 0)
 			break ;
 		free_str(&(*msh)->exec.cmd_with_path);
@@ -41,7 +39,7 @@ void	get_cmd_with_path(t_msh **msh)
 	free_double_str(&split);
 }
 
-//2 - no es redir, 1 - malloc err, 0 - es redir
+//2 - is not redirection, 1 - malloc err, 0 - is redirection
 int	get_exec_argv_loop(t_line *copy_lst, char ***exe_arg, int *i)
 {
 	while (copy_lst != NULL)
@@ -60,6 +58,7 @@ int	get_exec_argv_loop(t_line *copy_lst, char ***exe_arg, int *i)
 	return (0);
 }
 
+//get the array for executing from lst_line
 char	**get_exec_argv(t_msh *msh, t_line *lst_line)
 {
 	char	**exe_arg;

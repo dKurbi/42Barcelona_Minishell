@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 15:57:37 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:35:41 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ int	g_exit_status;
 # define STR_OUTPUT ">"
 # define STR_INPUT "<"
 # define STR_MINISHELL "minishell: "
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-//	execute defines
-# define EXECUTE_PIPE 1
-# define EXECUTE_COMMAND 0
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -235,11 +229,11 @@ void		print_perror_with_arg(char *cmd, char *file);
 
 //	execute controling redirections
 //	minishell_exec_redirection.c
-int			control_redirection(t_msh *msh);
-void		restore_redirection(t_msh *msh);
 int			output_redir(t_msh *msh, t_line *copy);
 int			input_redir(t_msh *msh, t_line *copy);
 int			append_redir(t_msh *msh, t_line *copy);
+int			control_redirection(t_msh *msh);
+void		restore_redirection(t_msh *msh);
 
 //	execute command
 //	minishell_execute_command.c
@@ -247,28 +241,25 @@ int			execute_child_argv(t_msh **msh);
 void		execute_check_command_and_execve(t_msh *msh);
 void		execute_child(t_msh *msh);
 void		execute_cmd(t_msh *msh);
-void		wait_process(t_msh *msh, pid_t pid, int num_commands);
-void		waitpid_process(t_msh *msh, int num_commands);
 
 //	minishell pipe othe process
 //	minishell_execute_pipe_process.c
-void		execution_pipes_decide_dup(t_msh *msh, int i, t_pipe *copy_pipe);
 void		execution_pipes_prepare(t_msh *msh, int i, t_pipe *copy_pipe);
 void		execution_pipes_prepare_next(t_msh *msh, int *i);
+void		execution_pipes_decide_dup(t_msh *msh, int i, t_pipe *copy_pipe);
 
 //	execute pipes
 //	minishell_execute_pipe.c
-void		execution_pipes(t_msh *msh);
+int			control_redirection_pipes(t_msh *msh);
 void		execute_cmd_pipe(t_msh *msh);
 void		execute_child_pipe(t_msh *msh);
-void		execute_builtin_pipes(t_msh *msh, int if_pipe_mode);
-int			control_redirection_pipes(t_msh *msh);
+void		execute_builtin_pipes(t_msh *msh);
+void		execution_pipes(t_msh *msh);
 
 //	execute (general file for executions)
 //	minishell_execute.c
-void		execute_builtin(t_msh *msh, int if_pipe_mode);
+void		execute_builtin(t_msh *msh);
 void		execution_line(t_msh *msh);
-void		execution_pipes(t_msh *msh);
 void		execution(t_msh *msh);
 
 //	expanding ($ sign)
@@ -301,15 +292,12 @@ char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 void		close_int_arr(int *fd);
 void		heredoc_redir(t_msh *msh);
 
-//	heredoc control pipes
-//	minishell_heredoc_pipe.c
-int			check_heredoc_pipe(t_msh *msh);
-
 //	heredoc control
 //	minishell_heredoc.c
 int			write_heredoc(t_msh *msh, t_line *copy, int hdc_pip);
-int			check_heredoc(t_msh *msh, t_line *lst_line);
 int			fork_write_heredoc(t_msh *msh, t_line *line_copy);
+int			check_heredoc(t_msh *msh, t_line *lst_line);
+int			check_heredoc_pipe(t_msh *msh);
 
 //	lst_line but with quotes control
 //	minishell_lst_line_quotes.c
@@ -361,7 +349,7 @@ void		handle_signal_exec_mode(int sign, siginfo_t *sa, void *data);
 void		signal_control_heredoc(t_msh *msh);
 void		signal_control_exec(t_msh *msh);
 void		signal_control_main(t_msh *msh);
-void		signal_control_block(t_msh *msh);
+void		signal_control_block(void);
 
 //	struct
 //	minishell_struct.c
@@ -373,7 +361,6 @@ t_line		*ft_lst_line_last(t_line *lst);
 //	utils 3 part
 //	minishell_utils_3.c
 int			calculate_len_lst_pipe(t_pipe *lst_pipe);
-void		change_int_arr(int *old_pip, int fd0, int fd1);
 t_line		*ft_lstdup(t_line *original);
 
 //	utils 2 part
@@ -382,7 +369,6 @@ int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
 int			decide_type(char *str);
-//void		ft_close(int fd);
 void		ft_close(int *fd);
 
 //	utils 1 part
@@ -390,15 +376,12 @@ void		ft_close(int *fd);
 int			check_ifempty_str(char *str);
 void		change_exec_arg_script(t_msh *msh);
 char		if_quote_start_final(char *str);
-int			if_srcipt(char *str);
+int			if_script(t_msh *msh, char *str);
 void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
 
-//	ATENCIO!!!
-//	eliminar despues!!!
-void		PRINT_lst_line(t_line *lst_line);
-void		PRINT_lst_pipe(t_pipe *lst_pipe);
-void		PRINT_split_line(char **double_str);
-void		PRINT_comillas(char *read_line);
-void		PRINT_fd(int fd);
+//	waiting
+//	minishell_wait.c
+void		waitpid_process(t_msh *msh, int num_commands);
+void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 
 #endif

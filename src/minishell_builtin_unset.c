@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_unset.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 20:11:30 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:06:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	unset_check_var(char **exec_arg)
 	return (status);
 }
 
+//remove a variable from env
 int	builtin_unset(t_msh *msh)
 {
 	char	*var;

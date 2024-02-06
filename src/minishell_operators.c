@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_operators.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 19:44:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:50:39 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_operators(char *str)
 	return (0);
 }
 
+//add to our lst_line malloced redirections
 void	decide_operators(char *str, int i, t_line **lst_line)
 {
 	if (str[i] && (str[i] == IPUT_RED) && \
@@ -47,7 +48,7 @@ void	decide_operators(char *str, int i, t_line **lst_line)
 		add_new_line_node(ft_strdup(STR_INPUT), TYPE_IPUT_RED, lst_line);
 }
 
-//para pasar de <<EOF a EOF (por ejemplo)
+//skip operators in iteration
 int	skip_operators(char *str, int i)
 {
 	if (str[i] && str[i + 1] && (str[i + 1] == str[i]))
@@ -55,6 +56,7 @@ int	skip_operators(char *str, int i)
 	return (i + 1);
 }
 
+//add a new str to lst_line
 void	addstr_to_lst_line(char *str, t_line **lst_line, int i)
 {
 	int		last;

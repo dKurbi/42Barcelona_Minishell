@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 15:58:12 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:39:42 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int	control_redirection_pipes(t_msh *msh)
 
 void	execute_cmd_pipe(t_msh *msh)
 {
-	signal_control_block(msh);
+	signal_control_block();
 	if (check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
-		execute_builtin_pipes(msh, EXECUTE_COMMAND);
+		execute_builtin_pipes(msh);
 		return ;
 	}
 	if (pipe(msh->exec.pip) < 0)
@@ -79,8 +79,7 @@ void	execute_child_pipe(t_msh *msh)
 		ft_close(&msh->exec.fd_stdout);
 		ft_close(&msh->exec.pip[0]);
 		ft_close(&msh->exec.pip[1]);
-		g_exit_status = 1;
-		exit(g_exit_status);
+		exit(1);
 	}
 	signal_control_exec(msh);
 	if (execute_child_argv(&msh))
@@ -92,7 +91,8 @@ void	execute_child_pipe(t_msh *msh)
 	exit_free_child(msh, g_exit_status);
 }
 
-void	execute_builtin_pipes(t_msh *msh, int if_pipe_mode)
+//execute builtins for pipes
+void	execute_builtin_pipes(t_msh *msh)
 {
 	if (control_redirection_pipes(msh))
 	{
@@ -117,16 +117,15 @@ void	execute_builtin_pipes(t_msh *msh, int if_pipe_mode)
 		g_exit_status = builtin_env(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
 		g_exit_status = builtin_exit(msh);
-	if (if_pipe_mode >= 1)
-		exit(g_exit_status);
 }
 
+//execute pipes (ls | cat)
 void	execution_pipes(t_msh *msh)
 {
 	t_pipe	*copy_pipe;
 	int		i;
 
-	signal_control_block(msh);
+	signal_control_block();
 	g_exit_status = check_heredoc_pipe(msh);
 	if (g_exit_status > 0)
 		return ;

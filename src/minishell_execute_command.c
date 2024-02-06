@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 12:11:02 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:35:01 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	execute_check_command_and_execve(t_msh *msh)
 	}
 	if (msh->exec.cmd_with_path == NULL)
 	{
-		if (if_srcipt(msh->exec.exec_arg[0]))
+		if (if_script(msh, msh->exec.exec_arg[0]))
 			change_exec_arg_script(msh);
 		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
 	}
@@ -89,12 +89,13 @@ void	execute_child(t_msh *msh)
 	exit_free_child(msh, g_exit_status);
 }
 
+//execute command WITHOUT pipes
 void	execute_cmd(t_msh *msh)
 {
-	signal_control_block(msh);
+	signal_control_block();
 	if (msh->exec.exec_arg[0] && check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
-		execute_builtin(msh, EXECUTE_COMMAND);
+		execute_builtin(msh);
 		return ;
 	}
 	if (pipe(msh->exec.pip) < 0)

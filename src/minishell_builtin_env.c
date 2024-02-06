@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 10:21:47 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:06:45 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	builtin_env_print_all(t_msh *msh)
 	}
 }
 
+//env: show environment
 int	builtin_env(t_msh *msh)
 {
 	if (!msh->exec.exec_arg[1])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 09:54:31 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:42:47 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	fork_write_heredoc(t_msh *msh, t_line *line_copy)
 	return (hdc_status);
 }
 
+//check all heredeocs
 int	check_heredoc(t_msh *msh, t_line *lst_line)
 {
 	t_line	*line_copy;
@@ -87,6 +88,26 @@ int	check_heredoc(t_msh *msh, t_line *lst_line)
 				return (heredoc_status);
 		}
 		line_copy = line_copy->next;
+	}
+	return (heredoc_status);
+}
+
+//check all heredeocs in pipes
+int	check_heredoc_pipe(t_msh *msh)
+{
+	t_pipe	*copy_pipe;
+	int		heredoc_status;
+
+	heredoc_status = 0;
+	copy_pipe = msh->lst_pipe;
+	while (copy_pipe)
+	{
+		heredoc_status = check_heredoc(msh, copy_pipe->lst_line);
+		if (heredoc_status)
+			return (heredoc_status);
+		copy_pipe->fd_heredoc[0] = dup(msh->exec.fd_here_doc[0]);
+		ft_close(&msh->exec.fd_here_doc[0]);
+		copy_pipe = copy_pipe->next;
 	}
 	return (heredoc_status);
 }

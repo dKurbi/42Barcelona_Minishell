@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_pipe_process.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 09:17:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 12:24:54 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:26:09 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ extern int	g_exit_status;
 
 #endif
 
+//prepare before executing pipes
 void	execution_pipes_prepare(t_msh *msh, int i, t_pipe *copy_pipe)
 {
 	execution_pipes_decide_dup(msh, i, copy_pipe);
@@ -26,6 +27,7 @@ void	execution_pipes_prepare(t_msh *msh, int i, t_pipe *copy_pipe)
 	msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
 }
 
+//free and close before next piping
 void	execution_pipes_prepare_next(t_msh *msh, int *i)
 {
 	free_lst_line(&msh->lst_line);
@@ -77,6 +79,7 @@ void	execution_pipes_decide_dup_else(t_msh *msh, int i, t_pipe *copy_pipe)
 		execution_pipes_decide_dup_last(msh, i, copy_pipe);
 }
 
+//duplicate, deciding the position of pipe
 void	execution_pipes_decide_dup(t_msh *msh, int i, t_pipe *copy_pipe)
 {
 	if (i == 0)

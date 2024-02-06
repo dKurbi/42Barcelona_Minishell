@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/04 03:25:23 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:09:29 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//devuelve add_join cuando tiene dollar despues de la posicion
+//return add_join when it has a $ after position
 char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 {
 	char	*aux[2];
@@ -29,6 +29,7 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 	return (add_join);
 }
 
+//if we have case with $ in string without quotes
 char	*case_dollar(char *str, t_msh *msh)
 {
 	int		dp;
@@ -53,6 +54,7 @@ char	*case_dollar(char *str, t_msh *msh)
 	return (rtn);
 }
 
+//if we have case with $ in string with quotes
 char	*case_dollar_with_quotes(char *str, t_msh *msh)
 {
 	char	*rtn;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/12 20:09:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:40:05 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
 	return (rtn);
 }
 
+//if we have $ in string, we need to search it in env
 char	*expand(char *var, t_msh *msh)
 {
 	char	*rtn;

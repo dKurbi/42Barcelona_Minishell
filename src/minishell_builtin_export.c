@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_export.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 18:00:53 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:05:47 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	builtin_export_add_all(t_msh *msh)
 	return (exit_status);
 }
 
+//export - print as env or add a variable in env
 int	builtin_export(t_msh *msh)
 {
 	if (!msh->exec.exec_arg[1])

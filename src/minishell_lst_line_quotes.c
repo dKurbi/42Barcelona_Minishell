@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 23:27:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:47:48 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	lst_quote_bef(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	return (i);
 }
 
+//add a string with quotes and remove quotes
 int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
 	char	*str;
@@ -77,6 +78,7 @@ int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	return (i);
 }
 
+//add a string to string before
 int	lst_add_str(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
 	char	*str;

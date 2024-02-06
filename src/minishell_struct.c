@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 17:30:05 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:57:54 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_exec	execnew(void)
 	return (exec);
 }
 
-//anadir al final t_line nuevo a ya existe t_line **
+//add a new lst_line
 void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 {
 	t_line	*new_node;
@@ -77,7 +77,7 @@ void	add_new_line_node(char *line, int type_str, t_line **lst_line)
 	}
 }
 
-//el ultimo t_line del total
+//take the last lst_line
 t_line	*ft_lst_line_last(t_line *lst)
 {
 	t_line	*lastlist;

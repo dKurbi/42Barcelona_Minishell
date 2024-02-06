@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:36:11 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 17:29:06 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:04:55 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char	**ft_split_create_loop(char *s, char **split, int i, int j)
 	return (split);
 }
 
+//split only pipes
 char	**ft_split_pipe(char *s)
 {
 	char	**split;

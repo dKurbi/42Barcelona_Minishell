@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free_str.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:03:00 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/12 20:04:29 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:40:37 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//esto es para que evitar norminette
+//free 3 strings
 void	free_3_str(char **s1, char **s2, char **s3)
 {
 	if (*s1 != NULL)
@@ -23,7 +23,7 @@ void	free_3_str(char **s1, char **s2, char **s3)
 		free_str(s3);
 }
 
-//free memoria de char *
+//free memory of char *
 void	free_str(char **str)
 {
 	if (*str != NULL)
@@ -31,7 +31,7 @@ void	free_str(char **str)
 	*str = NULL;
 }
 
-//free memoria de char **
+//free memory of char **
 void	free_double_str(char ***double_str)
 {
 	int	i;

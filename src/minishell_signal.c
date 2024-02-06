@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_signal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 19:26:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/30 02:23:19 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:57:19 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ extern int	g_exit_status;
 
 #endif
 
+//catch signals when doing heredoc
 void	signal_control_heredoc(t_msh *msh)
 {
 	struct sigaction	sa;
@@ -30,6 +31,7 @@ void	signal_control_heredoc(t_msh *msh)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+//catch signals when executing commands
 void	signal_control_exec(t_msh *msh)
 {
 	struct sigaction	sa;
@@ -43,6 +45,7 @@ void	signal_control_exec(t_msh *msh)
 		print_error_exit(&msh, ERR_SIG);
 }
 
+//catch signals for main
 void	signal_control_main(t_msh *msh)
 {
 	struct sigaction	sa;
@@ -55,9 +58,9 @@ void	signal_control_main(t_msh *msh)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	signal_control_block(t_msh *msh)
+//blocking signals
+void	signal_control_block(void)
 {
-	(void)(msh);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }

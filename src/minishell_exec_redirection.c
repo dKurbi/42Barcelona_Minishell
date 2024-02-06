@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 17:27:14 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/03 16:51:35 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:16:36 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	input_redir(t_msh *msh, t_line *copy)
 {
 	int	fd;
 
-	(void)(msh);
+	(void) msh;
 	if ((copy->next) && check_file(copy->next->str))
 		return (1);
 	fd = open(copy->next->str, O_RDONLY, 0644);
@@ -63,6 +63,8 @@ int	append_redir(t_msh *msh, t_line *copy)
 	return (0);
 }
 
+//duplacting original STDIN and STDOUT
+//if there are redirections - duplicate them as new streams
 int	control_redirection(t_msh *msh)
 {
 	t_line	*copy_line;
@@ -89,6 +91,7 @@ int	control_redirection(t_msh *msh)
 	return (0);
 }
 
+//we restore our results to the terminal
 void	restore_redirection(t_msh *msh)
 {
 	dup2(msh->exec.fd_stdout, STDOUT_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 04:55:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:39:23 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ extern int	g_exit_status;
 
 #endif
 
-void	execute_builtin(t_msh *msh, int if_pipe_mode)
+//execute builtin for only command
+void	execute_builtin(t_msh *msh)
 {
 	if (control_redirection(msh))
 	{
@@ -43,14 +44,12 @@ void	execute_builtin(t_msh *msh, int if_pipe_mode)
 		g_exit_status = builtin_env(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
 		g_exit_status = builtin_exit(msh);
-	if (if_pipe_mode >= 1)
-		exit(g_exit_status);
 }
 
-//ejecutar los comandos ejemplo: "ls -la"
+//execute only command, for example: "ls -la"
 void	execution_line(t_msh *msh)
 {
-	signal_control_block(msh);
+	signal_control_block();
 	g_exit_status = check_heredoc(msh, msh->lst_line);
 	if (g_exit_status > 0)
 		return ;
@@ -62,7 +61,7 @@ void	execution_line(t_msh *msh)
 	free_double_str(&msh->exec.exec_arg);
 }
 
-//luego para executing
+//main function for execution line or pipe
 void	execution(t_msh *msh)
 {
 	if (check_ifempty_str(msh->read_line) && msh->read_line[0] != '\0')

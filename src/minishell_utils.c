@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/21 23:28:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:58:40 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,16 @@ char	if_quote_start_final(char *str)
 	return (c);
 }
 
-int	if_srcipt(char *str)
+int	if_script(t_msh *msh, char *str)
 {
-	int	i;
-
-	i = ft_strlen(str) - 1 - 2;
 	if (str[0] && str[1] && str[0] == POINT && str[1] == '/')
 	{
-		if (!ft_strncmp(&str[i], ".sh", 3))
+		get_cmd_with_path(&msh);
+		if (msh->exec.cmd_with_path)
+		{
+			free_str(&msh->exec.cmd_with_path);
 			return (1);
+		}
 	}
 	return (0);
 }

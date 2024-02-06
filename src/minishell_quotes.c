@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:33:46 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/16 15:30:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:54:58 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// comprueba si las comillas son pares desde i hasta end
-// si end = -1, prueba hasta el final del string
-// si comillas estan bien - return 1, si comillas son impares - return -1
-// y devuelve 0 si no tiene comillas
+//if end -1 - check all string
+//if quotes are good - return 1, if quotes are odd - return -1
+//return 0 if there are no quotes
 int	is_quotes_pair(char *str, int i, int end)
 {
 	char	quote;
@@ -40,8 +39,8 @@ int	is_quotes_pair(char *str, int i, int end)
 	return (quote * dquote * is_quote);
 }
 
-//devuelve la pos de la proxima comilla simple o doble (se pasa como arg)
-// a partir de un numero i y devuelve -1 si no hay otra comilla
+//returns the position of the next quote (simple or double)
+//we indicate a defined quote
 int	where_next_quote_is(char *str, char quote, int i)
 {
 	while (str[i])
@@ -53,8 +52,8 @@ int	where_next_quote_is(char *str, char quote, int i)
 	return (-1);
 }
 
-// devuelve la posicion de la proxima comilla (simple o doble) desde una pos i
-// si no noo hay comillas devuelve -1
+// returns the position of the next quote (simple or double) from position i
+// if there are no quotes it returns -1
 int	where_next_any_quote_is(char *str, int i)
 {
 	int	quote_pos;
@@ -96,6 +95,7 @@ void	strtrim_quotes_pipe(t_msh *msh, t_line *copy_line, char	*str_strtrim)
 	}
 }
 
+//remove quotes from beginning and end
 void	strtrim_quotes_all(t_msh *msh)
 {
 	t_line	*copy_line;

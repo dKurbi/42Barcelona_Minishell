@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_exit.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/01 01:55:33 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:07:04 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	builtin_exit_make_status(t_msh *msh, int i)
 	return (status);
 }
 
+//exit: can have options
 int	builtin_exit(t_msh *msh)
 {
 	int	status;

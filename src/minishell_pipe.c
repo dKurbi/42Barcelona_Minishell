@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:55:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 17:38:13 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:51:51 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	check_pipe_in_word(char *str)
 	return (0);
 }
 
+//adding new lst_pipes
 void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 {
 	t_pipe	*copy_lst;
@@ -68,7 +69,7 @@ void	addback_lst_pipe(t_msh *msh, t_pipe **lst_pipe, char *str)
 	copy_lst->next->next = NULL;
 }
 
-//crear nuevo t_pipe* CON argumentos (no esta creando solo NULLS o zeros (0))
+//create lst_pipe
 t_pipe	*new_lst_pipe(t_msh *msh)
 {
 	char	**split_pipe;

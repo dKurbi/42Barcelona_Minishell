@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 19:40:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:11:55 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//1 - hay error, 0 - bien
+//1 - error, 0 - good
 int	initial_check(t_msh *msh)
 {
 	if (!msh->read_line || (!ft_strncmp(msh->read_line, "exit", 4) && \
@@ -26,6 +26,7 @@ int	initial_check(t_msh *msh)
 	return (0);
 }
 
+//1 - file isnt OK, 0 - file OK
 int	check_file(char *file)
 {
 	if (access(file, F_OK) < 0)
@@ -56,6 +57,7 @@ int	check_command(char *str)
 	return (0);
 }
 
+//0 - not builtin, 1 - is builtin
 int	check_ifbuiltin(char *str)
 {
 	if (!str)

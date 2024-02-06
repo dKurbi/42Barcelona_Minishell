@@ -6,12 +6,13 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:33:37 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/01/09 19:04:46 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:11:09 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//if we have a parsing pipe that is not correct
 int	check_pipe_empty(t_line *line)
 {
 	if (!line->str || (check_ifempty_str(line->str) && line->type == TYPE_CMD))
@@ -21,6 +22,8 @@ int	check_pipe_empty(t_line *line)
 	return (0);
 }
 
+//if it is >, <<, >>, <
+//1 - is redirection, 0 - not a redirection
 int	is_redirection(int type)
 {
 	if (type >= 2 && type <= 5)
@@ -28,6 +31,7 @@ int	is_redirection(int type)
 	return (0);
 }
 
+//check syntax only for line
 int	check_syntax_line(t_line *line)
 {
 	t_line	*copy_line;

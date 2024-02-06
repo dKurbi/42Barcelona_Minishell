@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/03 16:49:33 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:59:07 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	calculate_len_lst_line(t_line *lst_line)
 	return (len);
 }
 
-//como en el split,  aqui calcular todo que no es delim. y return la POSICION
+//calculate everything that is not a delimiter and return the POSITION
 int	calculate_last_pos_word(char *str, int i)
 {
 	if (!str)
@@ -42,6 +42,7 @@ int	calculate_last_pos_word(char *str, int i)
 	return (i);
 }
 
+//remove quotes
 char	*strtrim_str_quotes(char *str)
 {
 	char	*new_str;
@@ -56,6 +57,7 @@ char	*strtrim_str_quotes(char *str)
 	return (new_str);
 }
 
+//return the type of string
 int	decide_type(char *str)
 {
 	if (!str)

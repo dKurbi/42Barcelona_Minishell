@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_export_2.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 21:35:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/24 17:42:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:14:39 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	export_len_env(char **ev)
 	return (len);
 }
 
-//equal es '=' (puede calcular hasta declare -x var=... || declare -x var)
-//'=' len + 1 es para que inclue = tambien
+//returns len before '='
 int	len_before_equal(char *str)
 {
 	int	len;
@@ -58,7 +57,7 @@ int	export_create_var_len(t_msh *msh, int i)
 	return (len - minus_quote);
 }
 
-//i from msh->exec.exec_arg
+//int i isfrom msh->exec.exec_arg
 char	*export_create_var(t_msh *msh, int i)
 {
 	int		j;

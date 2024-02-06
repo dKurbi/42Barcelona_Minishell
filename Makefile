@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/02/06 12:11:20 by iassambe         ###   ########.fr        #
+#    Updated: 2024/02/06 20:00:03 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror# -g
 LIBFTFLAGS = -Linc/libft -lft
 READLINEFLAGS = -Linc/readline/
 MINIFLAGS = -lreadline -lhistory -ltermcap
@@ -38,8 +38,7 @@ LIB_MINISHELL = inc/minishell.h
 COMPILED_LIBFT = libft.a
 COMPILED_READLINE = inc/readline/libreadline.a
 
-SRCS = PRINT.c \
-		minishell.c minishell_error.c minishell_struct.c minishell_getter.c \
+SRCS = 	minishell.c minishell_error.c minishell_struct.c minishell_getter.c \
 		minishell_operators.c minishell_quotes.c minishell_lst_line.c \
 		minishell_free.c minishell_pipe.c minishell_utils.c ft_split_pipe.c \
 		minishell_expand.c minishell_case.c minishell_check.c minishell_utils_2.c \
@@ -51,8 +50,8 @@ SRCS = PRINT.c \
 		minishell_builtin_echo.c minishell_builtin_export_2.c \
 		minishell_lst_line_quotes.c minishell_builtin_env_utils.c \
 		minishell_signal_handle.c minishell_heredoc_utils.c minishell_utils_3.c \
-		minishell_heredoc_pipe.c minishell_execute_pipe_process.c \
-		minishell_wait.c
+		minishell_execute_pipe_process.c minishell_wait.c
+
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:.c=.o))
 DEPS = $(OBJS:.o=.d)
 
@@ -69,8 +68,11 @@ $(DIR_OBJS)%.o: $(DIR_SRC)%.c $(LIB_MINISHELL) Makefile
 $(COMPILED_LIBFT):
 	$(MAKE) -C $(DIR_LIBFT) bonus
 
-config_readline:
+.isconfig :
+	touch $@
 	cd inc/readline/ && ./configure
+
+config_readline: .isconfig
 
 configure: config_readline
 
@@ -78,7 +80,7 @@ configure_readline: config_readline
 
 config: config_readline
 
-$(COMPILED_READLINE): #configure_readline WARNING: descomentarlo cuando sera evaluacion
+$(COMPILED_READLINE): configure_readline
 	$(MAKE) -C $(DIR_READLINE)
 
 clean:
@@ -87,6 +89,7 @@ clean:
 	$(RM) -rf $(DIR_OBJS)
 
 fclean: clean
+	$(RM) -f .isconfig
 	$(MAKE) -C $(DIR_LIBFT) fclean
 	$(RM) -f $(NAME)
 

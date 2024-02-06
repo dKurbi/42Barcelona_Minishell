@@ -6,33 +6,37 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:10:18 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 15:57:10 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/06 18:19:23 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//para pipes
 void	waitpid_process(t_msh *msh, int num_commands)
 {
 	int	status;
+	int	flag;
 
-	while (num_commands >= 0)
+	flag = 0;
+	while (--num_commands >= 0)
 	{
-		num_commands--;
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 			msh->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
-			if (WTERMSIG(status) == SIGINT)
+			if (WTERMSIG(status) == SIGINT && !flag)
 			{
 				msh->exit_status = 130;
 				printf("\n");
+				flag = 1;
 			}
-			else if (WTERMSIG(status) == SIGQUIT)
+			else if (WTERMSIG(status) == SIGQUIT && !flag)
 			{
 				msh->exit_status = 131;
-				printf("\nQuit: 3\n");
+				printf("Quit: 3\n");
+				flag = 1;
 			}
 		}
 	}
