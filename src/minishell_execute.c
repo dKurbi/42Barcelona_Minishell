@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 20:06:41 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:55:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	execution(t_msh *msh)
 	if (msh->lst_pipe != NULL)
 	{
 		msh->exec.num_commands = calculate_len_lst_pipe(msh->lst_pipe);
-		execution_pipes_diego(msh);
+		execution_pipes(msh);
 	}
 	else
 		execution_line(msh);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/05 20:10:20 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:35:39 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ extern int	g_exit_status;
 
 #endif
 
-void	execute_cmd_pipe(t_msh *msh)
+/* void	execute_cmd_pipe(t_msh *msh)
 {
 	signal_control_block(msh);
 	if (msh->exec.exec_arg[0] && check_ifbuiltin(msh->exec.exec_arg[0]))
 		execute_builtin(msh, EXECUTE_PIPE);
-	/* else
+	else
 	{
 		if (msh->exec.fd_here_doc[0] != -1)
 			ft_close(msh->exec.fd_here_doc[0]);
-	} */
+	}
 	if (control_redirection(msh))
 	{
 		ft_close(&msh->exec.fd_stdin);
@@ -45,14 +45,6 @@ void	execute_cmd_pipe(t_msh *msh)
 		exit_free_child(msh, 127);
 	execute_check_command_and_execve(msh);
 	exit_free_child(msh, g_exit_status);
-}
-
-void	restore_redirection_pipe(t_msh *msh)
-{
-	dup2(msh->exec.fd_stdout, STDOUT_FILENO);
-	dup2(msh->exec.fd_stdin, STDIN_FILENO);
-	ft_close(&msh->exec.fd_stdout);
-	ft_close(&msh->exec.fd_stdin);
 }
 
 void	execute_child_pipe_last(t_msh *msh, t_pipe *lst_pipe)
@@ -114,4 +106,4 @@ void	execution_pipes(t_msh *msh)
 	wait_process(msh, msh->exec.proc, msh->exec.num_commands);
 	g_exit_status = msh->exit_status;
 	restore_redirection(msh);
-}
+} */

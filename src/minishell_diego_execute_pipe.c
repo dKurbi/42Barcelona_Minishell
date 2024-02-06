@@ -6,13 +6,19 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 13:43:41 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 20:08:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/06 05:06:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	execution_pipes_diego(t_msh *msh)
+#ifdef __linux__
+
+extern int	g_exit_status;
+
+#endif
+
+void	execution_pipes(t_msh *msh)
 {
 	t_pipe *copy_pipe;
 	int		i;
@@ -25,9 +31,8 @@ void	execution_pipes_diego(t_msh *msh)
 	copy_pipe = msh->lst_pipe;
 	msh->exec.fd_stdin = dup(STDIN_FILENO);
 	msh->exec.fd_stdout = dup(STDOUT_FILENO);
-	while (copy_pipe) //&& (!msh->exit_status || i == 0))
+	while (copy_pipe)
 	{	
-		//printf("entro %d\n", i);
 		if (i == 0)
 		{
 			if (pipe(msh->exec.even_pip) < 0)
@@ -79,7 +84,7 @@ void	execution_pipes_diego(t_msh *msh)
 		msh->lst_line = ft_lstdup(copy_pipe->lst_line);
 		msh->exec.fd_here_doc[0] = dup(copy_pipe->fd_heredoc[0]);
 		msh->exec.exec_arg = get_exec_argv(msh, msh->lst_line);
-		execute_cmd_diego(msh);
+		execute_cmd_pipe(msh);
 		free_lst_line(&msh->lst_line);
 		free_double_str(&msh->exec.exec_arg);
 		if (i % 2 == 1)
@@ -96,7 +101,7 @@ void	execution_pipes_diego(t_msh *msh)
 	g_exit_status = msh->exit_status;
 }
 
-int	control_redirection_pipes_diego(t_msh *msh)
+int	control_redirection_pipes(t_msh *msh)
 {
 	t_line	*copy_line;
 	int		status;
@@ -120,12 +125,12 @@ int	control_redirection_pipes_diego(t_msh *msh)
 	return (0);
 }
 
-void	execute_cmd_diego(t_msh *msh)
+void	execute_cmd_pipe(t_msh *msh)
 {
 	signal_control_block(msh);
 	if (check_ifbuiltin(msh->exec.exec_arg[0]))
 	{
-		execute_builtin_pipes_diego(msh, EXECUTE_COMMAND);
+		execute_builtin_pipes(msh, EXECUTE_COMMAND);
 		return ;
 	}
 	if (pipe(msh->exec.pip) < 0)
@@ -140,7 +145,7 @@ void	execute_cmd_diego(t_msh *msh)
 		ft_close(&msh->exec.even_pip[1]);
 		ft_close(&msh->exec.odd_pip[1]);
 		signal_control_exec(msh);
-		execute_child_pipe_diego(msh);
+		execute_child_pipe(msh);
 	}
 	else
 	{
@@ -149,13 +154,11 @@ void	execute_cmd_diego(t_msh *msh)
 	}
 	ft_close(&msh->exec.pip[0]);
 	ft_close(&msh->exec.pip[1]);
-	//wait_process(msh, msh->exec.proc, ONE_COMMAND);
-	//g_exit_status = msh->exit_status;
 }
 
-void	execute_child_pipe_diego(t_msh *msh)
+void	execute_child_pipe(t_msh *msh)
 {
-	if (control_redirection_pipes_diego(msh))
+	if (control_redirection_pipes(msh))
 	{
 		ft_close(&msh->exec.fd_stdin);
 		ft_close(&msh->exec.fd_stdout);
@@ -174,9 +177,9 @@ void	execute_child_pipe_diego(t_msh *msh)
 	exit_free_child(msh, g_exit_status);
 }
 
-void	execute_builtin_pipes_diego(t_msh *msh, int if_pipe_mode)
+void	execute_builtin_pipes(t_msh *msh, int if_pipe_mode)
 {
-	if (control_redirection_pipes_diego(msh))
+	if (control_redirection_pipes(msh))
 	{
 		g_exit_status = 1;
 		dup2(msh->exec.fd_stdin, STDIN_FILENO);
