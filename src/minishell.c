@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/05 16:30:53 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:42:15 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	preparing_commands(t_msh *msh)
 		print_warning(ERR_SYNTAX);
 		return (1);
 	}
-	strtrim_quotes_all(msh);
 	return (0);
 }
 

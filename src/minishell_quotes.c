@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 12:33:46 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/06 19:54:58 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:42:29 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	is_quotes_pair(char *str, int i, int end)
 //we indicate a defined quote
 int	where_next_quote_is(char *str, char quote, int i)
 {
+	if (i >= (int)ft_strlen(str))
+		return (-1);
 	while (str[i])
 	{
 		if (str[i] == quote)
@@ -92,35 +94,5 @@ void	strtrim_quotes_pipe(t_msh *msh, t_line *copy_line, char	*str_strtrim)
 			copy_line = copy_line->next;
 		}
 		copy_pipe = copy_pipe->next;
-	}
-}
-
-//remove quotes from beginning and end
-void	strtrim_quotes_all(t_msh *msh)
-{
-	t_line	*copy_line;
-	char	*str_strtrim;
-
-	copy_line = NULL;
-	str_strtrim = NULL;
-	if (msh->lst_pipe != NULL)
-	{
-		strtrim_quotes_pipe(msh, copy_line, str_strtrim);
-		return ;
-	}
-	copy_line = msh->lst_line;
-	while (copy_line != NULL)
-	{
-		if (if_quote_start_final(copy_line->str) == QUOTE)
-			str_strtrim = ft_strtrim(copy_line->str, "\'");
-		else if (if_quote_start_final(copy_line->str) == DQUOTE)
-			str_strtrim = ft_strtrim(copy_line->str, "\"");
-		if (str_strtrim != NULL)
-		{
-			free(copy_line->str);
-			copy_line->str = ft_strdup(str_strtrim);
-		}
-		free_str(&str_strtrim);
-		copy_line = copy_line->next;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/06 19:40:05 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:51:30 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ extern int	g_exit_status;
 
 #endif
 
+//return -1 - no dollar
 int	where_is_dollar(char *str, int i)
 {
 	while (str[i])
@@ -73,22 +74,42 @@ char	*expand_dollar_ev(t_msh *msh, char *var, char *rtn, int len)
 	return (rtn);
 }
 
-//if we have $ in string, we need to search it in env
-char	*expand(char *var, t_msh *msh)
+char	*expand_get_rtn(t_msh *msh, char *var, char *rtn)
 {
-	char	*rtn;
-
-	var = clean_var(var);
-	rtn = ft_strdup("\0");
 	if (var[0] == '$' && var[1] == '\0')
-		free_str(&var);
+	{
+		free_str(&rtn);
+		rtn = get_ft_strjoin_modif(var, "");
+	}
 	else if (var[0] == '$' && var[1] && var[1] != '?')
 		rtn = expand_dollar_ev(msh, var, rtn, ft_strlen(var));
 	else if (var[0] == '$' && var[1] == '?')
 	{
-		free(rtn);
+		free_str(&rtn);
 		free_str(&var);
 		rtn = ft_itoa(g_exit_status);
 	}
+	return (rtn);
+}
+
+//if we have $ in string, we need to search it in env
+char	*expand(char *var, t_msh *msh)
+{
+	char	*rtn;
+	int		case_quote_at_final;
+
+	case_quote_at_final = 0;
+	var = clean_var(var);
+	rtn = ft_strdup("\0");
+	if (!rtn)
+		print_error_exit(&msh, ERR_MALLOC);
+	if (var[ft_strlen(var) - 1] == QUOTE)
+	{
+		var[ft_strlen(var) - 1] = '\0';
+		case_quote_at_final = 1;
+	}
+	rtn = expand_get_rtn(msh, var, rtn);
+	if (case_quote_at_final)
+		rtn = get_ft_strjoin_modif(rtn, "\'");
 	return (rtn);
 }

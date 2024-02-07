@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:09:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:39:59 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 
 	aux[0] = ft_substr(str, *i, dp - (*i));
 	aux[1] = expand(&str[dp], msh);
+	if (!aux[0] || !aux[1])
+		print_error_exit(&msh, ERR_MALLOC);
 	add_join = get_ft_strjoin_modif(aux[0], aux[1]);
 	*i = dp + 1;
 	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' \

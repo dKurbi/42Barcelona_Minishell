@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:35:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:42:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,7 +329,6 @@ t_pipe		*new_lst_pipe(t_msh *msh);
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
-void		strtrim_quotes_all(t_msh *msh);
 
 //	Search (something in **env)
 //	minishell_search.c
