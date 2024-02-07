@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:35:41 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 09:39:38 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	g_exit_status;
 # endif
 
 /* -------------------------------------------------------------------------- */
-// error code
+//	error strings
 # define ERR_AC "only provide ./minishell\n"
 # define ERR_MALLOC "memory allocation error\n"
 # define ERR_QUOTE "quote>\n"
@@ -63,7 +63,7 @@ int	g_exit_status;
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-// type code
+//	type code
 # define TYPE_STR 0
 # define TYPE_CMD 1
 # define TYPE_HDC 2
@@ -95,16 +95,13 @@ int	g_exit_status;
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-//	otros defines
-# define MODE_LST_LINE 0
-# define MODE_PIPE 1
+//	other defines
 # define ONE_COMMAND 1
 /* -------------------------------------------------------------------------- */
 
 typedef struct s_exec
 {
 	int		pip[2];
-	int		old_pip[2];
 	int		fd_here_doc[2];
 	int		fd_stdin;
 	int		fd_stdout;
@@ -113,7 +110,6 @@ typedef struct s_exec
 	int		num_commands;
 	char	**exec_arg;
 	char	*cmd_with_path;
-	char	*cmd_no_path;
 	char	*path;
 	DIR		*dir;
 	pid_t	proc;
@@ -270,7 +266,7 @@ char		*expand(char *var, t_msh *msh);
 
 //	free strings
 //	minishell_free_str.c
-void		free_3_str(char **s1, char **s2, char **s3);
+void		free_2_str(char **s1, char **s2);
 void		free_str(char **str);
 void		free_double_str(char ***double_str);
 
@@ -329,7 +325,6 @@ t_pipe		*new_lst_pipe(t_msh *msh);
 int			is_quotes_pair(char *str, int i, int end);
 int			where_next_quote_is(char *str, char quote, int i);
 int			where_next_any_quote_is(char *str, int i);
-void		strtrim_quotes_all(t_msh *msh);
 
 //	Search (something in **env)
 //	minishell_search.c

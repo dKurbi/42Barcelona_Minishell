@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free_str.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:03:00 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:40:37 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 09:39:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //free 3 strings
-void	free_3_str(char **s1, char **s2, char **s3)
+void	free_2_str(char **s1, char **s2)
 {
 	if (*s1 != NULL)
 		free_str(s1);
 	if (*s2 != NULL)
 		free_str(s2);
-	if (*s3 != NULL)
-		free_str(s3);
 }
 
 //free memory of char *

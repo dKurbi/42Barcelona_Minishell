@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
+#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/02/06 20:00:03 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/02/06 21:59:48 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror# -g
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFTFLAGS = -Linc/libft -lft
 READLINEFLAGS = -Linc/readline/
 MINIFLAGS = -lreadline -lhistory -ltermcap

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_operators.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:50:39 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 09:44:43 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,22 @@
 int	check_operators(char *str)
 {
 	int	i;
+	int	where_quote;
 
 	if (!str)
 		return (0);
 	i = 0;
 	while (str[i] && i < (int)ft_strlen(str))
 	{
+		where_quote = 0;
 		if (str[i] == QUOTE || str[i] == DQUOTE)
-			i = where_next_quote_is(str, str[i], i + 1) + 1;
+		{
+			where_quote = where_next_quote_is(str, str[i], i + 1);
+			if (where_quote < 0)
+				i++;
+			else
+				i = where_quote + 1;
+		}
 		while (str[i] && str[i] != QUOTE \
 			&& str[i] != DQUOTE && str[i] != IPUT_RED && str[i] != OPUT_RED)
 			i++;

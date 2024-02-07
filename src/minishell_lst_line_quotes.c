@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:47:48 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 03:39:07 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
