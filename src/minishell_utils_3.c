@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:05:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:59:21 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:21:23 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,21 @@ t_line	*ft_lstdup(t_line *original)
 		copy_original = copy_original->next;
 	}
 	return (new_lst);
+}
+
+int	count_quotes_final(char *var)
+{
+	int	len;
+	int	how_many_quotes;
+
+	if (!var)
+		return (0);
+	len = ft_strlen(var) - 1;
+	how_many_quotes = 0;
+	while (len >= 0 && var[len] == QUOTE)
+	{
+		len--;
+		how_many_quotes++;
+	}
+	return (how_many_quotes);
 }

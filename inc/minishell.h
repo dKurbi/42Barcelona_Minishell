@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 09:39:38 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/07 20:01:00 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int			if_var_in_env(t_msh *msh, char *var);
 
 //	builtins exec
 //	minishell_builtin_env.c
+char		**env_empty(void);
 char		**create_env(char **env);
 int			builtin_env(t_msh *msh);
 
@@ -179,15 +180,22 @@ int			builtin_env(t_msh *msh);
 int			builtin_exit(t_msh *msh);
 
 //	builtins exec
+//	minishell_builtin_export_plus.c
+void		builtin_export_plus(t_msh *msh, int i);
+
+//	builtins exec
 //	minishell_builtin_export_2.c
+int			check_plus_before_equal(char *str);
 int			export_len_env(char **ev);
 int			len_before_equal(char *str);
-int			export_create_var_len(t_msh *msh, int i);
 char		*export_create_var(t_msh *msh, int i);
+void		builtin_export_print_all(t_msh *msh);
 
 //	builtins exec
 //	minishell_builtin_export.c
 int			builtin_export(t_msh *msh);
+char		**export_append_to_env(t_msh *msh, char **old_ev, char *var);
+void		export_change_var_in_env(char ***ev, char *var, int if_in_ev);
 
 //	builtins exec
 //	minishell_builtin_pwd.c
@@ -280,6 +288,7 @@ void		exit_free_child(t_msh *msh, int exit_status);
 
 //  getter
 //	minishell_getter.c
+char		*get_str_quotes(int quotes);
 void		get_cmd_with_path(t_msh **msh);
 char		**get_exec_argv(t_msh *msh, t_line *lst_line);
 
@@ -357,6 +366,7 @@ t_line		*ft_lst_line_last(t_line *lst);
 //	minishell_utils_3.c
 int			calculate_len_lst_pipe(t_pipe *lst_pipe);
 t_line		*ft_lstdup(t_line *original);
+int			count_quotes_final(char *var);
 
 //	utils 2 part
 //	minishell_utils_2.c

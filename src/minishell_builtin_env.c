@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:06:45 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 17:00:36 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,59 @@ void	increment_shlvl(char ***r)
 	free_str(&new_level);
 }
 
+char	**env_empty(void)
+{
+	char	**rtn;
+	char	*current_dir;
+
+	rtn = malloc(sizeof(char *) * 4);
+	if (rtn)
+	{
+		current_dir = getcwd(NULL, 0);
+		rtn[0] = ft_strjoin("PWD=", current_dir);
+		rtn[1] = ft_strdup("SHLVL=1");
+		rtn[2] = ft_strdup("_=/usr/bin/env");
+		if (!rtn[0] || !rtn[1] || !rtn[2] || !current_dir)
+		{
+			if (!current_dir)
+				print_warning(ERR_NO_PWD);
+			free_2_str(&rtn[0], &rtn[1]);
+			free_2_str(&rtn[2], &current_dir);
+			return (free(rtn), NULL);
+		}
+		free_str(&current_dir);
+		rtn[3] = NULL;
+	}
+	return (rtn);
+}
+
 char	**create_env(char **env)
 {
 	int		n_lines;
 	char	**rtn;
 
-	n_lines = 0;
-	while (env[n_lines])
-		n_lines++;
-	rtn = (char **) malloc(sizeof(char *) * (n_lines + 1));
-	if (rtn)
+	if (*env)
 	{
-		n_lines = -1;
-		while (env[++n_lines])
+		n_lines = 0;
+		while (env[n_lines])
+			n_lines++;
+		rtn = (char **) malloc(sizeof(char *) * (n_lines + 1));
+		if (rtn)
 		{
-			rtn[n_lines] = ft_strdup(env[n_lines]);
-			if (!rtn[n_lines])
-				return (ft_split_free(rtn));
+			n_lines = -1;
+			while (env[++n_lines])
+			{
+				rtn[n_lines] = ft_strdup(env[n_lines]);
+				if (!rtn[n_lines])
+					return (ft_split_free(rtn));
+			}
+			rtn[n_lines] = NULL;
+			increment_shlvl(&rtn);
 		}
-		rtn[n_lines] = NULL;
-		increment_shlvl(&rtn);
+		return (rtn);
 	}
-	return (rtn);
+	else
+		return (env_empty());
 }
 
 void	builtin_env_print_all(t_msh *msh)
@@ -70,8 +101,7 @@ void	builtin_env_print_all(t_msh *msh)
 	i = -1;
 	while (msh->ev[++i])
 	{
-		if (!(msh->ev[i][0] >= 'a' && msh->ev[i][0] <= 'z'))
-			printf("%s\n", msh->ev[i]);
+		printf("%s\n", msh->ev[i]);
 	}
 }
 
