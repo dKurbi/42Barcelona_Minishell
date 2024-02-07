@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 03:29:34 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/07 09:44:43 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	addstr_to_lst_line(char *str, t_line **lst_line, int i)
 		return ;
 	}
 	sub_str = NULL;
-	printf("str addstr_to_lst_line - %s\n", str);
 	while (i < (int)ft_strlen(str) && str[i])
 	{
 		last = i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:39:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/06 19:41:04 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/07 09:40:14 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	free_exec(t_exec *exec)
 	free_double_str(&exec->exec_arg);
 	close_int_arr(exec->even_pip);
 	close_int_arr(exec->odd_pip);
-	free_3_str(&exec->cmd_no_path, &exec->cmd_with_path, &exec->path);
+	free_2_str(&exec->cmd_with_path, &exec->path);
 }
 
 //to get WIFEXITED, free all and exit form child
