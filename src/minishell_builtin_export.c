@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 20:01:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/08 01:55:48 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	builtin_export_add_all(t_msh *msh)
 			builtin_export_plus(msh, i);
 		else
 			builtin_export_no_plus(msh, var, i);
+		free_str(&var);
 	}
 	return (exit_status);
 }
