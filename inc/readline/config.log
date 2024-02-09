@@ -1936,11 +1936,9 @@ configure: failed program was:
 configure:7048: result: no
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
-Undefined symbols for architecture x86_64:
-  "_tgetent", referenced from:
-      _main in conftest-ff97a7.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/usr/bin/ld: /tmp/ccAA50Yp.o: in function `main':
+/home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:123: undefined reference to `tgetent'
+collect2: error: ld returned 1 exit status
 configure:7074: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -2231,11 +2229,9 @@ configure:7414: $? = 0
 configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
-Undefined symbols for architecture x86_64:
-  "_mbscasecmp", referenced from:
-      _main in conftest-9b9951.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/usr/bin/ld: /tmp/ccgziKOt.o: in function `main':
+/home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscasecmp'
+collect2: error: ld returned 1 exit status
 configure:7421: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -2371,11 +2367,9 @@ configure: failed program was:
 configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
-Undefined symbols for architecture x86_64:
-  "_mbscmp", referenced from:
-      _main in conftest-37a0e0.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/usr/bin/ld: /tmp/ccPDFIN5.o: in function `main':
+/home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscmp'
+collect2: error: ld returned 1 exit status
 configure:7428: $? = 1
 configure: failed program was:
 | /* confdefs.h */
@@ -2519,11 +2513,9 @@ configure:7442: $? = 0
 configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
-Undefined symbols for architecture x86_64:
-  "_mbschr", referenced from:
-      _main in conftest-97c188.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
+/usr/bin/ld: /tmp/ccnlMyXB.o: in function `main':
+/home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:130: undefined reference to `mbschr'
+collect2: error: ld returned 1 exit status
 configure:7450: $? = 1
 configure: failed program was:
 | /* confdefs.h */

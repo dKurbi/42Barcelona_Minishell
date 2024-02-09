@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/07 03:51:30 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/07 18:22:51 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,25 @@ char	*expand(char *var, t_msh *msh)
 {
 	char	*rtn;
 	int		case_quote_at_final;
+	char	*quotes_after_dollar;
 
 	case_quote_at_final = 0;
+	quotes_after_dollar = NULL;
 	var = clean_var(var);
 	rtn = ft_strdup("\0");
 	if (!rtn)
 		print_error_exit(&msh, ERR_MALLOC);
 	if (var[ft_strlen(var) - 1] == QUOTE)
 	{
-		var[ft_strlen(var) - 1] = '\0';
-		case_quote_at_final = 1;
+		case_quote_at_final = count_quotes_final(var);
+		var[ft_strlen(var) - case_quote_at_final] = '\0';
 	}
 	rtn = expand_get_rtn(msh, var, rtn);
-	if (case_quote_at_final)
-		rtn = get_ft_strjoin_modif(rtn, "\'");
+	if (case_quote_at_final >= 1)
+	{
+		quotes_after_dollar = get_str_quotes(case_quote_at_final);
+		rtn = get_ft_strjoin_modif(rtn, quotes_after_dollar);
+		free_str(&quotes_after_dollar);
+	}
 	return (rtn);
 }

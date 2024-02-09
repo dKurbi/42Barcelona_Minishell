@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 22:45:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/15 18:14:23 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 01:09:42 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,22 @@ char	*search_oldpwd(t_msh *msh)
 		}
 	}
 	return (oldpwd);
+}
+
+char	*search_shlvl(char **non_malloced_ev)
+{
+	char	*shlvl;
+	int		i;
+
+	i = -1;
+	shlvl = NULL;
+	while (non_malloced_ev[++i])
+	{
+		if (ft_strnstr(non_malloced_ev[i], "SHLVL=", 6) != NULL)
+		{
+			shlvl = non_malloced_ev[i];
+			return (shlvl + 6);
+		}
+	}
+	return (shlvl);
 }

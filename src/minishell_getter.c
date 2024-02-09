@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_getter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/06 19:42:21 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:46:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char	*get_str_quotes(int quotes)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	s = (char *) malloc(sizeof(char) * (quotes + 1));
+	if (!s)
+		return (NULL);
+	while (i < quotes)
+	{
+		s[i] = QUOTE;
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
+}
 
 //save in msh->exec.cmd_with_path command with $PATH (example: /bin/ls)
 void	get_cmd_with_path(t_msh **msh)

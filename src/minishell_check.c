@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:11:55 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:01:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,32 @@ int	check_ifbuiltin(char *str)
 }
 
 //check if = or if ""= or if =STRING
+//check for + : a+a= - invalid
+//returns 1 if is bad, and 0 if is ok
 int	check_var_equal(char *str)
 {
 	int	i;
+	int	len;
 
 	i = 0;
 	if (check_ifempty_str(str))
 		return (1);
-	else if (str[0] == '=' || ft_isdigit(str[0]))
+	else if (str[0] == '=' || ft_isdigit(str[0]) || str[0] == '+')
 		return (1);
 	else
 	{
-		while (str[i] && (str[i] == QUOTE || str[i] == DQUOTE))
+		len = ft_strlen(str);
+		while (str[i] && str[i] != '=')
+		{
+			if (!ft_isalnum(str[i]))
+			{
+				if (str[i] == '+' && (i == len - 2))
+					return (0);
+				else
+					return (1);
+			}
 			i++;
-		if (str[i] == QUOTE || str[i] == DQUOTE)
-			return (1);
+		}
 	}
 	return (0);
 }

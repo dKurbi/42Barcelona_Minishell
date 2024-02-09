@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 15:00:29 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 03:31:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	increment_shlvl(char ***r)
+void	increment_shlvl(t_msh *msh, char ***r, char *if_shlvl)
 {
 	char	**rtn;
 	int		i;
@@ -20,14 +20,13 @@ void	increment_shlvl(char ***r)
 
 	i = 0;
 	rtn = *r;
-	while (ft_strncmp(rtn[i], "SHLVL=", 6))
+	while (rtn[i] && ft_strncmp(rtn[i], "SHLVL=", 6))
 		i++;
+	if (!if_shlvl)
+		return ;
 	new_level = ft_itoa(ft_atoi(rtn[i] + 6) + 1);
 	if (!new_level)
-	{
-		free_double_str(r);
-		return ;
-	}
+		print_error_exit(&msh, ERR_MALLOC);
 	free_str(&rtn[i]);
 	rtn[i] = ft_strjoin("SHLVL=", new_level);
 	if (!rtn[i])
@@ -39,23 +38,27 @@ void	increment_shlvl(char ***r)
 	free_str(&new_level);
 }
 
-char	**env_empty(void)
+void	create_env_fill(t_msh *msh, char **old_ev, char ***ev, char *if_shlvl)
 {
-	char	**rtn;
-
-	rtn = malloc(sizeof(char *) * 3);
-	if (rtn)
+	int	n_lines;
+  
+	n_lines = -1;
+	while (old_ev[++n_lines])
 	{
-		rtn[0] = ft_strdup("SHLVL=1");
-		rtn[1] = ft_strdup("_=/usr/bin/env");
-		if (!rtn[0])
-			return (NULL);
-		rtn[2] = NULL;
+		(*ev)[n_lines] = ft_strdup(old_ev[n_lines]);
+		if (!(*ev)[n_lines])
+		{
+			ft_split_free((*ev));
+			return ;
+		}
 	}
-	return (rtn);
+	if (!if_shlvl)
+		(*ev)[n_lines++] = ft_strdup("SHLVL=0");
+	(*ev)[n_lines] = NULL;
+	increment_shlvl(msh, ev, if_shlvl);
 }
 
-char	**create_env(char **env)
+char	**create_env(t_msh *msh, char **env)
 {
 	int		n_lines;
 	char	**rtn;
@@ -65,21 +68,14 @@ char	**create_env(char **env)
 		n_lines = 0;
 		while (env[n_lines])
 			n_lines++;
+		if (!search_shlvl(env))
+			n_lines++;
 		rtn = (char **) malloc(sizeof(char *) * (n_lines + 1));
 		if (rtn)
-		{
-			n_lines = -1;
-			while (env[++n_lines])
-			{
-				rtn[n_lines] = ft_strdup(env[n_lines]);
-				if (!rtn[n_lines])
-					return (ft_split_free(rtn));
-			}
-			rtn[n_lines] = NULL;
-			increment_shlvl(&rtn);
-		}
+			create_env_fill(msh, env, &rtn, search_shlvl(env));
 		return (rtn);
 	}
+
 	else
 		return (env_empty());
 }
@@ -91,8 +87,7 @@ void	builtin_env_print_all(t_msh *msh)
 	i = -1;
 	while (msh->ev[++i])
 	{
-		if (!(msh->ev[i][0] >= 'a' && msh->ev[i][0] <= 'z'))
-			printf("%s\n", msh->ev[i]);
+		printf("%s\n", msh->ev[i]);
 	}
 }
 

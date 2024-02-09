@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:13:51 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 00:29:49 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,30 @@ int	if_var_in_env(t_msh *msh, char *var)
 	}
 	free_str(&var);
 	return (-1);
+}
+
+char	**env_empty(void)
+{
+	char	**rtn;
+	char	*current_dir;
+
+	rtn = malloc(sizeof(char *) * 4);
+	if (rtn)
+	{
+		current_dir = getcwd(NULL, 0);
+		rtn[0] = ft_strjoin("PWD=", current_dir);
+		rtn[1] = ft_strdup("SHLVL=1");
+		rtn[2] = ft_strdup("_=/usr/bin/env");
+		if (!rtn[0] || !rtn[1] || !rtn[2] || !current_dir)
+		{
+			if (!current_dir)
+				print_warning(ERR_NO_PWD);
+			free_2_str(&rtn[0], &rtn[1]);
+			free_2_str(&rtn[2], &current_dir);
+			return (free(rtn), NULL);
+		}
+		free_str(&current_dir);
+		rtn[3] = NULL;
+	}
+	return (rtn);
 }
