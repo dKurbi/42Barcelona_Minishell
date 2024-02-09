@@ -41,7 +41,7 @@ void	increment_shlvl(t_msh *msh, char ***r, char *if_shlvl)
 void	create_env_fill(t_msh *msh, char **old_ev, char ***ev, char *if_shlvl)
 {
 	int	n_lines;
-
+  
 	n_lines = -1;
 	while (old_ev[++n_lines])
 	{
@@ -75,6 +75,7 @@ char	**create_env(t_msh *msh, char **env)
 			create_env_fill(msh, env, &rtn, search_shlvl(env));
 		return (rtn);
 	}
+
 	else
 		return (env_empty());
 }
