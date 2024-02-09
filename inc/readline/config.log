@@ -1948,7 +1948,7 @@ configure:7048: $? = 0
 configure:7048: result: yes
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccOM4xKh.o: in function `main':
+/usr/bin/ld: /tmp/ccAA50Yp.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:123: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 configure:7074: $? = 1
@@ -2243,7 +2243,7 @@ configure:7414: $? = 0
 configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccDCqR3z.o: in function `main':
+/usr/bin/ld: /tmp/ccgziKOt.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscasecmp'
 collect2: error: ld returned 1 exit status
 configure:7421: $? = 1
@@ -2382,7 +2382,7 @@ configure: failed program was:
 configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccVs3Jf0.o: in function `main':
+/usr/bin/ld: /tmp/ccPDFIN5.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscmp'
 collect2: error: ld returned 1 exit status
 configure:7428: $? = 1
@@ -2529,7 +2529,7 @@ configure:7442: $? = 0
 configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccUza2no.o: in function `main':
+/usr/bin/ld: /tmp/ccnlMyXB.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:130: undefined reference to `mbschr'
 collect2: error: ld returned 1 exit status
 configure:7450: $? = 1
@@ -2930,6 +2930,7 @@ config.status:951: creating shlib/Makefile
 config.status:951: creating readline.pc
 config.status:951: creating history.pc
 config.status:951: creating config.h
+config.status:1126: config.h is unchanged
 config.status:1140: executing stamp-h commands
 
 ## ---------------- ##

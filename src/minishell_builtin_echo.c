@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 18:07:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/08 22:21:39 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ int	builtin_echo_if_flag(t_msh *msh, int i)
 {
 	int	i_iter;
 
+	if (!msh->exec.exec_arg[i])
+		return (-1);
 	i_iter = 1;
 	if (msh->exec.exec_arg[i][0] != '-')
 		return (-1);
-	else if (msh->exec.exec_arg[i][0] == '-' && msh->exec.exec_arg[i][1] == '\0')
+	else if (msh->exec.exec_arg[i][0] == '-' && \
+			msh->exec.exec_arg[i][1] == '\0')
 		return (-1);
 	while (msh->exec.exec_arg[i][i_iter])
 	{

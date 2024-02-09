@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 20:01:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 02:09:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,11 @@ int			builtin_echo(t_msh *msh);
 //	minishell_builtin_env_utils.c
 int			env_len(t_msh *msh);
 int			if_var_in_env(t_msh *msh, char *var);
+char		**env_empty(void);
 
 //	builtins exec
 //	minishell_builtin_env.c
-char		**env_empty(void);
-char		**create_env(char **env);
+char		**create_env(t_msh *msh, char **env);
 int			builtin_env(t_msh *msh);
 
 //	builtins exec
@@ -341,6 +341,7 @@ char		*search_path(t_msh *msh);
 char		*search_shell(t_msh *msh);
 char		*search_pwd(t_msh *msh);
 char		*search_oldpwd(t_msh *msh);
+char		*search_shlvl(char **non_malloced_ev);
 
 //	Signal handles
 //	minishell_signal_handle.c

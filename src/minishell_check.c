@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 18:53:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:01:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	check_var_equal(char *str)
 	{
 		len = ft_strlen(str);
 		while (str[i] && str[i] != '=')
-		{ 
+		{
 			if (!ft_isalnum(str[i]))
 			{
 				if (str[i] == '+' && (i == len - 2))
@@ -105,7 +105,7 @@ int	check_var_equal(char *str)
 					return (1);
 			}
 			i++;
-		}	
+		}
 	}
 	return (0);
 }

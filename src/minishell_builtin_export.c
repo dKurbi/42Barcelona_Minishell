@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/08 01:55:48 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:54:06 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ void	builtin_export_no_plus(t_msh *msh, char *var, int i)
 	if_in_ev = -1;
 	if_in_ev = if_var_in_env(msh, ft_substr(var, 0, len_before_equal(var)));
 	if (if_in_ev >= 0)
-		export_change_var_in_env(&msh->ev, ft_strdup(msh->exec.exec_arg[i]), if_in_ev);
+		export_change_var_in_env(&msh->ev, \
+								ft_strdup(msh->exec.exec_arg[i]), if_in_ev);
 	else
-		msh->ev = export_append_to_env(msh, msh->ev, ft_strdup(msh->exec.exec_arg[i]));
+		msh->ev = export_append_to_env(msh, msh->ev, \
+										ft_strdup(msh->exec.exec_arg[i]));
 }
 
 int	builtin_export_add_all(t_msh *msh)

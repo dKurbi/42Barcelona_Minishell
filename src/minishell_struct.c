@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:07:57 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/07 09:38:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 00:39:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_msh	*mshnew(char **av, char **env)
 		return (NULL);
 	msh->av = av;
 	msh->exit_status = 0;
-	msh->ev = create_env(env);
+	msh->ev = create_env(msh, env);
 	if (!msh->ev)
 		print_error_exit(&msh, ERR_MALLOC);
 	msh->lst_line = NULL;
