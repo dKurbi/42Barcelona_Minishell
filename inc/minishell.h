@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:42:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:54:11 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	g_exit_status;
 /* -------------------------------------------------------------------------- */
 //	other defines
 # define ONE_COMMAND 1
+# define MAX_EXIT 9223372036854775807
 /* -------------------------------------------------------------------------- */
 
 typedef struct s_exec
@@ -213,11 +214,6 @@ int			builtin_unset(t_msh *msh);
 char		*case_dollar(char *str, t_msh *msh);
 char		*case_dollar_with_quotes(char *str, t_msh *msh);
 char		*case_home(char *str, t_msh *msh);
-
-
-///Users/dkurcbar/.brew/bin:/Users/dkurcbar/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/usr/local/munki
-
-
 
 //	check syntax
 //	minishell_check_syntax.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_command.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:20:50 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:54:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	execute_check_command(t_msh *msh)
 	get_cmd_with_path(&msh);
 	if (check_command(msh->exec.cmd_with_path) == 1)
 	{
-		if (access(msh->exec.exec_arg[0], F_OK) < 0 && msh->exec.exec_arg[0][0] != '/')
+		if (access(msh->exec.exec_arg[0], F_OK) < 0 \
+				&& msh->exec.exec_arg[0][0] != '/')
 			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
 		else if (access(msh->exec.exec_arg[0], F_OK) < 0)
 			print_warning_with_arg(msh->exec.exec_arg[0], ERR_FILE_NO_EXIST);

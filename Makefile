@@ -6,7 +6,7 @@
 #    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/02/09 13:53:40 by dkurcbar         ###   ########.fr        #
+#    Updated: 2024/02/09 14:52:04 by iassambe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ configure_readline: config_readline
 config: config_readline
 
 $(COMPILED_READLINE): configure_readline
-	$(MAKE) -C $(DIR_READLINE) -j 8
+	$(MAKE) -C $(DIR_READLINE)
 
 clean:
 	$(MAKE) -C $(DIR_LIBFT) clean
