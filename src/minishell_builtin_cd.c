@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:52:29 by iassambe          #+#    #+#             */
-/*   Updated: 2024/01/27 18:26:40 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:30:11 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,21 @@ void	builtin_cd_change_pwds(t_msh *msh, char ***ev)
 {
 	char	*current_dir;
 	int		i;
-	char	*search_pwd_old;
 
 	i = -1;
 	current_dir = NULL;
-	search_pwd_old = ft_strdup(search_pwd(msh));
+	change_old_pwd(msh, ev);
 	while ((*ev)[++i])
 	{
-		if (ft_strnstr((*ev)[i], "OLDPWD=", 7) != NULL)
-		{
-			free_str(&(*ev)[i]);
-			(*ev)[i] = ft_strjoin("OLDPWD=", search_pwd_old);
-			free(search_pwd_old);
-		}
 		if (ft_strnstr((*ev)[i], "PWD=", 4) != NULL)
 		{
 			free_str(&(*ev)[i]);
 			current_dir = getcwd(NULL, 0);
 			(*ev)[i] = ft_strjoin("PWD=", current_dir);
+			if (!(*ev)[i])
+				print_error_exit(&msh, ERR_MALLOC);
 			free(current_dir);
 		}
-		if (!(*ev)[i])
-			print_error_exit(&msh, ERR_MALLOC);
 	}
 }
 
@@ -73,7 +66,10 @@ int	builtin_cd_change_dir(t_msh *msh, char *str)
 {
 	if (!str || chdir(str) < 0)
 	{
-		print_perror_with_arg("cd", str);
+		if (!search_oldpwd(msh))
+			print_warning_with_arg("cd", ERR_NO_OLDPWD);
+		else
+			print_perror_with_arg("cd", str);
 		free_str(&str);
 		return (1);
 	}

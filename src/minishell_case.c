@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 03:39:59 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:45:14 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,25 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 	}
 	free_str(&str);
 	return (rtn);
+}
+
+char	*case_home(char *str, t_msh *msh)
+{
+	char	*rtn;
+
+	if (!str)
+		return (NULL);
+	if (str[0] == '~' && str[1] == '\0')
+	{
+		free_str(&str);
+		return (free_str(&str), ft_strdup(search_home(msh)));
+	}
+	else if (str[0] && str[1] == '/')
+	{
+		rtn = ft_strjoin(search_home(msh), str + 1);
+		free_str(&str);
+		return (rtn);
+	}
+	else
+		return (str);
 }

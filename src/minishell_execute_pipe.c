@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:39:42 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:03:57 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ void	execute_child_pipe(t_msh *msh)
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 0);
 	msh->exec.path = search_path(msh);
-	if (!msh->exec.path)
-		exit_free_child(msh, 127);
 	execute_check_command_and_execve(msh);
 	exit_free_child(msh, g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:35:01 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:20:50 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,27 @@ int	execute_child_argv(t_msh **msh)
 	return (0);
 }
 
+void	execute_check_command(t_msh *msh)
+{
+	int	command_status;
+
+	command_status = 127;
+	get_cmd_with_path(&msh);
+	if (check_command(msh->exec.cmd_with_path) == 1)
+	{
+		if (access(msh->exec.exec_arg[0], F_OK) < 0 && msh->exec.exec_arg[0][0] != '/')
+			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
+		else if (access(msh->exec.exec_arg[0], F_OK) < 0)
+			print_warning_with_arg(msh->exec.exec_arg[0], ERR_FILE_NO_EXIST);
+		else
+		{
+			command_status = 126;
+			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_PERM);
+		}
+		exit_free_child(msh, command_status);
+	}
+}
+
 void	execute_check_command_and_execve(t_msh *msh)
 {
 	if (!msh->exec.exec_arg[0])
@@ -50,14 +71,7 @@ void	execute_check_command_and_execve(t_msh *msh)
 		exit_free_child(msh, 126);
 	}
 	if (check_command(msh->exec.exec_arg[0]) == 1)
-	{
-		get_cmd_with_path(&msh);
-		if (check_command(msh->exec.cmd_with_path) == 1)
-		{
-			print_warning_with_arg(msh->exec.exec_arg[0], ERR_NO_CMD);
-			exit_free_child(msh, 127);
-		}
-	}
+		execute_check_command(msh);
 	if (msh->exec.cmd_with_path == NULL)
 	{
 		if (if_script(msh, msh->exec.exec_arg[0]))
@@ -83,8 +97,6 @@ void	execute_child(t_msh *msh)
 	if (execute_child_argv(&msh))
 		exit_free_child(msh, 0);
 	msh->exec.path = search_path(msh);
-	if (!msh->exec.path)
-		exit_free_child(msh, 127);
 	execute_check_command_and_execve(msh);
 	exit_free_child(msh, g_exit_status);
 }

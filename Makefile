@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+         #
+#    By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/09 14:31:28 by iassambe          #+#    #+#              #
-#    Updated: 2024/02/07 18:33:39 by iassambe         ###   ########.fr        #
+#    Updated: 2024/02/09 13:53:40 by dkurcbar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ configure_readline: config_readline
 config: config_readline
 
 $(COMPILED_READLINE): configure_readline
-	$(MAKE) -C $(DIR_READLINE)
+	$(MAKE) -C $(DIR_READLINE) -j 8
 
 clean:
 	$(MAKE) -C $(DIR_LIBFT) clean

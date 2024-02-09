@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 02:09:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:42:09 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	g_exit_status;
 # define ERR_READ "reading from file error\n"
 # define ERR_WRITE "writing from file error\n"
 # define ERR_IS_DIR "is a directory\n"
+# define ERR_NO_OLDPWD "OLDPWD not set\n"
+# define ERR_NO_PERM "Permission denied\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -169,6 +171,7 @@ int			builtin_echo(t_msh *msh);
 int			env_len(t_msh *msh);
 int			if_var_in_env(t_msh *msh, char *var);
 char		**env_empty(void);
+void		change_old_pwd(t_msh *msh, char ***ev);
 
 //	builtins exec
 //	minishell_builtin_env.c
@@ -209,6 +212,12 @@ int			builtin_unset(t_msh *msh);
 //	minishell_case.c
 char		*case_dollar(char *str, t_msh *msh);
 char		*case_dollar_with_quotes(char *str, t_msh *msh);
+char		*case_home(char *str, t_msh *msh);
+
+
+///Users/dkurcbar/.brew/bin:/Users/dkurcbar/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/usr/local/munki
+
+
 
 //	check syntax
 //	minishell_check_syntax.c

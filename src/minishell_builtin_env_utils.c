@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 00:29:49 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:09:31 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,32 @@ char	**env_empty(void)
 		rtn[3] = NULL;
 	}
 	return (rtn);
+}
+
+void	change_old_pwd(t_msh *msh, char ***ev)
+{
+	char	*search_pwd_old;
+	int		is_oldpwd;
+	char	*oldpwd;
+	int		i;
+
+	i = -1;
+	is_oldpwd = 0;
+	search_pwd_old = ft_strdup(search_pwd(msh));
+	oldpwd = ft_strjoin("OLDPWD=", search_pwd_old);
+	if (!oldpwd)
+		print_error_exit(&msh, ERR_MALLOC);
+	while ((*ev)[++i])
+	{
+		if (ft_strnstr((*ev)[i], "OLDPWD=", 7) != NULL)
+		{
+			free_str(&(*ev)[i]);
+			(*ev)[i] = oldpwd;
+			free(search_pwd_old);
+			is_oldpwd = 1;
+		}
+	}
+	if (!is_oldpwd)
+		*ev = export_append_to_env(msh, *ev, \
+			ft_strjoin("OLDPWD=", search_pwd_old));
 }

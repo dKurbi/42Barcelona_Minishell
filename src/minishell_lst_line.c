@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 03:53:11 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 14:40:26 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	{
 		if (ft_strchr(split_line[i], '$') != NULL)
 			split_line[i] = case_dollar(split_line[i], msh);
+		else if (ft_strchr(split_line[i], '~') != NULL)
+			split_line[i] = case_home(split_line[i], msh);
+		if (!split_line[i])
+			print_error_exit(&msh, ERR_MALLOC);
 		addstr_to_lst_line(split_line[i], lst_line, 0);
 	}
 	free(split_line);

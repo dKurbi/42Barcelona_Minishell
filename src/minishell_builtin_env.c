@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 03:31:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:19:45 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	increment_shlvl(t_msh *msh, char ***r, char *if_shlvl)
 void	create_env_fill(t_msh *msh, char **old_ev, char ***ev, char *if_shlvl)
 {
 	int	n_lines;
-  
+
 	n_lines = -1;
 	while (old_ev[++n_lines])
 	{
@@ -53,7 +53,7 @@ void	create_env_fill(t_msh *msh, char **old_ev, char ***ev, char *if_shlvl)
 		}
 	}
 	if (!if_shlvl)
-		(*ev)[n_lines++] = ft_strdup("SHLVL=0");
+		(*ev)[n_lines++] = ft_strdup("SHLVL=1");
 	(*ev)[n_lines] = NULL;
 	increment_shlvl(msh, ev, if_shlvl);
 }
@@ -75,7 +75,6 @@ char	**create_env(t_msh *msh, char **env)
 			create_env_fill(msh, env, &rtn, search_shlvl(env));
 		return (rtn);
 	}
-
 	else
 		return (env_empty());
 }
