@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 09:44:43 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:17:03 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ int	skip_operators(char *str, int i)
 }
 
 //add a new str to lst_line
-void	addstr_to_lst_line(char *str, t_line **lst_line, int i)
+void	addstr_to_lst_line(char *str, t_line **lst_line, int in_qt, int i)
 {
 	int		last;
 	char	*sub_str;
 
 	if (check_operators(str) == 0)
 	{
-		add_new_line_node(str, decide_type(str), lst_line);
+		add_new_line_node(str, decide_type(str, in_qt), lst_line);
 		return ;
 	}
 	sub_str = NULL;
@@ -84,7 +84,8 @@ void	addstr_to_lst_line(char *str, t_line **lst_line, int i)
 		if (str[i] != IPUT_RED && str[i] != OPUT_RED)
 		{
 			sub_str = ft_substr(str, i, last - i);
-			add_new_line_node(sub_str, decide_type(sub_str), lst_line);
+			add_new_line_node(sub_str, \
+							decide_type(sub_str, REDIR_NO_QUOTES), lst_line);
 		}
 		decide_operators(str, last, lst_line);
 		i = skip_operators(str, last);

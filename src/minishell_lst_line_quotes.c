@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:44:13 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:14:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 {
 	char	*str;
 
+	crt.in_quotes = 1;
 	str = ft_substr(crt.rline, i, \
 			where_next_quote_is(crt.rline, crt.rline[i], i + 1) - i + 1);
 	if (!str)
@@ -73,7 +74,7 @@ int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	if ((i - 1) >= 0 && crt.rline[i - 1] != ' ' && crt.rline[i - 1] != '\t')
 		return (lst_char_bef(msh, lst_line, crt, i));
 	str = strtrim_str_quotes(str);
-	addstr_to_lst_line(str, lst_line, 0);
+	addstr_to_lst_line(str, lst_line, crt.in_quotes, 0);
 	i = where_next_quote_is(crt.rline, crt.rline[i], i + 1) + 1;
 	return (i);
 }
@@ -90,7 +91,7 @@ int	lst_add_str(t_msh *msh, t_line **lst_line, t_create crt, int i)
 	if ((i - 1) >= 0 && \
 	(crt.rline[i - 1] == QUOTE || crt.rline[i - 1] == DQUOTE))
 		return (lst_quote_bef(msh, lst_line, crt, i));
-	addstr_to_lst_line(str, lst_line, 0);
+	addstr_to_lst_line(str, lst_line, 0, 0);
 	i = crt.last;
 	return (i);
 }

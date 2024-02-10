@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:05:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 18:21:23 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:23:18 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ int	count_quotes_final(char *var)
 		how_many_quotes++;
 	}
 	return (how_many_quotes);
+}
+
+//close IF only its >=0
+void	ft_close(int *fd)
+{
+	if (*fd < 0)
+		return ;
+	close(*fd);
+	*fd = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/08 18:01:57 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/10 04:33:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	initial_check(t_msh *msh)
 		ft_printf("exit\n");
 		return (1);
 	}
-	if (msh->read_line[0] != '\0')
+	if (msh->read_line[0] == '\0' || check_ifempty_str(msh->read_line) == 1)
+		return (0);
+	else
 		add_history(msh->read_line);
 	return (0);
 }
