@@ -6,12 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:35 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/08 17:46:45 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:59:45 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//str with '
 char	*get_str_quotes(int quotes)
 {
 	int		i;

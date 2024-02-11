@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:40:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:16:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 
 	i = 0;
 	create.rline = rline;
+	create.in_quotes = 0;
 	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
 		i = new_lst_loop(msh, lst_line, create, i);
@@ -68,7 +69,7 @@ t_line	*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline)
 			split_line[i] = case_home(split_line[i], msh);
 		if (!split_line[i])
 			print_error_exit(&msh, ERR_MALLOC);
-		addstr_to_lst_line(split_line[i], lst_line, 0);
+		addstr_to_lst_line(split_line[i], lst_line, REDIR_NO_QUOTES, 0);
 	}
 	free(split_line);
 	return (*lst_line);
@@ -85,7 +86,7 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	lst_line = NULL;
 	if (read_line[0] == '\0')
 	{
-		add_new_line_node(ft_strdup(""), decide_type(""), &lst_line);
+		add_new_line_node(ft_strdup(""), decide_type("", REDIR_NO_QUOTES), &lst_line);
 		return (lst_line);
 	}
 	is_quotes = is_quotes_pair(read_line, 0, -1);

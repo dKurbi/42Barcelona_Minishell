@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:42:09 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/11 02:56:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ int	g_exit_status;
 # define ERR_IS_DIR "is a directory\n"
 # define ERR_NO_OLDPWD "OLDPWD not set\n"
 # define ERR_NO_PERM "Permission denied\n"
+# define ERR_NO_CURR_DIR "cd: error retrieving current directory: getcwd: \
+cannot access parent directories: No such file or directory\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 //	type code
-# define TYPE_STR 0
-# define TYPE_CMD 1
+# define TYPE_CMD 0
+# define TYPE_STR 1
 # define TYPE_HDC 2
 # define TYPE_APND 3
 # define TYPE_OPUT_RED 4
@@ -99,6 +101,8 @@ int	g_exit_status;
 /* -------------------------------------------------------------------------- */
 //	other defines
 # define ONE_COMMAND 1
+# define MAX_EXIT 9223372036854775807
+# define REDIR_NO_QUOTES 0
 /* -------------------------------------------------------------------------- */
 
 typedef struct s_exec
@@ -123,6 +127,7 @@ typedef struct s_create
 	int		last;
 	char	*join;
 	char	*str;
+	int		in_quotes;
 }	t_create;
 
 typedef struct s_line
@@ -213,11 +218,6 @@ int			builtin_unset(t_msh *msh);
 char		*case_dollar(char *str, t_msh *msh);
 char		*case_dollar_with_quotes(char *str, t_msh *msh);
 char		*case_home(char *str, t_msh *msh);
-
-
-///Users/dkurcbar/.brew/bin:/Users/dkurcbar/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/usr/local/munki
-
-
 
 //	check syntax
 //	minishell_check_syntax.c
@@ -325,12 +325,17 @@ t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 
+
+void	PRINT_lst_line(t_line *lst_line);
+
+
+
 //	operators
 //	minishell_operators.c
 int			check_operators(char *str);
-void		decide_operators(char *str, int i, t_line **lst_line);
+void		decide_operators(char *str, int i, t_line **lst_line, int in_qt);
 int			skip_operators(char *str, int i);
-void		addstr_to_lst_line(char *str, t_line **lst_line, int i);
+void		addstr_to_lst_line(char *str, t_line **lst_line, int in_qt, int i);
 
 //	pipe
 //	minishell_pipe.c
@@ -377,14 +382,14 @@ t_line		*ft_lst_line_last(t_line *lst);
 int			calculate_len_lst_pipe(t_pipe *lst_pipe);
 t_line		*ft_lstdup(t_line *original);
 int			count_quotes_final(char *var);
+void		ft_close(int *fd);
 
 //	utils 2 part
 //	minishell_utils_2.c
 int			calculate_len_lst_line(t_line *lst_line);
 int			calculate_last_pos_word(char *str, int i);
 char		*strtrim_str_quotes(char *str);
-int			decide_type(char *str);
-void		ft_close(int *fd);
+int			decide_type(char *str, int redir_in_quotes);
 
 //	utils 1 part
 //	minishell_utils.c

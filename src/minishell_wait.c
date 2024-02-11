@@ -6,13 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:10:18 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 01:35:39 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:58:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//para pipes
+//for pipes
 void	waitpid_process(t_msh *msh, int num_commands)
 {
 	int	status;

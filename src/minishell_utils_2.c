@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:59:07 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/10 05:39:27 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,28 @@ char	*strtrim_str_quotes(char *str)
 	return (new_str);
 }
 
+int	decide_type_redirection(char *str, int redir_in_quotes)
+{
+	int	if_is_redir;
+
+	if_is_redir = 0;
+	if (str[0] == '<' && str[1] == '<')
+		if_is_redir = TYPE_HDC;
+	else if (str[0] == '>' && str[1] == '>')
+		if_is_redir = TYPE_APND;
+	else if (str[0] == IPUT_RED)
+		if_is_redir = TYPE_IPUT_RED;
+	else if (str[0] == OPUT_RED)
+		if_is_redir = TYPE_OPUT_RED;
+	if (if_is_redir && redir_in_quotes)
+		return (TYPE_STR);
+	else if (if_is_redir && !redir_in_quotes)
+		return (if_is_redir);
+	return (0);
+}
+
 //return the type of string
-int	decide_type(char *str)
+int		decide_type(char *str, int redir_in_quotes)
 {
 	if (!str)
 		return (-1);
@@ -67,23 +87,8 @@ int	decide_type(char *str)
 	else if ((str[0] == QUOTE && str[ft_strlen(str) - 1] == QUOTE) || \
 				(str[0] == DQUOTE && str[ft_strlen(str) - 1] == DQUOTE))
 		return (TYPE_STR);
-	else if (str[0] == '<' && str[1] == '<')
-		return (TYPE_HDC);
-	else if (str[0] == '>' && str[1] == '>')
-		return (TYPE_APND);
-	else if (str[0] == IPUT_RED)
-		return (TYPE_IPUT_RED);
-	else if (str[0] == OPUT_RED)
-		return (TYPE_OPUT_RED);
+	else if (decide_type_redirection(str, redir_in_quotes))
+		return (decide_type_redirection(str, redir_in_quotes));
 	else
 		return (TYPE_CMD);
-}
-
-//close IF only its >=0
-void	ft_close(int *fd)
-{
-	if (*fd < 0)
-		return ;
-	close(*fd);
-	*fd = -1;
 }
