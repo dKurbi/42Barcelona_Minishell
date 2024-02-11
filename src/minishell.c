@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/11 05:24:27 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:16:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	preparing_commands(t_msh *msh)
 		print_warning(ERR_QUOTE);
 		return (1);
 	}
+	//PRINT_lst_line(msh->lst_line);
 	if (check_syntax(msh))
 	{
 		print_warning(ERR_SYNTAX);
@@ -67,6 +68,10 @@ int	main(int ac, char **av, char **ev)
 			break ;
 		if (preparing_commands(msh) != 1)
 			execution(msh);
+
+
+			
+ 		//preparing_commands(msh);
 		free_main_loop(msh);
 	}
 	rl_clear_history();
