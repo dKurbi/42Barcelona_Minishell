@@ -6,13 +6,14 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 05:17:03 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/11 03:09:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //check <<, >, etc.
+//no operators - 0, operators - 1
 int	check_operators(char *str)
 {
 	int	i;
@@ -41,10 +42,31 @@ int	check_operators(char *str)
 	return (0);
 }
 
-//add to our lst_line malloced redirections
-void	decide_operators(char *str, int i, t_line **lst_line)
+char	*decide_operators_which_str_operator(int type)
 {
-	if (str[i] && (str[i] == IPUT_RED) && \
+	char	*which_str;
+
+	which_str = NULL;
+	if (type == TYPE_HDC)
+		which_str = STR_HEREDOC;
+	else if (type == TYPE_APND)
+		which_str = STR_APPEND;
+	else if (type == TYPE_OPUT_RED)
+		which_str = STR_OUTPUT;
+	else if (type == TYPE_IPUT_RED)
+		which_str = STR_INPUT;
+	return (which_str);
+}
+
+//add to our lst_line malloced redirections
+void	decide_operators(char *str, int i, t_line **lst_line, int in_qt)
+{
+	char	*which_str;
+	int		type;
+
+	which_str = NULL;
+	type = 0;
+/* 	if (str[i] && (str[i] == IPUT_RED) && \
 		str[i + 1] && str[i] == str[i + 1])
 		add_new_line_node(ft_strdup(STR_HEREDOC), TYPE_HDC, lst_line);
 	else if (str[i] && (str[i] == OPUT_RED) && \
@@ -53,7 +75,24 @@ void	decide_operators(char *str, int i, t_line **lst_line)
 	else if (str[i] && (str[i] == OPUT_RED))
 		add_new_line_node(ft_strdup(STR_OUTPUT), TYPE_OPUT_RED, lst_line);
 	else if (str[i] && (str[i] == IPUT_RED))
-		add_new_line_node(ft_strdup(STR_INPUT), TYPE_IPUT_RED, lst_line);
+		add_new_line_node(ft_strdup(STR_INPUT), TYPE_IPUT_RED, lst_line); */
+	if (str[i] && (str[i] == IPUT_RED) && \
+		str[i + 1] && str[i] == str[i + 1])
+		type = TYPE_HDC;
+	else if (str[i] && (str[i] == OPUT_RED) && \
+		str[i + 1] && str[i] == str[i + 1])
+		type = TYPE_APND;
+	else if (str[i] && (str[i] == OPUT_RED))
+		type = TYPE_OPUT_RED;
+	else if (str[i] && (str[i] == IPUT_RED))
+		type = TYPE_IPUT_RED;
+	if (type)
+	{
+		which_str = decide_operators_which_str_operator(type);
+		if (in_qt)
+			type = TYPE_STR;
+		add_new_line_node(ft_strdup(which_str), type, lst_line);
+	}
 }
 
 //skip operators in iteration
@@ -87,7 +126,7 @@ void	addstr_to_lst_line(char *str, t_line **lst_line, int in_qt, int i)
 			add_new_line_node(sub_str, \
 							decide_type(sub_str, REDIR_NO_QUOTES), lst_line);
 		}
-		decide_operators(str, last, lst_line);
+		decide_operators(str, last, lst_line, in_qt);
 		i = skip_operators(str, last);
 	}
 	free_str(&str);

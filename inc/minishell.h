@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 05:41:06 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/11 02:56:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	g_exit_status;
 # define ERR_IS_DIR "is a directory\n"
 # define ERR_NO_OLDPWD "OLDPWD not set\n"
 # define ERR_NO_PERM "Permission denied\n"
+# define ERR_NO_CURR_DIR "cd: error retrieving current directory: getcwd: \
+cannot access parent directories: No such file or directory\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -323,10 +325,15 @@ t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 
+
+void	PRINT_lst_line(t_line *lst_line);
+
+
+
 //	operators
 //	minishell_operators.c
 int			check_operators(char *str);
-void		decide_operators(char *str, int i, t_line **lst_line);
+void		decide_operators(char *str, int i, t_line **lst_line, int in_qt);
 int			skip_operators(char *str, int i);
 void		addstr_to_lst_line(char *str, t_line **lst_line, int in_qt, int i);
 
