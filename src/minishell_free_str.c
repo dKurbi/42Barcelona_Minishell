@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:03:00 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/07 09:39:20 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/11 19:58:06 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_double_str(char ***double_str)
 {
 	int	i;
 
-	if (*double_str == NULL)
+	if (*double_str == NULL || double_str == NULL)
 		return ;
 	i = 0;
 	while ((*double_str)[i])

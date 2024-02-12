@@ -10,8 +10,8 @@ void	PRINT_lst_line(t_line *lst_line)
 	t_line *copy = lst_line;
 	while (copy != NULL)
 	{
-		printf("LSTLINE LOOP: str - %s\n", copy->str);
-		printf("LSTLINE LOOP: type - %d\n", copy->type);
+		printf("LSTLINE LOOP: str - %s, pointer - %p\n", copy->str, copy->str);
+		//printf("LSTLINE LOOP: type - %d\n", copy->type);
 		copy = copy->next;
 	}
 }

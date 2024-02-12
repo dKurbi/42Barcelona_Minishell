@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:45:14 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:10:28 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 	add_join = get_ft_strjoin_modif(aux[0], aux[1]);
 	*i = dp + 1;
 	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' \
-			&& str[*i] != '\"' && str[*i] != '$')
+			&& str[*i] != DQUOTE && str[*i] != '$' && str[*i] != QUOTE)
 		(*i)++;
 	free_str(&aux[1]);
 	return (add_join);
@@ -69,6 +69,7 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 	rtn = NULL;
 	while (str[i])
 	{
+		printf("case_dollar_with_quotes - %s\n", str);
 		dp = where_is_dollar(str, i);
 		if (dp != -1)
 			add_join = case_quotes_next_dollar(str, msh, dp, &i);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/08 22:21:39 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:20:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,13 @@ void	builtin_echo_loop(t_msh *msh, int i)
 {
 	while (msh->exec.exec_arg[i])
 	{
-		if (msh->exec.exec_arg[i + 1] == NULL)
-			printf("%s", msh->exec.exec_arg[i]);
+		if (msh->exec.exec_arg[i + 1] == NULL)//no spac
+			write(1, msh->exec.exec_arg[i], ft_strlen(msh->exec.exec_arg[i]));
 		else
-			printf("%s ", msh->exec.exec_arg[i]);
+		{
+			write(1, msh->exec.exec_arg[i], ft_strlen(msh->exec.exec_arg[i]));
+			write(1, " ", ft_strlen(" "));
+		}
 		i++;
 	}
 }
@@ -75,6 +78,6 @@ int	builtin_echo(t_msh *msh)
 	}
 	builtin_echo_loop(msh, i);
 	if (flag_status == 0)
-		printf("\n");
+		write(STDOUT_FILENO, "\n", ft_strlen("\n"));
 	return (0);
 }
