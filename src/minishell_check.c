@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 15:38:10 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:39:12 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	check_var_equal(char *str)
 		len = ft_strlen(str);
 		while (str[i] && str[i] != '=')
 		{
-			if (!ft_isalnum(str[i]))
+			if (!ft_isalnum(str[i]) && str[i] != '_')
 			{
 				if (str[i] == '+' && (i == len - 2))
 					return (0);

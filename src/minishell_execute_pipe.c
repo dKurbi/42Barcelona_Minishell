@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute_pipe.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 14:03:57 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:21:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,29 @@ int	control_redirection_pipes(t_msh *msh)
 	return (0);
 }
 
+void	execute_child_pipe(t_msh *msh)
+{
+	if (check_ifbuiltin(msh->exec.exec_arg[0]))
+		execute_builtin_pipes(msh);
+	if (control_redirection_pipes(msh))
+	{
+		ft_close(&msh->exec.fd_stdin);
+		ft_close(&msh->exec.fd_stdout);
+		ft_close(&msh->exec.pip[0]);
+		ft_close(&msh->exec.pip[1]);
+		exit(1);
+	}
+	signal_control_exec(msh);
+	if (execute_child_argv(&msh))
+		exit_free_child(msh, 0);
+	msh->exec.path = search_path(msh);
+	execute_check_command_and_execve(msh);
+	exit_free_child(msh, g_exit_status);
+}
+
 void	execute_cmd_pipe(t_msh *msh)
 {
 	signal_control_block();
-	if (check_ifbuiltin(msh->exec.exec_arg[0]))
-	{
-		execute_builtin_pipes(msh);
-		return ;
-	}
 	if (pipe(msh->exec.pip) < 0)
 		print_error_exit(&msh, ERR_PIPE);
 	msh->exec.proc = fork();
@@ -71,27 +86,12 @@ void	execute_cmd_pipe(t_msh *msh)
 	ft_close(&msh->exec.pip[1]);
 }
 
-void	execute_child_pipe(t_msh *msh)
-{
-	if (control_redirection_pipes(msh))
-	{
-		ft_close(&msh->exec.fd_stdin);
-		ft_close(&msh->exec.fd_stdout);
-		ft_close(&msh->exec.pip[0]);
-		ft_close(&msh->exec.pip[1]);
-		exit(1);
-	}
-	signal_control_exec(msh);
-	if (execute_child_argv(&msh))
-		exit_free_child(msh, 0);
-	msh->exec.path = search_path(msh);
-	execute_check_command_and_execve(msh);
-	exit_free_child(msh, g_exit_status);
-}
-
 //execute builtins for pipes
 void	execute_builtin_pipes(t_msh *msh)
 {
+	int	status;
+
+	status = 0;
 	if (control_redirection_pipes(msh))
 	{
 		g_exit_status = 1;
@@ -99,22 +99,23 @@ void	execute_builtin_pipes(t_msh *msh)
 		dup2(msh->exec.fd_stdout, STDOUT_FILENO);
 		ft_close(&msh->exec.fd_stdin);
 		ft_close(&msh->exec.fd_stdout);
-		return ;
+		exit_free_child(msh, 1);
 	}
 	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
-		g_exit_status = builtin_echo(msh);
+		status = builtin_echo(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
-		g_exit_status = builtin_cd(msh);
+		status = builtin_cd(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "pwd", 3))
-		g_exit_status = builtin_pwd(msh);
+		status = builtin_pwd(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "export", 6))
-		g_exit_status = builtin_export(msh);
+		status = builtin_export(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "unset", 5))
-		g_exit_status = builtin_unset(msh);
+		status = builtin_unset(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "env", 3))
-		g_exit_status = builtin_env(msh);
+		status = builtin_env(msh);
 	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
-		g_exit_status = builtin_exit(msh);
+		status = builtin_exit(msh);
+	exit_free_child(msh, status);
 }
 
 //execute pipes (ls | cat)
@@ -141,6 +142,6 @@ void	execution_pipes(t_msh *msh)
 	close_int_arr(msh->exec.odd_pip);
 	close_int_arr(msh->exec.even_pip);
 	restore_redirection(msh);
-	waitpid_process(msh, i);
+	wait_process(msh, msh->exec.proc, i + 1);
 	g_exit_status = msh->exit_status;
 }
