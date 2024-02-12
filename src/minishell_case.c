@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/11 21:10:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:31:50 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 	if (!aux[0] || !aux[1])
 		print_error_exit(&msh, ERR_MALLOC);
 	add_join = get_ft_strjoin_modif(aux[0], aux[1]);
-	*i = dp + 1;
-	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' \
-			&& str[*i] != DQUOTE && str[*i] != '$' && str[*i] != QUOTE)
-		(*i)++;
 	free_str(&aux[1]);
+	if (!add_join)
+		print_error_exit(&msh, ERR_MALLOC);
+	*i = dp + 1;
+	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && str[*i] != DQUOTE \
+			&& str[*i] != '$' && str[*i] != QUOTE && !ft_inquotes_case(str[*i]))
+		(*i)++;
 	return (add_join);
 }
 
@@ -51,6 +53,8 @@ char	*case_dollar(char *str, t_msh *msh)
 			break ;
 		rtn = get_ft_strjoin_modif(rtn, add_join);
 		free_str(&add_join);
+		if (!rtn)
+			print_error_exit(&msh, ERR_MALLOC);
 	}
 	free_str(&str);
 	return (rtn);
@@ -69,7 +73,6 @@ char	*case_dollar_with_quotes(char *str, t_msh *msh)
 	rtn = NULL;
 	while (str[i])
 	{
-		printf("case_dollar_with_quotes - %s\n", str);
 		dp = where_is_dollar(str, i);
 		if (dp != -1)
 			add_join = case_quotes_next_dollar(str, msh, dp, &i);

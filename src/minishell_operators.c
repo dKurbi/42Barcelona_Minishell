@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 02:22:36 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/11 03:09:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:21:57 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,6 @@ void	decide_operators(char *str, int i, t_line **lst_line, int in_qt)
 
 	which_str = NULL;
 	type = 0;
-/* 	if (str[i] && (str[i] == IPUT_RED) && \
-		str[i + 1] && str[i] == str[i + 1])
-		add_new_line_node(ft_strdup(STR_HEREDOC), TYPE_HDC, lst_line);
-	else if (str[i] && (str[i] == OPUT_RED) && \
-		str[i + 1] && str[i] == str[i + 1])
-		add_new_line_node(ft_strdup(STR_APPEND), TYPE_APND, lst_line);
-	else if (str[i] && (str[i] == OPUT_RED))
-		add_new_line_node(ft_strdup(STR_OUTPUT), TYPE_OPUT_RED, lst_line);
-	else if (str[i] && (str[i] == IPUT_RED))
-		add_new_line_node(ft_strdup(STR_INPUT), TYPE_IPUT_RED, lst_line); */
 	if (str[i] && (str[i] == IPUT_RED) && \
 		str[i + 1] && str[i] == str[i + 1])
 		type = TYPE_HDC;
@@ -109,7 +99,7 @@ void	addstr_to_lst_line(char *str, t_line **lst_line, int in_qt, int i)
 	int		last;
 	char	*sub_str;
 
-	if (check_operators(str) == 0)
+	if (check_operators(str) == 0 || (check_operators(str) == 1 && in_qt == 1))
 	{
 		add_new_line_node(str, decide_type(str, in_qt), lst_line);
 		return ;

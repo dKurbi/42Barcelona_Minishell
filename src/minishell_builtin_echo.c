@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/11 18:20:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:53:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	builtin_echo_loop(t_msh *msh, int i)
 {
 	while (msh->exec.exec_arg[i])
 	{
-		if (msh->exec.exec_arg[i + 1] == NULL)//no spac
+		if (msh->exec.exec_arg[i + 1] == NULL)
 			write(1, msh->exec.exec_arg[i], ft_strlen(msh->exec.exec_arg[i]));
 		else
 		{

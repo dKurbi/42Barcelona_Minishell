@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 05:10:37 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:52:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ t_line	*new_lst_line(t_msh *msh, char *read_line)
 	lst_line = NULL;
 	if (read_line[0] == '\0')
 	{
-		add_new_line_node(ft_strdup(""), decide_type("", REDIR_NO_QUOTES), &lst_line);
+		add_new_line_node(ft_strdup(""), \
+						decide_type("", REDIR_NO_QUOTES), &lst_line);
 		return (lst_line);
 	}
 	is_quotes = is_quotes_pair(read_line, 0, -1);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 16:32:00 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:44:24 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ int	main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	msh = NULL;
-	if (!isatty(STDIN_FILENO))
-		print_error_exit(&msh, ERR_NOT_TTY);
+/* 	if (!isatty(STDIN_FILENO))
+		print_error_exit(&msh, ERR_NOT_TTY); */
 	if (ac != 1)
 		print_error_exit(&msh, ERR_AC);
 	msh = mshnew(av, ev);

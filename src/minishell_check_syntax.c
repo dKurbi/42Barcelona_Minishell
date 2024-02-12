@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check_syntax.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:33:37 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 15:40:40 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:53:08 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 //check if it has chars in ascii, if not - return 1
-int check_isvalid(t_msh *msh)
+int	check_isvalid(t_msh *msh)
 {
 	int		i;
 	char	*str;
-	
+
 	if (msh->read_line)
 	{
 		str = msh->read_line;

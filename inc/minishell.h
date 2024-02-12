@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 16:13:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:31:22 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,6 +389,7 @@ int			calculate_len_lst_pipe(t_pipe *lst_pipe);
 t_line		*ft_lstdup(t_line *original);
 int			count_quotes_final(char *var);
 void		ft_close(int *fd);
+int			ft_inquotes_case(int c);
 
 //	utils 2 part
 //	minishell_utils_2.c
