@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/11 18:32:13 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:13:40 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,6 @@ typedef struct s_exec
 	pid_t	proc;
 }	t_exec;
 
-typedef struct s_create
-{
-	char	*rline;
-	int		last;
-	char	*join;
-	char	*str;
-	int		in_quotes;
-}	t_create;
-
 typedef struct s_line
 {
 	char			*str;
@@ -143,6 +134,16 @@ typedef struct s_pipe
 	int				fd_heredoc[2];
 	struct s_pipe	*next;
 }	t_pipe;
+
+typedef struct s_create
+{
+	char	*rline;
+	int		last;
+	char	*join;
+	char	*str;
+	int		in_quotes;
+	t_line	*last_l;
+}	t_create;
 
 typedef struct s_msh
 {

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 20:32:03 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 05:16:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 05:10:37 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_line	*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline)
 	create.in_quotes = 0;
 	while (rline[i] != '\0' && i < (int)ft_strlen(rline))
 	{
+		create.last_l = NULL;
 		i = new_lst_loop(msh, lst_line, create, i);
 		if (i < 0 && i == -2)
 			break ;
