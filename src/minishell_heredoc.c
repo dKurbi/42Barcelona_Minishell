@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:50:51 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:42:47 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:38:36 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ int	write_heredoc(t_msh *msh, t_line *copy, int hdc_pip)
 	signal_control_heredoc(msh);
 	line = NULL;
 	line = readline("> ");
-	while (ft_strncmp(line, copy->next->str, ft_strlen(copy->next->str)) \
-			|| ft_strlen(line) != ft_strlen(copy->next->str))
+	while (line != NULL && (ft_strncmp(line, copy->next->str, \
+			ft_strlen(copy->next->str)) || \
+			ft_strlen(line) != ft_strlen(copy->next->str)))
 	{
 		ft_putstr_fd(line, hdc_pip);
 		ft_putchar_fd('\n', hdc_pip);
@@ -29,7 +30,7 @@ int	write_heredoc(t_msh *msh, t_line *copy, int hdc_pip)
 	}
 	free_str(&line);
 	ft_close(&hdc_pip);
-	exit(0);
+	return (0);
 }
 
 static void	init_fwh(int *nb, int *hdc_pip, int *hdc_status, t_msh *msh)

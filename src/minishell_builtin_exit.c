@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 18:32:44 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:09:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ int	builtin_exit(t_msh *msh)
 {
 	int	status;
 
-	if (msh->lst_pipe != NULL)
-		return (0);
-	printf("exit\n");
+	if (msh->lst_pipe == NULL)
+		printf("exit\n");
 	if (!msh->exec.exec_arg[1])
 	{
 		free_msh(&msh);

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 16:44:24 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:58:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	preparing_commands(t_msh *msh)
 		print_warning(ERR_QUOTE);
 		return (1);
 	}
-	//PRINT_lst_line(msh->lst_line);
 	if (check_syntax(msh))
 	{
 		print_warning(ERR_SYNTAX);
@@ -54,8 +53,8 @@ int	main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	msh = NULL;
-/* 	if (!isatty(STDIN_FILENO))
-		print_error_exit(&msh, ERR_NOT_TTY); */
+	if (!isatty(STDIN_FILENO))
+		print_error_exit(&msh, ERR_NOT_TTY);
 	if (ac != 1)
 		print_error_exit(&msh, ERR_AC);
 	msh = mshnew(av, ev);

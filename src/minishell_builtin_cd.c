@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 19:52:29 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 20:08:52 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:02:32 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*search_home(t_msh *msh)
 	return (home);
 }
 
+//if we have ~
 char	*builtin_cd_join_home(t_msh *msh)
 {
 	char	*join;

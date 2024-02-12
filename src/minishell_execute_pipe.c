@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:32 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 19:21:32 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:45:27 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,6 @@ void	execute_cmd_pipe(t_msh *msh)
 //execute builtins for pipes
 void	execute_builtin_pipes(t_msh *msh)
 {
-	int	status;
-
-	status = 0;
 	if (control_redirection_pipes(msh))
 	{
 		g_exit_status = 1;
@@ -102,20 +99,19 @@ void	execute_builtin_pipes(t_msh *msh)
 		exit_free_child(msh, 1);
 	}
 	if (!strncmp(msh->exec.exec_arg[0], "echo", 4))
-		status = builtin_echo(msh);
+		exit_free_child(msh, builtin_echo(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "cd", 2))
-		status = builtin_cd(msh);
+		exit_free_child(msh, builtin_cd(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "pwd", 3))
-		status = builtin_pwd(msh);
+		exit_free_child(msh, builtin_pwd(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "export", 6))
-		status = builtin_export(msh);
+		exit_free_child(msh, builtin_export(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "unset", 5))
-		status = builtin_unset(msh);
+		exit_free_child(msh, builtin_unset(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "env", 3))
-		status = builtin_env(msh);
+		exit_free_child(msh, builtin_env(msh));
 	else if (!strncmp(msh->exec.exec_arg[0], "exit", 4))
-		status = builtin_exit(msh);
-	exit_free_child(msh, status);
+		exit_free_child(msh, builtin_exit(msh));
 }
 
 //execute pipes (ls | cat)
