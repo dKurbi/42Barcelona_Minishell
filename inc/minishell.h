@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 15:52:36 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:13:10 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	g_exit_status;
 # define ERR_NO_CURR_DIR "cd: error retrieving current directory: getcwd: \
 cannot access parent directories: No such file or directory\n"
 # define ERR_NO_ASCII "Invalid characters\n"
-# define ERR_NOT_TTY "entry is not in a terminal\n"
+# define ERR_NOT_TTY "command entry is not connected with a terminal\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -329,6 +329,8 @@ t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 
+
+//DELETE!!!
 
 void	PRINT_lst_line(t_line *lst_line);
 
