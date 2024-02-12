@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 04:33:04 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:38:10 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 //1 - error, 0 - good
 int	initial_check(t_msh *msh)
 {
+	if (check_isvalid(msh))
+		print_error_exit(&msh, ERR_NO_ASCII);
 	if (!msh->read_line || (!ft_strncmp(msh->read_line, "exit", 4) && \
 		ft_strlen(msh->read_line) == 4))
 	{

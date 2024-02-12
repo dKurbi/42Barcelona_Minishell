@@ -6,7 +6,7 @@ We have: parsing error
 We need: redirect to hellooo
 
 COMMENTS: check when adding string if before is redirection (add as a new string, not join with >) (PROBLEM IS IN lst_add_quotes())
-STATUS: WIP
+STATUS: FIXED
 
 
 TEST 2: echo "wc'$USER'ls"
@@ -24,10 +24,10 @@ We have: "home">file.txt
 We need: redirect to file.txt
 
 COMMENTS: check what before and what after redirection (PROBLEM IS IN lst_add_str())
-STATUS: STOP
+STATUS: WIP
 
 
 SYMBOLS THAT BREAK MINISHELL:
 -------------------------------------------------------------------------------------
 
-((add some not-ascii symbols))...
+STATUS: FIXED

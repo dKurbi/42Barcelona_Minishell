@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 05:17:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:55:02 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	msh = NULL;
+	if (!isatty(STDIN_FILENO))
+		print_error_exit(&msh, ERR_NOT_TTY);
 	if (ac != 1)
 		print_error_exit(&msh, ERR_AC);
 	msh = mshnew(av, ev);
@@ -68,10 +70,6 @@ int	main(int ac, char **av, char **ev)
 			break ;
 		if (preparing_commands(msh) != 1)
 			execution(msh);
-
-
-			
- 		//preparing_commands(msh);
 		free_main_loop(msh);
 	}
 	rl_clear_history();

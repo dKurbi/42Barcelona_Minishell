@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 05:13:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:52:36 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	g_exit_status;
 # define ERR_NO_PERM "Permission denied\n"
 # define ERR_NO_CURR_DIR "cd: error retrieving current directory: getcwd: \
 cannot access parent directories: No such file or directory\n"
+# define ERR_NO_ASCII "Invalid characters\n"
+# define ERR_NOT_TTY "entry is not in a terminal\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -222,6 +224,7 @@ char		*case_home(char *str, t_msh *msh);
 
 //	check syntax
 //	minishell_check_syntax.c
+int 		check_isvalid(t_msh *msh);
 int			is_redirection(int type);
 int			check_syntax(t_msh *msh);
 

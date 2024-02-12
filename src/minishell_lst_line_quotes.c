@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_lst_line_quotes.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 00:40:08 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 05:13:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:01:57 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	lst_add_quotes(t_msh *msh, t_line **lst_line, t_create crt, int i)
 		str = case_dollar_with_quotes(str, msh);
 	crt.str = str;
 	if ((i - 1) >= 0 && crt.rline[i - 1] != ' ' && crt.rline[i - 1] != '\t' \
-		&& crt.last_l != NULL && is_redirection(crt.last_l->type))
+		&& crt.last_l != NULL && !is_redirection(crt.last_l->type))
 		return (lst_char_bef(msh, lst_line, crt, i));
 	str = strtrim_str_quotes(str);
 	addstr_to_lst_line(str, lst_line, crt.in_quotes, 0);
