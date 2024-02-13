@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/11 21:11:01 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:31:41 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*clean_var(char *str)
 	i = 0;
 	len = ft_strlen(str);
 	rtn = NULL;
-	while (str[i] && str[i] != ' ' && str[i] != DQUOTE && str[i] != QUOTE)
+	while (str[i] && str[i] != ' ' && str[i] != DQUOTE \
+			&& str[i] != QUOTE && !ft_inquotes_case(str[i]))
 	{
 		i++;
 		if (str[i] == '$')

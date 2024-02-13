@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 18:05:19 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 05:39:27 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:52:04 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	decide_type_redirection(char *str, int redir_in_quotes)
 }
 
 //return the type of string
-int		decide_type(char *str, int redir_in_quotes)
+int	decide_type(char *str, int redir_in_quotes)
 {
 	if (!str)
 		return (-1);

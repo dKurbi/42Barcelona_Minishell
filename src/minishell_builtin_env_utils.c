@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env_utils.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 16:04:10 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 13:09:31 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:05:05 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	if_var_in_env(t_msh *msh, char *var)
 	return (-1);
 }
 
+//if the passed env is NULL - create a new one
 char	**env_empty(void)
 {
 	char	**rtn;

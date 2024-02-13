@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 15:55:02 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:58:20 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	preparing_commands(t_msh *msh)
 		print_warning(ERR_QUOTE);
 		return (1);
 	}
-	PRINT_lst_line(msh->lst_line);
 	if (check_syntax(msh))
 	{
 		print_warning(ERR_SYNTAX);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 15:52:36 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/13 02:01:55 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	g_exit_status;
 # define ERR_NO_PERM "Permission denied\n"
 # define ERR_NO_CURR_DIR "cd: error retrieving current directory: getcwd: \
 cannot access parent directories: No such file or directory\n"
-# define ERR_NO_ASCII "Invalid characters\n"
-# define ERR_NOT_TTY "entry is not in a terminal\n"
+# define ERR_NOT_TTY "command entry is not connected with a terminal\n"
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -224,7 +223,6 @@ char		*case_home(char *str, t_msh *msh);
 
 //	check syntax
 //	minishell_check_syntax.c
-int 		check_isvalid(t_msh *msh);
 int			is_redirection(int type);
 int			check_syntax(t_msh *msh);
 
@@ -329,11 +327,6 @@ t_line		*new_lst_with_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_without_quotes(t_msh *msh, t_line **lst_line, char *rline);
 t_line		*new_lst_line(t_msh *msh, char *read_line);
 
-
-void	PRINT_lst_line(t_line *lst_line);
-
-
-
 //	operators
 //	minishell_operators.c
 int			check_operators(char *str);
@@ -387,6 +380,7 @@ int			calculate_len_lst_pipe(t_pipe *lst_pipe);
 t_line		*ft_lstdup(t_line *original);
 int			count_quotes_final(char *var);
 void		ft_close(int *fd);
+int			ft_inquotes_case(int c);
 
 //	utils 2 part
 //	minishell_utils_2.c
@@ -405,7 +399,6 @@ void		print_warning_with_3_arg(char *s1, char *s2, char *s_warn);
 
 //	waiting
 //	minishell_wait.c
-void		waitpid_process(t_msh *msh, int num_commands);
 void		wait_process(t_msh *msh, pid_t pid, int num_commands);
 
 #endif

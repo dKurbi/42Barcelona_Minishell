@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 20:05:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/10 05:23:18 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:29:27 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,15 @@ void	ft_close(int *fd)
 		return ;
 	close(*fd);
 	*fd = -1;
+}
+
+//1 - is {, |, etc..
+int	ft_inquotes_case(int c)
+{
+	if (c == '|' || c == '>' || c == '<' || c == '{' || c == '}' \
+		|| c == '(' || c == ')' || c == '*' || c == '-' || c == '+' \
+		|| c == '^' || c == '=' || c == ';' || c == ':')
+		return (1);
+	else
+		return (0);
 }

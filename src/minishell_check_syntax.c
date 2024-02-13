@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_check_syntax.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 18:33:37 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 15:40:40 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/13 02:01:31 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//check if it has chars in ascii, if not - return 1
-int check_isvalid(t_msh *msh)
-{
-	int		i;
-	char	*str;
-	
-	if (msh->read_line)
-	{
-		str = msh->read_line;
-		i = 0;
-		while (str[i])
-		{
-			if (!((int)str[i] >= -255 && (int)str[i] <= 255))
-				return (1);
-			i++;
-		}
-	}
-	return (0);
-}
 
 //if we have a parsing pipe that is not correct
 int	check_pipe_empty(t_line *line)

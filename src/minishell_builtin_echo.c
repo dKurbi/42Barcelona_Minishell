@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/11 18:20:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:04:25 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	builtin_echo_if_flag(t_msh *msh, int i)
 	return (1);
 }
 
+//if we have too much -n -nnn
 int	builtin_echo_skip_flags(t_msh *msh)
 {
 	int	i;
@@ -53,7 +54,7 @@ void	builtin_echo_loop(t_msh *msh, int i)
 {
 	while (msh->exec.exec_arg[i])
 	{
-		if (msh->exec.exec_arg[i + 1] == NULL)//no spac
+		if (msh->exec.exec_arg[i + 1] == NULL)
 			write(1, msh->exec.exec_arg[i], ft_strlen(msh->exec.exec_arg[i]));
 		else
 		{

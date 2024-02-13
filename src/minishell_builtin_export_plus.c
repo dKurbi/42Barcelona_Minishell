@@ -6,12 +6,13 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 18:30:49 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/08 05:12:21 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/12 20:10:33 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+//A+=E == A=E
 char	*get_var_no_plus(char *var)
 {
 	char	*new_var;
