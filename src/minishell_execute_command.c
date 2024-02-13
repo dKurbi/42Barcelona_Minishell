@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/09 15:54:40 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:12:56 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,11 @@ void	execute_check_command_and_execve(t_msh *msh)
 		execute_check_command(msh);
 	if (msh->exec.cmd_with_path == NULL)
 	{
-		if (if_script(msh, msh->exec.exec_arg[0]))
+		if (execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev) < 0)
+		{
 			change_exec_arg_script(msh);
-		execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
+			execve(msh->exec.exec_arg[0], msh->exec.exec_arg, msh->ev);
+		}
 	}
 	else
 		execve(msh->exec.cmd_with_path, msh->exec.exec_arg, msh->ev);
