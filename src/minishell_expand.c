@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/12 17:31:41 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:41:05 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*clean_var(char *str)
 			&& str[i] != QUOTE && !ft_inquotes_case(str[i]))
 	{
 		i++;
-		if (str[i] == '$')
+		if (str[i] == '$' || !ft_isalnum(str[i]))
 			break ;
 	}
 	if (len == i)
