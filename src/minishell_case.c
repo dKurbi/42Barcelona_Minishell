@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 17:31:50 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:02:14 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 		print_error_exit(&msh, ERR_MALLOC);
 	*i = dp + 1;
 	while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && str[*i] != DQUOTE \
-			&& str[*i] != '$' && str[*i] != QUOTE && !ft_inquotes_case(str[*i]))
+			&& str[*i] != '$' && str[*i] != QUOTE && ft_isalnum(str[*i]))
 		(*i)++;
 	return (add_join);
 }
@@ -50,7 +50,10 @@ char	*case_dollar(char *str, t_msh *msh)
 		if (dp != -1)
 			add_join = case_quotes_next_dollar(str, msh, dp, &i);
 		else
-			break ;
+		{
+			add_join = ft_substr(str, i, ft_strlen(str));
+			i = ft_strlen(str);
+		}
 		rtn = get_ft_strjoin_modif(rtn, add_join);
 		free_str(&add_join);
 		if (!rtn)
