@@ -29,6 +29,10 @@ uname -v = #17~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Tue Jan 16 14:32:32 UTC 2
 
 PATH: /home/iassambe/.local/bin/
 PATH: /home/iassambe/.local/bin/
+PATH: /home/iassambe/.local/bin/
+PATH: /home/iassambe/.local/bin/
+PATH: /home/iassambe/.local/bin/
+PATH: /home/iassambe/.local/bin/
 PATH: /usr/local/sbin/
 PATH: /usr/local/bin/
 PATH: /usr/sbin/
@@ -1948,7 +1952,7 @@ configure:7048: $? = 0
 configure:7048: result: yes
 configure:7074: checking for tgetent
 configure:7074: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/cckcxylV.o: in function `main':
+/usr/bin/ld: /tmp/ccNAcTSF.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:123: undefined reference to `tgetent'
 collect2: error: ld returned 1 exit status
 configure:7074: $? = 1
@@ -2243,7 +2247,7 @@ configure:7414: $? = 0
 configure:7414: result: yes
 configure:7421: checking for mbscasecmp
 configure:7421: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccXqodSf.o: in function `main':
+/usr/bin/ld: /tmp/cc5jcdRD.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscasecmp'
 collect2: error: ld returned 1 exit status
 configure:7421: $? = 1
@@ -2382,7 +2386,7 @@ configure: failed program was:
 configure:7421: result: no
 configure:7428: checking for mbscmp
 configure:7428: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccxSEzH8.o: in function `main':
+/usr/bin/ld: /tmp/cc97hOM5.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:128: undefined reference to `mbscmp'
 collect2: error: ld returned 1 exit status
 configure:7428: $? = 1
@@ -2529,7 +2533,7 @@ configure:7442: $? = 0
 configure:7442: result: yes
 configure:7450: checking for mbschr
 configure:7450: gcc -o conftest -g -O2   conftest.c  >&5
-/usr/bin/ld: /tmp/ccF0VGHs.o: in function `main':
+/usr/bin/ld: /tmp/ccubD7nD.o: in function `main':
 /home/iassambe/42Barcelona_Minishell/inc/readline/conftest.c:130: undefined reference to `mbschr'
 collect2: error: ld returned 1 exit status
 configure:7450: $? = 1

@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 20:07:35 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/13 16:12:56 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 02:30:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	execute_check_command(t_msh *msh)
 	int	command_status;
 
 	command_status = 127;
+	if (msh->exec.exec_arg[0][0] == POINT && msh->exec.exec_arg[0][1] \
+		&& msh->exec.exec_arg[0][1] == '/')
+		child_process_check_script(msh, 0);
 	get_cmd_with_path(&msh);
 	if (check_command(msh->exec.cmd_with_path) == 1)
 	{

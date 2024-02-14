@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_expand.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 15:34:49 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/13 14:48:24 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 01:50:26 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*clean_var(char *str)
 	i = 0;
 	len = ft_strlen(str);
 	rtn = NULL;
+	if ((str[0] == '$' && str[1] && str[1] == '?'))
+		return (ft_substr(str, 0, 2));
 	while (str[i] && str[i] != ' ' && str[i] != DQUOTE \
 			&& str[i] != QUOTE)
 	{
@@ -82,14 +84,14 @@ char	*expand_get_rtn(t_msh *msh, char *var, char *rtn)
 		free_str(&rtn);
 		rtn = get_ft_strjoin_modif(var, "");
 	}
-	else if (var[0] == '$' && var[1] && var[1] != '?')
-		rtn = expand_dollar_ev(msh, var, rtn, ft_strlen(var));
 	else if (var[0] == '$' && var[1] == '?')
 	{
 		free_str(&rtn);
 		free_str(&var);
 		rtn = ft_itoa(g_exit_status);
 	}
+	else if (var[0] == '$' && var[1] && var[1] != '?')
+		rtn = expand_dollar_ev(msh, var, rtn, ft_strlen(var));
 	return (rtn);
 }
 
@@ -104,7 +106,7 @@ char	*expand(char *var, t_msh *msh)
 	quotes_after_dollar = NULL;
 	var = clean_var(var);
 	rtn = ft_strdup("\0");
-	if (!rtn)
+	if (!rtn || !var)
 		print_error_exit(&msh, ERR_MALLOC);
 	if (var[ft_strlen(var) - 1] == QUOTE)
 	{
@@ -112,7 +114,7 @@ char	*expand(char *var, t_msh *msh)
 		var[ft_strlen(var) - case_quote_at_final] = '\0';
 	}
 	rtn = expand_get_rtn(msh, var, rtn);
-	if (case_quote_at_final >= 1)
+	if (rtn != NULL && case_quote_at_final >= 1)
 	{
 		quotes_after_dollar = get_str_quotes(case_quote_at_final);
 		rtn = get_ft_strjoin_modif(rtn, quotes_after_dollar);
