@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_env.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:04:41 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 20:05:28 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:17:15 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-//LEVELUP shlvl
-void	increment_shlvl(t_msh *msh, char ***r, char *if_shlvl)
-{
-	char	**rtn;
-	int		i;
-	char	*new_level;
-
-	i = 0;
-	rtn = *r;
-	while (rtn[i] && ft_strncmp(rtn[i], "SHLVL=", 6))
-		i++;
-	if (!if_shlvl)
-		return ;
-	new_level = ft_itoa(ft_atoi(rtn[i] + 6) + 1);
-	if (!new_level)
-		print_error_exit(&msh, ERR_MALLOC);
-	free_str(&rtn[i]);
-	rtn[i] = ft_strjoin("SHLVL=", new_level);
-	if (!rtn[i])
-	{
-		free_double_str(r);
-		free_str(&new_level);
-		return ;
-	}
-	free_str(&new_level);
-}
 
 void	create_env_fill(t_msh *msh, char **old_ev, char ***ev, char *if_shlvl)
 {

@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/14 14:14:21 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:17:07 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,6 +358,10 @@ char		*search_shell(t_msh *msh);
 char		*search_pwd(t_msh *msh);
 char		*search_oldpwd(t_msh *msh);
 char		*search_shlvl(char **non_malloced_ev);
+
+//	shlvl manipulation
+//	minishell_shlvl.c
+void		increment_shlvl(t_msh *msh, char ***r, char *if_shlvl);
 
 //	Signal handles
 //	minishell_signal_handle.c

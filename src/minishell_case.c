@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_case.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 15:46:04 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/13 23:40:07 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:38:40 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*case_quotes_next_dollar(char *str, t_msh *msh, int dp, int *i)
 	{
 		while (str[*i] && str[*i] != ' ' && str[*i] != '\t' && \
 			str[*i] != DQUOTE && str[*i] != '$' && \
-			str[*i] != QUOTE && ft_isalnum(str[*i]))
+			str[*i] != QUOTE && (ft_isalnum(str[*i]) || str[*i] == '_'))
 			(*i)++;
 	}
 	return (add_join);
