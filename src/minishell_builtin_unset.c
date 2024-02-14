@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:05 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:06:15 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:14:04 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,31 @@ void	unset_env_line(t_msh *msh, int line_num)
 	msh->ev = new_env;
 }
 
-int	unset_check_var(char **exec_arg)
+int	unset_check_var(t_msh *msh, char **exec_arg)
 {
 	int	i;
 	int	status;
 
 	status = 0;
 	i = 1;
-	while (exec_arg[i])
+	if (exec_arg[1] && check_var_equal(exec_arg[1]))
 	{
-		if (check_ifempty_str(exec_arg[i]) || \
-			ft_strchr(exec_arg[i], '=') || ft_isdigit(exec_arg[i][0]))
+		status = 1;
+		print_warning_with_3_arg("unset", msh->exec.exec_arg[i], \
+								ERR_INV_INDENT);
+	}
+	else
+	{
+		while (exec_arg[i])
 		{
-			print_warning_with_3_arg("unset", exec_arg[i], ERR_INVALID_INDENT);
-			status = 1;
+			if (check_ifempty_str(exec_arg[i]) || \
+				ft_strchr(exec_arg[i], '=') || ft_isdigit(exec_arg[i][0]))
+			{
+				print_warning_with_3_arg("unset", exec_arg[i], ERR_INV_INDENT);
+				status = 1;
+			}
+			i++;
 		}
-		i++;
 	}
 	return (status);
 }
@@ -60,7 +69,7 @@ int	builtin_unset(t_msh *msh)
 	int		i;
 	int		line_num;
 
-	if (unset_check_var(msh->exec.exec_arg))
+	if (unset_check_var(msh, msh->exec.exec_arg))
 		return (1);
 	i = 0;
 	while (msh->exec.exec_arg[++i])

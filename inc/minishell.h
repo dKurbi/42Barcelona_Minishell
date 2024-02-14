@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/14 13:47:26 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:14:21 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	g_exit_status;
 # define ERR_NO_PWD "failed finding pwd\n"
 # define ERR_TOO_MANY "too many arguments\n"
 # define ERR_NUMERIC "numeric argument required\n"
-# define ERR_INVALID_INDENT "not a valid identifier\n"
+# define ERR_INV_INDENT "not a valid identifier\n"
 # define ERR_READ "reading from file error\n"
 # define ERR_WRITE "writing from file error\n"
 # define ERR_IS_DIR "is a directory\n"

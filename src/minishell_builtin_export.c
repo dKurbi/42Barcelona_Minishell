@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_export.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:03:50 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/08 17:54:06 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:14:04 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	builtin_export_add_all(t_msh *msh)
 		{
 			exit_status = 1;
 			print_warning_with_3_arg("export", msh->exec.exec_arg[i], \
-									ERR_INVALID_INDENT);
+									ERR_INV_INDENT);
 		}
 		if (check_plus_before_equal(msh->exec.exec_arg[i]))
 			builtin_export_plus(msh, i);
