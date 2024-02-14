@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/14 13:45:47 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:37:02 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,12 @@ int	main(int ac, char **av, char **ev)
 	{
 		signal_control_main(msh);
 		msh->read_line = readline("Minishell-> ");
-		if (msh->read_line[0] == '\0' || check_ifempty_str(msh->read_line) == 1)
+		if (msh->read_line && (msh->read_line[0] == '\0' \
+			|| check_ifempty_str(msh->read_line) == 1))
+		{
+			free_str(&msh->read_line);
 			continue ;
+		}
 		if (initial_check(msh))
 			break ;
 		if (preparing_commands(msh) != 1)

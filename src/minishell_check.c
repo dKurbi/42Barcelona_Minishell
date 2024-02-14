@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/25 19:29:48 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/14 13:46:40 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:33:04 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 //1 - error, 0 - good
 int	initial_check(t_msh *msh)
 {
-	if (!msh->read_line || (!ft_strncmp(msh->read_line, "exit", 4) && \
-		ft_strlen(msh->read_line) == 4))
+	if (!msh->read_line)
 	{
 		ft_printf("exit\n");
 		return (1);
 	}
-	if (msh->read_line[0] == '\0' || check_ifempty_str(msh->read_line) == 1)
-		return (0);
-	else
-		add_history(msh->read_line);
+	add_history(msh->read_line);
 	return (0);
 }
 
