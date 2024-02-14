@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execute.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:53:11 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/06 19:39:23 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/02/14 02:28:27 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,23 @@
 extern int	g_exit_status;
 
 #endif
+
+void	child_process_check_script(t_msh *msh, int i)
+{
+	char	*script_only_str;
+
+	script_only_str = msh->exec.exec_arg[i] + 2;
+	if (access(script_only_str, F_OK) < 0)
+	{
+		print_warning_with_arg(msh->exec.exec_arg[i], ERR_FILE_NO_EXIST);
+		exit_free_child(msh, 127);
+	}
+	else if (access(script_only_str, X_OK) < 0)
+	{
+		print_warning_with_arg(msh->exec.exec_arg[i], ERR_NO_PERM);
+		exit_free_child(msh, 126);
+	}
+}
 
 //execute builtin for only command
 void	execute_builtin(t_msh *msh)

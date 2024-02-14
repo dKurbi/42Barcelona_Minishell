@@ -6,7 +6,7 @@
 /*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/13 02:01:55 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 02:26:17 by iassambe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,7 @@ void		execution_pipes(t_msh *msh);
 
 //	execute (general file for executions)
 //	minishell_execute.c
+void		child_process_check_script(t_msh *msh, int i);
 void		execute_builtin(t_msh *msh);
 void		execution_line(t_msh *msh);
 void		execution(t_msh *msh);
