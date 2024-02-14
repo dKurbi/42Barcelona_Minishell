@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_builtin_exit.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 04:05:26 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/12 20:09:10 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:59:23 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,16 @@ int	builtin_exit(t_msh *msh)
 		free_msh(&msh);
 		exit(EXIT_SUCCESS);
 	}
-	if (msh->exec.exec_arg[1] && msh->exec.exec_arg[2])
-	{
-		print_warning_with_arg("exit", ERR_TOO_MANY);
-		return (1);
-	}
-	else if (!builtin_exit_if_num(msh->exec.exec_arg[1]))
+	if (!builtin_exit_if_num(msh->exec.exec_arg[1]))
 	{
 		print_warning_with_3_arg("exit", msh->exec.exec_arg[1], ERR_NUMERIC);
 		free_msh(&msh);
 		exit(255);
+	}
+	else if (msh->exec.exec_arg[1] && msh->exec.exec_arg[2])
+	{
+		print_warning_with_arg("exit", ERR_TOO_MANY);
+		return (1);
 	}
 	status = builtin_exit_make_status(msh, 1);
 	exit(status);
