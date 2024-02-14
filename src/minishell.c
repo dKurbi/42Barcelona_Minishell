@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 18:05:38 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/13 16:30:26 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:45:47 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,14 @@ int	main(int ac, char **av, char **ev)
 	t_msh	*msh;
 
 	msh = NULL;
-	if (!isatty(STDIN_FILENO))
-		print_error_exit(&msh, ERR_NOT_TTY);
-	if (ac != 1)
-		print_error_exit(&msh, ERR_AC);
-	msh = mshnew(av, ev);
-	if (!msh)
-		print_error_exit(&msh, ERR_MALLOC);
+	pre_init_check(&msh, ac, av, ev);
 	g_exit_status = 0;
 	while (1)
 	{
 		signal_control_main(msh);
 		msh->read_line = readline("Minishell-> ");
+		if (msh->read_line[0] == '\0' || check_ifempty_str(msh->read_line) == 1)
+			continue ;
 		if (initial_check(msh))
 			break ;
 		if (preparing_commands(msh) != 1)

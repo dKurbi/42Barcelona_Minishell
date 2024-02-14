@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 19:11:47 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/14 02:25:51 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:39:00 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_ifempty_str(char *str)
 	if (ft_strlen(str) == 0 || str[0] == '\0')
 		return (1);
 	i = 0;
-	while (str[i] && str[i] == CHAR_SPACE)
+	while (str && str[i] && str[i] == CHAR_SPACE)
 		i++;
 	if (i == ft_strlen(str))
 		return (1);

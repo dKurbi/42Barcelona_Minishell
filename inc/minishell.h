@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iassambe <iassambe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 15:49:09 by iassambe          #+#    #+#             */
-/*   Updated: 2024/02/14 02:26:17 by iassambe         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:47:26 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,10 @@ int			check_file(char *file);
 int			check_command(char *str);
 int			check_ifbuiltin(char *str);
 int			check_var_equal(char *str);
+
+//	check
+//	minishell_check_2.c
+void		pre_init_check(t_msh **msh, int ac, char **av, char **ev);
 
 //	error
 //	minishell_error.c
