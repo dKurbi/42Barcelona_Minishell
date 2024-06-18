@@ -6,7 +6,7 @@
 /*   By: dkurcbar <dkurcbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/14 16:15:10 by dkurcbar          #+#    #+#             */
-/*   Updated: 2024/02/14 16:33:25 by dkurcbar         ###   ########.fr       */
+/*   Updated: 2024/06/18 14:20:09 by dkurcbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ void	increment_shlvl(t_msh *msh, char ***r, char *if_shlvl)
 	char	**rtn;
 	int		i;
 	char	*new_level;
-	int		num_atoi;
 
-	num_atoi = 0;
 	i = 0;
 	rtn = *r;
 	while (rtn[i] && ft_strncmp(rtn[i], "SHLVL=", 6))
