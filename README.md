@@ -1,4 +1,4 @@
-# Simple Shell Project
+# Mini Shell Project
 
 ## Description
 
