@@ -25,3 +25,8 @@ git clone https://github.com/dKurbi/42Barcelona_Minishell
 cd 42Barcelona_Minishell
 make
 ./minishell
+```
+
+## Instructions
+
+For instructions on this project, refer to the [subject document](https://github.com/dKurbi/42Barcelona_Minishell/blob/master/minishell.subject.pdf).
