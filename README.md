@@ -2,7 +2,7 @@
 
 ## Description
 
-The goal of this project is to create a simple shell. Yes, my very own small bash. Through this project, I will learn a lot about processes and file descriptors.
+The goal of this project is to develop a basic shell similar to Bash. Through this implementation, the focus is on gaining a deeper understanding of process management and file descriptor handling in operating systems.
 
 ## Features
 
